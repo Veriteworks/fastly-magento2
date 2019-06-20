@@ -23,6 +23,7 @@ namespace Fastly\Cdn\Model\Product;
 use Fastly\Cdn\Model\Config;
 use Magento\Catalog\Model\Product\Image as ImageModel;
 use Magento\PageCache\Model\Config as PageCacheConfig;
+use Magento\Catalog\Helper\Image as ImageHelper;
 
 /**
  * Class Image
@@ -302,6 +303,10 @@ class Image extends ImageModel
         $baseFile = $this->getBaseFile();
         $url = $this->getBaseFileUrl($baseFile);
 
+        $imageQuality = $this->_scopeConfig->getValue(Config::XML_FASTLY_IMAGE_OPTIMIZATION_IMAGE_QUALITY);
+
+        $this->setQuality($imageQuality);
+
         $this->fastlyParameters['quality'] = $this->_quality;
 
         if ($this->_scopeConfig->isSetFlag(Config::XML_FASTLY_IMAGE_OPTIMIZATION_BG_COLOR) == true) {
@@ -316,9 +321,8 @@ class Image extends ImageModel
     public function getBaseFileUrl($baseFile)
     {
         if ($baseFile === null || $this->isBaseFilePlaceholder()) {
-            $url = $this->_assetRepo->getUrl(
-                "Magento_Catalog::images/product/placeholder/{$this->getDestinationSubdir()}.jpg"
-            );
+            $imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get(ImageHelper::class);
+            $url = $imageHelper->getDefaultPlaceholderUrl($this->getDestinationSubdir());
         } else {
             $url = $this->_storeManager->getStore()->getBaseUrl(
                 \Magento\Framework\UrlInterface::URL_TYPE_MEDIA

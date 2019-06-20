@@ -1,5 +1,135 @@
 # Fastly_Cdn Release Notes
 
+## 1.2.106
+
+- Fix for missing type in phpdoc which results in failed compilation https://github.com/fastly/fastly-magento2/pull/286
+
+## 1.2.105
+
+- Another fix for 2.3 IO - add orientation and canvas https://github.com/fastly/fastly-magento2/pull/284
+
+## 1.2.104
+
+- Fix for "Catalog list image optimization not working in Magento" https://github.com/fastly/fastly-magento2/pull/283
+
+## 1.2.103
+
+- Add Blackfire integration edge module
+- Add Time Edge module was last uploaded https://github.com/fastly/fastly-magento2/pull/278
+
+## 1.2.102
+
+- Added uenc to the GeoIP storeswitcher https://github.com/fastly/fastly-magento2/pull/276
+- add UI to create backends https://github.com/fastly/fastly-magento2/pull/274
+
+## 1.2.101
+
+- Add Gzip safety logic to avoid default Gzip policy interfering with ESI processing
+
+## 1.2.100
+
+- Add Edge Module to integrate other CMS/Backend
+- Additional fixes to the Edge Module
+
+## 1.2.99
+
+- Bugfix for edge modules losing group values https://github.com/fastly/fastly-magento2/pull/268
+
+## 1.2.98
+
+- Add Increase Timeouts for Long Running jobs edge module
+- Change req.http.Fastly-FF references to use the new fastly.ff datastructure
+- Add definition of snippet priority to edge modules https://github.com/fastly/fastly-magento2/pull/266
+- Another pass at removing redundant x-pass request conditions https://github.com/fastly/fastly-magento2/pull/267
+
+## 1.2.97
+
+- Cleaned up redundant x-pass request conditions https://github.com/fastly/fastly-magento2/pull/265
+- Fix for boolean mode edge modules not working correctly https://github.com/fastly/fastly-magento2/pull/264
+- Edge modules are turned on by default
+
+## 1.2.96
+
+- Fix for maintenance mode not using the custom maintenance/error page
+
+## 1.2.95
+
+- Fix GeoIP not working for stores with different base URL https://github.com/fastly/fastly-magento2/pull/263
+
+## 1.2.94
+
+- Fix for Auto WebP not being set
+- Experimental support for rate limiting abusive crawlers 
+
+## 1.2.93.
+
+- Experimental support for rate limiting https://github.com/fastly/fastly-magento2/pull/259
+
+## 1.2.92
+
+- Improvements to maintenance mode support https://github.com/fastly/fastly-magento2/pull/258
+
+## 1.2.91
+
+- Add maintenance mode support https://github.com/fastly/fastly-magento2/pull/256
+- Added check for file and line array indexes for webhook stack trace https://github.com/fastly/fastly-magento2/pull/257
+- Changed the way the store switch url parameters are added for the geoip redirect https://github.com/fastly/fastly-magento2/pull/254
+
+## 1.2.90
+
+- Add Bypass Fastly cache for Admin users Admin module https://github.com/fastly/fastly-magento2/commit/56595f105b4ccf8b4b70dc2a418456fcdef94fe7
+
+## 1.2.89
+
+- Rework ACL interface to more closely align it with Fastly interface https://github.com/fastly/fastly-magento2/pull/252
+
+## 1.2.88
+
+- Change shield definition for Tokyo
+
+## 1.2.87
+
+- There are multiple locations to set image quality e.g. Fastly has IO defaults menu with quality settings that are used unless
+  quality query argument exists in the URL. Deep IO optimization sets the default quality level by appending the quality argument
+  This pull request exposes the latter in the UI under Deep IO https://github.com/fastly/fastly-magento2/pull/251
+
+## 1.2.86
+
+- Remove snippets when Edge Module is disabled https://github.com/fastly/fastly-magento2/pull/250
+
+## 1.2.85
+
+- When removing custom snippet also remove them from Fastly https://github.com/fastly/fastly-magento2/pull/249
+
+## 1.2.84
+
+- Flush Magento cache used to flush Fastly as well. This changes to behavior to Magento Only https://github.com/fastly/fastly-magento2/issues/246
+
+## 1.2.83
+
+- Make sure Quick Purge uses the PURGE verb https://github.com/fastly/fastly-magento2/pull/245
+
+## 1.2.82
+
+- Fix for gstatic.com minification that was done in 1.2.79 broke under Magento 2.1.x. This fixes it https://github.com/fastly/fastly-magento2/pull/244
+
+## 1.2.81
+
+- Added more details to quick purge error messages https://github.com/fastly/fastly-magento2/pull/243
+
+## 1.2.80
+
+- Correct historic stats URL path. https://github.com/fastly/fastly-magento2/pull/241
+
+## 1.2.79
+
+- Addition of the interface to manage domains https://github.com/fastly/fastly-magento2/pull/240
+- Add fix to avoid magento for rewriting gstatic.com assets that are no minified. Without this it breaks Fastly usage graphs in the dashboard https://github.com/fastly/fastly-magento2/pull/239
+
+## 1.2.78
+
+- Fix for stock Magento placeholder images being displayed instead of customer defined when deep IO turned on  https://github.com/fastly/fastly-magento2/pull/236
+
 ## 1.2.77
 
 - Stop rewriting version assets URLs in Varnish https://github.com/fastly/fastly-magento2/pull/230

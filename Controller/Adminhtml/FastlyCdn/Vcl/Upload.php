@@ -137,11 +137,15 @@ class Upload extends Action
             $customSnippets = $this->config->getCustomSnippets($customSnippetPath);
 
             foreach ($snippets as $key => $value) {
+                $priority = 50;
+                if ($key == 'hash') {
+                    $priority = 80;
+                }
                 $snippetData = [
                     'name'      => Config::FASTLY_MAGENTO_MODULE . '_' . $key,
                     'type'      => $key,
                     'dynamic'   => "0",
-                    'priority'  => 50,
+                    'priority'  => $priority,
                     'content'   => $value
                 ];
                 $this->api->uploadSnippet($clone->number, $snippetData);
@@ -163,6 +167,8 @@ class Upload extends Action
                 $this->api->uploadSnippet($clone->number, $customSnippetData);
             }
 
+            $this->createGzipHeader($clone);
+
             $condition = [
                 'name'      => Config::FASTLY_MAGENTO_MODULE.'_pass',
                 'statement' => 'req.http.x-pass',
@@ -180,6 +186,13 @@ class Upload extends Action
             ];
 
             $this->api->createRequest($clone->number, $request);
+            $dictionary = $this->setupDictionary($clone->number, $currActiveVersion);
+            $acl = $this->setupAcl($clone->number, $currActiveVersion);
+
+            if (!$dictionary || !$acl) {
+                throw new LocalizedException(__('Failed to create Containers'));
+            }
+
             $this->api->validateServiceVersion($clone->number);
 
             if ($activateVcl === 'true') {
@@ -236,5 +249,68 @@ class Upload extends Action
             throw new LocalizedException(__($exception));
         }
         return $snippetNameData;
+    }
+
+    /**
+     * @param $cloneNumber
+     * @param $currActiveVersion
+     * @return bool|mixed
+     * @throws LocalizedException
+     */
+    private function setupDictionary($cloneNumber, $currActiveVersion)
+    {
+        $dictionaryName = Config::CONFIG_DICTIONARY_NAME;
+        $dictionary = $this->api->getSingleDictionary($currActiveVersion, $dictionaryName);
+
+        if (!$dictionary) {
+            $params = ['name' => $dictionaryName];
+            $dictionary = $this->api->createDictionary($cloneNumber, $params);
+        }
+        return $dictionary;
+    }
+
+    /**
+     * @param $cloneNumber
+     * @param $currActiveVersion
+     * @return bool|mixed
+     * @throws LocalizedException
+     */
+    private function setupAcl($cloneNumber, $currActiveVersion)
+    {
+        $aclName = Config::MAINT_ACL_NAME;
+        $acl = $this->api->getSingleAcl($currActiveVersion, $aclName);
+
+        if (!$acl) {
+            $params = ['name' => $aclName];
+            $acl = $this->api->createAcl($cloneNumber, $params);
+        }
+        return $acl;
+    }
+
+    /**
+     * @param $clone
+     * @throws LocalizedException
+     */
+    private function createGzipHeader($clone)
+    {
+        $condition = [
+            'name'      => Config::FASTLY_MAGENTO_MODULE.'_gzip_safety',
+            'statement' => 'beresp.http.x-esi',
+            'type'      => 'CACHE',
+            'priority'  => 100
+        ];
+        $createCondition = $this->api->createCondition($clone->number, $condition);
+
+        $headerData = [
+            'name'              => Config::FASTLY_MAGENTO_MODULE . '_gzip_safety',
+            'type'              => 'cache',
+            'dst'               => 'gzip',
+            'action'            => 'set',
+            'priority'          => 1000,
+            'src'               => 'false',
+            'cache_condition'   => $createCondition->name,
+        ];
+
+        $this->api->createHeader($clone->number, $headerData);
     }
 }

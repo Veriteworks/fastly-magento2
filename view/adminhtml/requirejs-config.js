@@ -22,7 +22,12 @@ let config = {
             basicAuthentication: 'Fastly_Cdn/js/basic-authentication',
             modly: 'Fastly_Cdn/js/modly',
             waf: 'Fastly_Cdn/js/waf',
-            wafBypass: 'Fastly_Cdn/js/wafBypass'
+            wafBypass: 'Fastly_Cdn/js/wafBypass',
+            domains: 'Fastly_Cdn/js/domains',
+            rateLimiting: 'Fastly_Cdn/js/rate-limiting',
+            maintenance: 'Fastly_Cdn/js/maintenance',
+            //fastlyImport: 'Fastly_Cdn/js/import',
+            fastlyExport: 'Fastly_Cdn/js/export'
         }
     }
 };

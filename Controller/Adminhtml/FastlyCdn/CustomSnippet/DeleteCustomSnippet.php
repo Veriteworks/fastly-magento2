@@ -22,13 +22,14 @@ namespace Fastly\Cdn\Controller\Adminhtml\FastlyCdn\CustomSnippet;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
-use Magento\Framework\Controller\Result\RawFactory;
 use Magento\Framework\App\Response\Http\FileFactory;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem\Directory\WriteFactory;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Filesystem;
 use Fastly\Cdn\Model\Config;
+use Fastly\Cdn\Model\Api;
+use Fastly\Cdn\Helper\Vcl;
 
 /**
  * Class DeleteCustomSnippet
@@ -37,10 +38,6 @@ use Fastly\Cdn\Model\Config;
  */
 class DeleteCustomSnippet extends Action
 {
-    /**
-     * @var RawFactory
-     */
-    private $resultRawFactory;
     /**
      * @var FileFactory
      */
@@ -61,33 +58,43 @@ class DeleteCustomSnippet extends Action
      * @var Filesystem
      */
     private $filesystem;
+    /**
+     * @var Api
+     */
+    private $api;
+    /**
+     * @var Vcl
+     */
+    private $vcl;
 
     /**
      * DeleteCustomSnippet constructor.
-     *
      * @param Context $context
-     * @param RawFactory $resultRawFactory
      * @param FileFactory $fileFactory
      * @param DirectoryList $directoryList
      * @param WriteFactory $writeFactory
      * @param JsonFactory $resultJsonFactory
      * @param Filesystem $filesystem
+     * @param Api $api
+     * @param Vcl $vcl
      */
     public function __construct(
         Context $context,
-        RawFactory $resultRawFactory,
         FileFactory $fileFactory,
         DirectoryList $directoryList,
         WriteFactory $writeFactory,
         JsonFactory $resultJsonFactory,
-        Filesystem $filesystem
+        Filesystem $filesystem,
+        Api $api,
+        Vcl $vcl
     ) {
-        $this->resultRawFactory = $resultRawFactory;
         $this->fileFactory = $fileFactory;
         $this->directoryList = $directoryList;
         $this->writeFactory = $writeFactory;
         $this->resultJson = $resultJsonFactory;
         $this->filesystem = $filesystem;
+        $this->api = $api;
+        $this->vcl = $vcl;
 
         parent::__construct($context);
     }
@@ -102,17 +109,41 @@ class DeleteCustomSnippet extends Action
         $result = $this->resultJson->create();
 
         try {
+            $activeVersion = $this->getRequest()->getParam('active_version');
             $snippet = $this->getRequest()->getParam('snippet_id');
+            $activateVcl = $this->getRequest()->getParam('activate_flag');
+            $service = $this->api->checkServiceDetails();
+            $this->vcl->checkCurrentVersionActive($service->versions, $activeVersion);
+            $currActiveVersion = $this->vcl->getCurrentVersion($service->versions);
 
             $write = $this->filesystem->getDirectoryWrite(DirectoryList::VAR_DIR);
             $snippetPath = $write->getRelativePath(Config::CUSTOM_SNIPPET_PATH . $snippet);
+
+            $snippetName = explode('_', $snippet);
+            $snippetName = explode('.', $snippetName[2]);
+
+            $reqName = Config::FASTLY_MAGENTO_MODULE . '_' . $snippetName[0];
+            $checkIfSnippetExist = $this->api->hasSnippet($activeVersion, $reqName);
+
+            if ($checkIfSnippetExist) {
+                $clone = $this->api->cloneVersion($currActiveVersion);
+                $this->api->removeSnippet($clone->number, $reqName);
+                $this->api->validateServiceVersion($clone->number);
+
+                if ($activateVcl === 'true') {
+                    $this->api->activateVersion($clone->number);
+                }
+
+                $comment = ['comment' => 'Magento Module deleted the ' . $reqName . ' custom snippet.'];
+                $this->api->addComment($clone->number, $comment);
+            }
 
             if ($write->isExist($snippetPath)) {
                 $write->delete($snippetPath);
             }
 
             return $result->setData([
-                'status'            => true
+                'status'    => true
             ]);
         } catch (\Exception $e) {
             return $result->setData([

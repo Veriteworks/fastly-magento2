@@ -1,3 +1,18 @@
+    # VCL required to support maintenance mode. Don't maintenance mode admin pages and supporting assets
+    if (table.lookup(magentomodule_config, "allow_super_users_during_maint", "0") == "1" &&
+        !req.http.Fastly-Client-Ip ~ maint_allowlist &&
+        !req.url ~ "^/(index\.php/)?####ADMIN_PATH####/" &&
+        !req.url ~ "^/pub/static/") {
+
+        # If we end up here after a restart and there is a ResponseObject it means we got here after error
+        # page VCL restart. We shouldn't touch it. Otherwise return a plain 503 error page
+        if ( req.restarts > 0 && req.http.ResponseObject ) {
+            set req.http.ResponseObject = "970";
+        } else {
+            error 503 "Maintenance mode";
+        }
+    }
+
     # Fixup for Varnish ESI not dealing with https:// absolute URLs well
     if (req.is_esi_subreq && req.url ~ "/https://([^/]+)(/.*)$") {
         set req.http.Host = re.group.1;
@@ -53,7 +68,7 @@
         set req.http.Https = "on";
     }
 
-    if (req.http.Fastly-FF) {
+    if (fastly.ff.visits_this_service > 0) {
         # disable ESI processing on Origin Shield
         set req.esi = false;
         # Needed for proper handling of stale while revalidated when shielding is involved
@@ -86,6 +101,7 @@
     # Don't allow clients to force a pass
     if (req.restarts == 0) {
         unset req.http.x-pass;
+        unset req.http.Rate-Limit;
     }
     
     # Pass on checkout URLs. Because it's a snippet we want to execute this after backend selection so we handle it
@@ -100,12 +116,14 @@
         # Sort the query arguments to increase cache hit ratio with query arguments that
         # may be out od order. In case you want to restore the unsorted URL add a snippet
         # after this one that sets req.url to req.http.Magento-Original-URL
-        set req.url = boltsort.sort(req.url);
+        if ( !req.http.x-pass ) {
+            set req.url = boltsort.sort(req.url);
+        }
     }
-
 
     # static files are always cacheable. remove SSL flag and cookie
     if (req.http.x-long-cache || req.url ~ "^/(pub/)?(media|static)/.*") {
         unset req.http.Https;
         unset req.http.Cookie;
     }
+

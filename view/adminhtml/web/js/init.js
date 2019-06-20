@@ -59,6 +59,10 @@ define([
                 let backendsHead = $('#system_full_page_cache_fastly_fastly_backend_settings-head');
                 let customSnippetsHead = $('#system_full_page_cache_fastly_fastly_custom_snippets-head');
                 let webApplicationFirewallHead = $('#system_full_page_cache_fastly_fastly_web_application_firewall-head');
+                let maintenanceSupportHead = $('#system_full_page_cache_fastly_fastly_maintenance_support-head');
+                let domainsHead = $('#system_full_page_cache_fastly_fastly_domains-head');
+                let rateLimitingHead = $('#system_full_page_cache_fastly_fastly_rate_limiting_settings-head');
+                let importExportHead = $('#system_full_page_cache_fastly_fastly_import_export-head');
                 $('#row_system_full_page_cache_fastly_fastly_web_application_firewall_owasp_restricted_extensions').hide();
                 $('#row_system_full_page_cache_fastly_fastly_web_application_firewall_owasp_allowed_methods').hide();
                 $('#row_system_full_page_cache_fastly_fastly_web_application_firewall_waf_bypass').hide();
@@ -141,6 +145,33 @@ define([
                         webApplicationFirewallHead.one('click', function () {
                             requirejs(['waf'], function (waf) {
                                 waf(config, serviceStatus, isAlreadyConfigured);
+                            });
+                        });
+
+                        domainsHead.one('click', function () {
+                            requirejs(['domains'], function (domains) {
+                                domains(config, serviceStatus, isAlreadyConfigured);
+                            });
+                        });
+
+                        rateLimitingHead.one('click', function () {
+                            requirejs(['rateLimiting'], function (rateLimiting) {
+                                rateLimiting(config, serviceStatus, isAlreadyConfigured);
+                            });
+                        });
+
+                        maintenanceSupportHead.one('click', function () {
+                            requirejs(['maintenance'], function (maintenance) {
+                                maintenance(config, serviceStatus, isAlreadyConfigured);
+                            });
+                        });
+
+                        importExportHead.one('click', function () {
+                            // requirejs(['fastlyImport'], function (fastlyImport) {
+                            //     fastlyImport(config, serviceStatus, isAlreadyConfigured);
+                            // });
+                            requirejs(['fastlyExport'], function (fastlyExport) {
+                                fastlyExport(config, serviceStatus, isAlreadyConfigured);
                             });
                         });
                     } else {

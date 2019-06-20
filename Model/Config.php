@@ -53,9 +53,14 @@ class Config extends \Magento\PageCache\Model\Config
     const FASTLY_MODLY_MODULE = 'edgemodule';
 
     /**
+     * File name used in the export functionality
+     */
+    const EXPORT_FILE_NAME = 'fastly_config.json';
+
+    /**
      * Magento Error Page Response Object Name
      */
-    const ERROR_PAGE_RESPONSE_OBJECT = 'magentomodule_error_page_response_object';
+    const ERROR_PAGE_RESPONSE_OBJECT = self::FASTLY_MAGENTO_MODULE.'_error_page_response_object';
 
     /**
      * WAF Page Response Object Name
@@ -85,7 +90,22 @@ class Config extends \Magento\PageCache\Model\Config
     /**
      * Blocking setting name
      */
-    const BLOCKING_SETTING_NAME = 'magentomodule_blocking';
+    const BLOCKING_SETTING_NAME = self::FASTLY_MAGENTO_MODULE.'_blocking_recv';
+
+    /**
+     * Rate Limiting snippets directory path
+     */
+    const VCL_RATE_LIMITING_PATH = '/vcl_snippets_rate_limiting';
+
+    /**
+     * Rate limiting snippet
+     */
+    const VCL_RATE_LIMITING_SNIPPET = 'recv.vcl';
+
+    /**
+     * Rate Limiting setting name
+     */
+    const RATE_LIMITING_SETTING_NAME = self::FASTLY_MAGENTO_MODULE.'_rate_limiting';
 
     /**
      * WAF snippets directory path
@@ -100,7 +120,7 @@ class Config extends \Magento\PageCache\Model\Config
     /**
      * WAF setting name
      */
-    const WAF_SETTING_NAME = 'magentomodule_waf';
+    const WAF_SETTING_NAME = self::FASTLY_MAGENTO_MODULE.'_waf_recv';
 
     /**
      * Authentication snippets directory path
@@ -108,14 +128,19 @@ class Config extends \Magento\PageCache\Model\Config
     const VCL_AUTH_SNIPPET_PATH = '/vcl_snippets_basic_auth';
 
     /**
+     * Maintenance snippets directory path
+     */
+    const VCL_MAINT_SNIPPET_PATH = '/vcl_snippets_maintenance';
+
+    /**
      * Authentication dictionary name
      */
-    const AUTH_DICTIONARY_NAME = 'magentomodule_basic_auth';
+    const AUTH_DICTIONARY_NAME = self::FASTLY_MAGENTO_MODULE.'_basic_auth';
 
     /**
      * Image optimization setting name
      */
-    const IMAGE_SETTING_NAME = 'magentomodule_image_optimization';
+    const IMAGE_SETTING_NAME = self::FASTLY_MAGENTO_MODULE.'_image_optimization_recv';
 
     /**
      * Force TLS snippet path
@@ -125,7 +150,22 @@ class Config extends \Magento\PageCache\Model\Config
     /**
      * Force TLS setting name
      */
-    const FORCE_TLS_SETTING_NAME = 'magentomodule_force_tls';
+    const FORCE_TLS_SETTING_NAME = self::FASTLY_MAGENTO_MODULE.'_force_tls_recv';
+
+    /**
+     * Configure Dictionary name
+     */
+    const CONFIG_DICTIONARY_NAME = self::FASTLY_MAGENTO_MODULE.'_config';
+
+    /**
+     * Maintenance Allowlist name
+     */
+    const MAINT_ACL_NAME = 'maint_allowlist';
+
+    /**
+     * Config Dictionary key
+     */
+    const CONFIG_DICTIONARY_KEY = 'allow_super_users_during_maint';
 
     /**
      * Custom snippet path
@@ -260,6 +300,24 @@ class Config extends \Magento\PageCache\Model\Config
         = 'system/full_page_cache/fastly/fastly_advanced_configuration/geoip_country_mapping';
 
     /**
+     * XML path to Rate Limiting paths
+     */
+    const XML_FASTLY_RATE_LIMITING_PATHS
+        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/fastly_path_protection/rate_limiting_paths';
+
+    /**
+     * XML path to Rate Limiting limit
+     */
+    const XML_FASTLY_RATE_LIMITING_LIMIT
+        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/fastly_path_protection/rate_limiting_limit';
+
+    /**
+     * XML path to Rate Limiting TTL
+     */
+    const XML_FASTLY_RATE_LIMITING_TTL
+        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/fastly_path_protection/rate_limiting_ttl';
+
+    /**
      * XML path to image optimizations flag
      */
     const XML_FASTLY_IMAGE_OPTIMIZATIONS
@@ -276,6 +334,12 @@ class Config extends \Magento\PageCache\Model\Config
      */
     const XML_FASTLY_IMAGE_OPTIMIZATION_BG_COLOR
         = 'system/full_page_cache/fastly/fastly_image_optimization_configuration/image_optimization_bg_color';
+
+    /**
+     * XML path to image optimization image quality value
+     */
+    const XML_FASTLY_IMAGE_OPTIMIZATION_IMAGE_QUALITY
+        = 'system/full_page_cache/fastly/fastly_image_optimization_configuration/image_optimization_image_quality';
 
     /**
      * XML path to image optimization canvas flag
@@ -393,6 +457,36 @@ class Config extends \Magento\PageCache\Model\Config
      */
     const XML_FASTLY_WEBHOOK_MESSAGE_PREFIX
         = 'system/full_page_cache/fastly/fastly_web_hooks/webhook_message_prefix';
+
+    /**
+     * XML path to enable Rate Limiting
+     */
+    const XML_FASTLY_RATE_LIMITING_ENABLE
+        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/fastly_path_protection/enable_rate_limiting';
+
+    /**
+     * XML path to enable Crawler Protection
+     */
+    const XML_FASTLY_CRAWLER_PROTECTION_ENABLE
+        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/crawler_protection/enable_crawler_protection';
+
+    /**
+     * XML path to Crawler Protection Rate Limiting limit
+     */
+    const XML_FASTLY_CRAWLER_RATE_LIMITING_LIMIT
+        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/crawler_protection/crawler_rate_limiting_limit';
+
+    /**
+     * XML path to Crawler Protection Rate Limiting TTL
+     */
+    const XML_FASTLY_CRAWLER_RATE_LIMITING_TTL
+        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/crawler_protection/crawler_rate_limiting_ttl';
+
+    /**
+     * XML path to Exempt Good Bots flag
+     */
+    const XML_FASTLY_EXEMPT_GOOD_BOTS
+        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/crawler_protection/exempt_good_bots';
 
     /**
      * Check if Fastly is selected for Caching Application
@@ -806,6 +900,76 @@ class Config extends \Magento\PageCache\Model\Config
     }
 
     /**
+     * return Rate Limiting status
+     *
+     * @return mixed
+     */
+    public function isRateLimitingEnabled()
+    {
+        return $this->_scopeConfig->getValue(self::XML_FASTLY_RATE_LIMITING_ENABLE);
+    }
+
+    /**
+     * return Rate Limiting limit
+     *
+     * @return mixed
+     */
+    public function getRateLimitingLimit()
+    {
+        return $this->_scopeConfig->getValue(self::XML_FASTLY_RATE_LIMITING_LIMIT);
+    }
+
+    /**
+     * return Rate Limiting TTL
+     *
+     * @return mixed
+     */
+    public function getRateLimitingTtl()
+    {
+        return $this->_scopeConfig->getValue(self::XML_FASTLY_RATE_LIMITING_TTL);
+    }
+
+    /**
+     * return Crawler Protection status
+     *
+     * @return mixed
+     */
+    public function isCrawlerProtectionEnabled()
+    {
+        return $this->_scopeConfig->getValue(self::XML_FASTLY_CRAWLER_PROTECTION_ENABLE);
+    }
+
+    /**
+     * return Crawler Rate Limiting limit
+     *
+     * @return mixed
+     */
+    public function getCrawlerRateLimitingLimit()
+    {
+        return $this->_scopeConfig->getValue(self::XML_FASTLY_CRAWLER_RATE_LIMITING_LIMIT);
+    }
+
+    /**
+     * return Crawler Rate Limiting TTL
+     *
+     * @return mixed
+     */
+    public function getCrawlerRateLimitingTtl()
+    {
+        return $this->_scopeConfig->getValue(self::XML_FASTLY_CRAWLER_RATE_LIMITING_TTL);
+    }
+
+    /**
+     * Check if exempt good bots is enabled
+     *
+     * @return mixed
+     */
+    public function isExemptGoodBotsEnabled()
+    {
+        return $this->_scopeConfig->getValue(self::XML_FASTLY_EXEMPT_GOOD_BOTS);
+    }
+
+    /**
      * Get store ID for country.
      *
      * @param $countryCode 2-digit country code
@@ -861,7 +1025,15 @@ class Config extends \Magento\PageCache\Model\Config
         }
         return $final;
     }
-    
+
+    /**
+     * @return array|mixed|null
+     */
+    public function getRateLimitPaths()
+    {
+        return $this->_scopeConfig->getValue(self::XML_FASTLY_RATE_LIMITING_PATHS);
+    }
+
     /**
      * Return generated magento2_fastly_varnish.vcl configuration file
      *

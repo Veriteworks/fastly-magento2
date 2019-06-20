@@ -57,7 +57,7 @@ class Create extends Action
     private $vcl;
 
     /**
-     * ForceTls constructor.
+     * Create constructor.
      *
      * @param Context $context
      * @param Http $request
@@ -95,7 +95,13 @@ class Create extends Action
         try {
             $aclId = $this->getRequest()->getParam('acl_id');
             $value = $this->getRequest()->getParam('item_value');
-            $negated = $this->getRequest()->getParam('negated_field');
+            $comment = $this->getRequest()->getParam('comment_value');
+            $negated = 0;
+
+            if ($value[0] == '!') {
+                $negated = 1;
+                $value = ltrim($value, '!');
+            }
 
             // Handle subnet
             $ipParts = explode('/', $value);
@@ -118,7 +124,7 @@ class Create extends Action
                 ]);
             }
 
-            $createAclItem = $this->api->upsertAclItem($aclId, $ipParts[0], $negated, $subnet);
+            $createAclItem = $this->api->upsertAclItem($aclId, $ipParts[0], $negated, $comment, $subnet);
 
             if (!$createAclItem) {
                 return $result->setData([
@@ -128,8 +134,10 @@ class Create extends Action
             }
 
             return $result->setData([
-                'status'    => true,
-                'id'        => $createAclItem->id
+                'status'        => true,
+                'id'            => $createAclItem->id,
+                'comment'       => $createAclItem->comment,
+                'created_at'    => $createAclItem->created_at
             ]);
         } catch (\Exception $e) {
             return $result->setData([

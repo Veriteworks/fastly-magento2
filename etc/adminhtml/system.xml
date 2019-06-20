@@ -221,13 +221,13 @@
                                 <field id="enable_geoip">1</field>
                             </depends>
                         </field>
-                        <!-- ================================
-                             Fastly Edge Modules on/off switch 
-                        ================================= -->
+                        <!-- =====================================
+                             Fastly Edge Modules on/off switch
+                        ====================================== -->
                         <field id="enable_fastly_edge_modules" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
                             <label>Enable Fastly Edge Modules</label>
                             <comment>
-                                <![CDATA[WARNING: Enables beta Fastly Edge Modules menu. Experimental feature.]]>
+                                <![CDATA[Enables/Disables Fastly Edge Modules menu.]]>
                             </comment>
                             <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                         </field>
@@ -237,10 +237,18 @@
                     =========================== -->
                     <group id="fastly_backend_settings" sortOrder="100" translate="label comment" showInDefault="1" showInWebsite="0" showInStore="0">
                         <label>Backend Settings</label>
+                        <!-- =========================
+                             Create Backend button
+                        ========================== -->
+                        <field id="create_backend" translate="label comment" sortOrder="5" showInDefault="1" showInStore="0" showInWebsite="0">
+                            <label><![CDATA[Create Backend]]></label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_model>Fastly\Cdn\Block\System\Config\Form\Field\CreateBackendBtn</frontend_model>
+                        </field>
                         <!-- ==================
                              Backends field
                         =================== -->
-                        <field id="backends" translate="label comment tooltip" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <field id="backends" translate="label comment tooltip" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
                             <label>Backends</label>
                             <frontend_model>Fastly\Cdn\Block\System\Config\Form\Field\Backend</frontend_model>
                             <comment>
@@ -374,20 +382,28 @@
                         </comment>
                         <!-- ================================
                              Create Custom Snippet button
-                        ============================= -->
+                        ================================= -->
                         <field id="fastly_custom_snippet_upload" translate="label comment tooltip" sortOrder="80" showInDefault="1" showInWebsite="0" showInStore="0">
                             <label>Create Custom Snippet</label>
                             <frontend_model>Fastly\Cdn\Block\System\Config\Form\Field\CustomSnippetBtn</frontend_model>
                         </field>
                         <!-- ==============================
                              Custom Snippets list field
-                        =========================== -->
+                        =============================== -->
                         <field id="fastly_custom_snippet_files" translate="label comment tooltip" sortOrder="80" showInDefault="1" showInWebsite="0" showInStore="0">
                             <label>Custom Snippets</label>
                             <frontend_model>Fastly\Cdn\Block\System\Config\Form\Field\CustomSnippets</frontend_model>
                             <comment>
                                 <![CDATA[]]>
                             </comment>
+                        </field>
+                    </group>
+                    <group id="fastly_domains" translate="label comment tooltip" sortOrder="325" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Domains</label>
+                        <comment></comment>
+                        <field id="fastly_domains_list" translate="label comment tooltip" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Domains</label>
+                            <frontend_model>Fastly\Cdn\Block\System\Config\Form\Field\Domains</frontend_model>
                         </field>
                     </group>
                     <!-- ==================
@@ -427,6 +443,31 @@
                             <frontend_model>Fastly\Cdn\Block\System\Config\Form\Field\Edge</frontend_model>
                         </field>
                     </group>
+                    <!-- =======================
+                         Import/Export group
+                    ======================== -->
+                    <group id="fastly_import_export" sortOrder="425" translate="label comment" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Import/Export</label>
+                        <comment>
+                        </comment>
+                        <!-- =================
+                             Import button
+                        ================== -->
+                        <field id="import" translate="label comment tooltip" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Import</label>
+                            <frontend_model>Fastly\Cdn\Block\System\Config\Form\Field\ImportBtn</frontend_model>
+                        </field>
+                        <!-- =================
+                             Export button
+                        ================== -->
+                        <field id="export" translate="label comment tooltip" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Export</label>
+                            <frontend_model>Fastly\Cdn\Block\System\Config\Form\Field\ExportBtn</frontend_model>
+                            <comment>
+                                <![CDATA[Export Edge ACLs, Edge Dictionaries and Custom Snippets]]>
+                            </comment>
+                        </field>
+                    </group>
                     <!-- ============================
                          Image Optimization group
                     ============================= -->
@@ -448,7 +489,7 @@
                         <field id="image_optimizations_default_config_options" translate="label comment" sortOrder="10" showInDefault="1" showInStore="0" showInWebsite="0">
                             <label><![CDATA[Default IO Config Options]]></label>
                             <comment>
-                                <![CDATA[Allows you to (re)configure items such as default quality levels lossy image formats, auto WebP, JPG types.]]>
+                                <![CDATA[Allows you to (re)configure items such as default quality levels, lossy image formats, auto WebP, JPG types. These settings will be used as fallbacks when no transformation rules are applied in the URL query string or in your VCL.]]>
                             </comment>
                             <frontend_model>Fastly\Cdn\Block\System\Config\Form\Field\IoConfigOptionsBtn</frontend_model>
                         </field>
@@ -470,6 +511,19 @@
                             Please read the <a href="https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/IMAGE-OPTIMIZATION.md#deep-image-optimization"
                             target="_blank">image optimization guide</a> for caveats and details.]]></comment>
                             <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <!-- ====================================================
+                             JPEG image quality input field
+                        ===================================================== -->
+                        <field id="image_optimization_image_quality" translate="label comment" type="text" sortOrder="21" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                            <label>JPEG Image Quality</label>
+                            <comment>
+                                <![CDATA[Sets JPEG image quality, values in percentage from 1 to 100. This value is used in the quality query argument for product/catalog images.]]>
+                            </comment>
+                            <validate>required-entry validate-digits validate-not-negative-number validate-digits-range digits-range-1-100</validate>
+                            <depends>
+                                <field id="image_optimizations">1</field>
+                            </depends>
                         </field>
                         <!-- ===============================================
                              Set Background Color on Images select field
@@ -520,9 +574,28 @@
                             <validate>required_entry</validate>
                         </field>
                     </group>
-                    <!-- ===================================
+                    <!-- ============================
+                        Maintenance Support group
+                    ============================= -->
+                    <group id="fastly_maintenance_support" sortOrder="485" translate="label comment" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Maintenance Mode</label>
+                        <comment>
+                            <![CDATA[Enabling maintenance mode allows admin IPs (IPs specified in .maintenance.ip file) to access
+                            the site as normal while returning an error page to everyone else.]]>
+                        </comment>
+                        <field id="toggle_su" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Enable Maintenance Mode</label>
+                            <frontend_model>Fastly\Cdn\Block\System\Config\Form\Field\SuBtn</frontend_model>
+                        </field>
+                        <field id="update_su" translate="label comment" type="select" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Update Admin IPs list</label>
+                            <comment>Updates the list of allowed/admin IPs. The IP values are comma-delimited and read from var/.maintenance.ip file.</comment>
+                            <frontend_model>Fastly\Cdn\Block\System\Config\Form\Field\UpdateSuBtn</frontend_model>
+                        </field>
+                    </group>
+                    <!-- ==================================
                          Web Application Firewall group
-                    ==================================== -->
+                    =================================== -->
                     <group id="fastly_web_application_firewall" sortOrder="490" translate="label comment" showInDefault="1" showInWebsite="0" showInStore="0">
                         <label>Web Application Firewall (WAF)</label>
                         <comment>
@@ -550,9 +623,9 @@
                             <label>Restricted Extensions</label>
                             <comment><![CDATA[]]></comment>
                         </field>
-                        <!-- =====================
+                        <!-- =========================
                              WAF ACL Bypass button
-                        ====================== -->
+                        ========================== -->
                         <field id="waf_bypass" translate="label comment" sortOrder="496" showInDefault="1" showInStore="0" showInWebsite="0">
                             <label><![CDATA[WAF ACL Bypass]]></label>
                             <comment>
@@ -581,6 +654,95 @@
                             <source_model>Fastly\Cdn\Model\Config\Backend\ListAcl</source_model>
                             <can_be_empty>1</can_be_empty>
                         </field>
+                    </group>
+                    <!-- ================================
+                         Rate Limiting Settings group
+                    ================================= -->
+                    <group id="fastly_rate_limiting_settings" sortOrder="460" translate="label comment" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Rate Limiting</label>
+                        <comment>
+                            <![CDATA[Experimental: Rate limit specific URL paths against abuse. Please read <a href="https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/RATE-LIMITING.md#vcl-upload"
+                            target="_blank">this guide</a> for more details]]>
+                        </comment>
+                        <group id="fastly_path_protection" sortOrder="5" translate="label comment" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Path Protection</label>
+                            <!-- =================================
+                                 Enable Path Protection button
+                            ================================== -->
+                            <field id="enable_rate_limiting" translate="label comment" sortOrder="5" showInDefault="1" showInStore="0" showInWebsite="0">
+                                <label>Enable Path Protection</label>
+                                <frontend_model>Fastly\Cdn\Block\System\Config\Form\Field\ToggleRateLimitingBtn</frontend_model>
+                            </field>
+                            <!-- =============================
+                                 Protected Paths button
+                            ============================== -->
+                            <field id="rate_limiting_paths" translate="label comment" sortOrder="6" showInDefault="1" showInStore="0" showInWebsite="0">
+                                <label>Protected Paths</label>
+                                <frontend_model>Fastly\Cdn\Block\System\Config\Form\Field\PathsBtn</frontend_model>
+                            </field>
+                            <!-- ==========================================
+                                 Path Protection Rate Limit input field
+                            =========================================== -->
+                            <field id="rate_limiting_limit" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                                <label>Path Protection Rate Limit</label>
+                                <comment>Numeric value for the number of tolerated Path Protection Rate Limit requests.</comment>
+                                <validate>required-entry validate-number validate-not-negative-number</validate>
+                            </field>
+                            <!-- ========================================
+                                 Path Protection Rate Limit TTL field
+                            ========================================= -->
+                            <field id="rate_limiting_ttl" translate="label comment" type="text" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                                <label>Path Protection Rate Limit TTL</label>
+                                <comment>Time in seconds for the Path Protection Rate Limit lifetime.</comment>
+                                <validate>required-entry validate-number validate-not-negative-number</validate>
+                            </field>
+                        </group>
+                        <group id="crawler_protection" sortOrder="10" translate="label comment" showInDefault="1" showInWebsite="0" showInStore="0">
+                            <label>Abusive Crawlers</label>
+                            <!-- ==========================================
+                                 Enable Crawler Protection select field
+                             =========================================== -->
+                            <field id="enable_crawler_protection" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                                <label>Enable Crawler Protection</label>
+                                <comment>
+                                    <![CDATA[]]>
+                                </comment>
+                                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            </field>
+                            <!-- =============================================
+                                 Crawler Protection Rate Limit input field
+                            ============================================== -->
+                            <field id="crawler_rate_limiting_limit" translate="label comment" type="text" sortOrder="25" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                                <label>Crawler Protection Rate Limit</label>
+                                <comment>Numeric value for the number of tolerated Crawler Protection Rate Limit requests.</comment>
+                                <depends>
+                                    <field id="enable_crawler_protection">1</field>
+                                </depends>
+                                <validate>required-entry validate-number validate-not-negative-number</validate>
+                            </field>
+                            <!-- ===========================================
+                                 Crawler Protection Rate Limit TTL field
+                            ============================================ -->
+                            <field id="crawler_rate_limiting_ttl" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                                <label>Crawler Protection Rate Limit TTL</label>
+                                <comment>Time in seconds for the Crawler Protection Rate Limit lifetime.</comment>
+                                <depends>
+                                    <field id="enable_crawler_protection">1</field>
+                                </depends>
+                                <validate>required-entry validate-number validate-not-negative-number</validate>
+                            </field>
+                            <!-- =================================
+                                 Exempt Good Bots select field
+                            ================================== -->
+                            <field id="exempt_good_bots" translate="label comment" type="select" sortOrder="35" showInDefault="1" showInWebsite="0" showInStore="0">
+                                <label>Exempt Known Good Bots</label>
+                                <comment>Choose to exempt known good bots like Googlebot and Bingbot from Crawler Protection rate limiting</comment>
+                                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                <depends>
+                                    <field id="enable_crawler_protection">1</field>
+                                </depends>
+                            </field>
+                        </group>
                     </group>
                     <!-- ===============================
                          Webhook Notifications group
@@ -699,7 +861,7 @@
                 ============================== -->
                 <group id="fastly_edge_modules" sortOrder="630" translate="label comment" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Fastly Edge Modules</label>
-                    <comment><![CDATA[Here goes short description of Modly functionality]]></comment>
+                    <comment><![CDATA[Fastly Edge module allow you to enable specific functionality like CORS headers, etc. For more details <a href="https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/Edge-Modules/EDGE-MODULES.md" target="_blank">click here.</a>]]></comment>
                     <depends>
                         <field id="caching_application">fastly</field>
                         <field id="system/full_page_cache/fastly/fastly_advanced_configuration/enable_fastly_edge_modules">1</field>

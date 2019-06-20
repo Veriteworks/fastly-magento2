@@ -80,6 +80,8 @@ class Api
      */
     private $state;
 
+    private $resultJson;
+
     /**
      * Api constructor.
      *
@@ -150,12 +152,14 @@ class Api
      * Purge a single URL
      *
      * @param $url
-     * @return bool
+     * @return \Magento\Framework\Controller\Result\Json
      * @throws \Zend_Uri_Exception
      */
     public function cleanUrl($url)
     {
-        if ($result = $this->_purge($url, 'PURGE')) {
+        $result = $this->_purge($url, 'PURGE', 'PURGE');
+
+        if ($result['status']) {
             $this->logger->execute($url);
         }
 
@@ -170,7 +174,7 @@ class Api
      * Purge Fastly by a given surrogate key
      *
      * @param $keys
-     * @return bool
+     * @return bool|\Magento\Framework\Controller\Result\Json
      * @throws \Zend_Uri_Exception
      */
     public function cleanBySurrogateKey($keys)
@@ -191,7 +195,8 @@ class Api
 
         foreach ($collection as $keys) {
             $payload = json_encode(['surrogate_keys' => $keys]);
-            if ($result = $this->_purge($uri, null, \Zend_Http_Client::POST, $payload)) {
+            $result = $this->_purge($uri, null, \Zend_Http_Client::POST, $payload);
+            if ($result['status']) {
                 foreach ($keys as $key) {
                     $this->logger->execute('surrogate key: ' . $key);
                 }
@@ -201,27 +206,27 @@ class Api
             $canPublishPurgeChanges = $this->config->canPublishPurgeChanges();
 
             if ($this->config->areWebHooksEnabled() && ($canPublishKeyUrlChanges || $canPublishPurgeChanges)) {
-                $status = $result ? '' : 'FAILED ';
+                $status = $result['status'] ? '' : 'FAILED ';
                 $this->sendWebHook($status . '*clean by key on ' . join(" ", $keys) . '*');
 
                 $canPublishPurgeByKeyDebugBacktrace = $this->config->canPublishPurgeByKeyDebugBacktrace();
                 $canPublishPurgeDebugBacktrace = $this->config->canPublishPurgeDebugBacktrace();
 
                 if ($canPublishPurgeByKeyDebugBacktrace == false && $canPublishPurgeDebugBacktrace == false) {
-                    return $result;
+                    return $result['status'];
                 }
 
                 $this->stackTrace($type . join(" ", $keys));
             }
         }
 
-        return $result;
+        return $result['status'];
     }
 
     /**
      * Purge all of Fastly's CDN content. Can be called only once per request
      *
-     * @return bool
+     * @return bool|\Magento\Framework\Controller\Result\Json
      * @throws \Zend_Uri_Exception
      */
     public function cleanAll()
@@ -234,7 +239,8 @@ class Api
 
         $type = 'clean/purge all';
         $uri = $this->_getApiServiceUri() . 'purge_all';
-        if ($result = $this->_purge($uri, null)) {
+        $result = $this->_purge($uri, null);
+        if ($result['status']) {
             $this->logger->execute('clean all items');
         }
 
@@ -248,13 +254,13 @@ class Api
             $canPublishPurgeDebugBacktrace = $this->config->canPublishPurgeDebugBacktrace();
 
             if ($canPublishPurgeAllDebugBacktrace == false && $canPublishPurgeDebugBacktrace == false) {
-                return $result;
+                return $result['status'];
             }
 
             $this->stackTrace($type);
         }
 
-        return $result;
+        return $result['status'];
     }
 
     /**
@@ -264,7 +270,7 @@ class Api
      * @param $type
      * @param string $method
      * @param null $payload
-     * @return bool
+     * @return \Magento\Framework\Controller\Result\Json
      * @throws \Zend_Uri_Exception
      */
     private function _purge($uri, $type, $method = \Zend_Http_Client::POST, $payload = null)
@@ -296,8 +302,7 @@ class Api
                 self::FASTLY_HEADER_SOFT_PURGE . ': 1'
             );
         }
-
-        $result = true;
+        $result['status'] = true;
         try {
             $client = $this->curlFactory->create();
             $client->setConfig(['timeout' => self::PURGE_TIMEOUT]);
@@ -314,11 +319,12 @@ class Api
             if ($responseCode == '429') {
                 throw new LocalizedException(__($responseMessage));
             } elseif ($responseCode != '200') {
-                throw new LocalizedException(__('Return status ' . $responseCode));
+                throw new LocalizedException(__($responseCode . ': ' . $responseMessage));
             }
         } catch (\Exception $e) {
             $this->logger->critical($e->getMessage(), $uri);
-            $result = false;
+            $result['status'] = false;
+            $result['msg'] = $e->getMessage();
         }
 
         if (empty($type)) {
@@ -767,6 +773,7 @@ class Api
     /**
      * @param $version
      * @return bool|mixed
+     * @throws LocalizedException
      */
     public function getAllConditions($version)
     {
@@ -779,11 +786,40 @@ class Api
     /**
      * @param $version
      * @return bool|mixed
+     * @throws LocalizedException
      */
     public function getAllDomains($version)
     {
         $url = $this->_getApiServiceUri(). 'version/'. $version . '/domain';
         $result = $this->_fetch($url, \Zend_Http_Client::GET, '', false, null, false);
+
+        return $result;
+    }
+
+    /**
+     * @param $version
+     * @param $name
+     * @return bool|mixed
+     * @throws LocalizedException
+     */
+    public function deleteDomain($version, $name)
+    {
+        $url = $this->_getApiServiceUri(). 'version/'. $version . '/domain/' . $name;
+        $result = $this->_fetch($url, \Zend_Http_Client::DELETE);
+
+        return $result;
+    }
+
+    /**
+     * @param $version
+     * @param $data
+     * @return bool|mixed
+     * @throws LocalizedException
+     */
+    public function createDomain($version, $data)
+    {
+        $url = $this->_getApiServiceUri(). 'version/'. $version . '/domain';
+        $result = $this->_fetch($url, \Zend_Http_Client::POST, $data);
 
         return $result;
     }
@@ -846,6 +882,20 @@ class Api
     }
 
     /**
+     * @param $params
+     * @param $version
+     * @return bool|mixed
+     * @throws LocalizedException
+     */
+    public function createBackend($params, $version)
+    {
+        $url = $this->_getApiServiceUri(). 'version/'. $version. '/backend';
+        $result = $this->_fetch($url, \Zend_Http_Client::POST, $params);
+
+        return $result;
+    }
+
+    /**
      * Send message to Slack channel
      *
      * @param $message
@@ -897,8 +947,10 @@ class Api
 
     /**
      * Create named dictionary for a particular service and version.
+     *
      * @param $version
      * @param $params
+     * @return bool|mixed
      * @throws LocalizedException
      */
     public function createDictionary($version, $params)
@@ -906,9 +958,7 @@ class Api
         $url = $this->_getApiServiceUri(). 'version/'. $version . '/dictionary';
         $result = $this->_fetch($url, \Zend_Http_Client::POST, $params);
 
-        if (!$result) {
-            throw new LocalizedException(__('Failed to create Dictionary container.'));
-        }
+        return $result;
     }
 
     /**
@@ -1061,6 +1111,21 @@ class Api
     }
 
     /**
+     * Get ACL container info
+     * @param $version
+     * @param $acl
+     * @return bool|mixed
+     * @throws LocalizedException
+     */
+    public function getSingleAcl($version, $acl)
+    {
+        $url = $this->_getApiServiceUri(). 'version/'. $version . '/acl/' . $acl;
+        $result = $this->_fetch($url, \Zend_Http_Client::GET);
+
+        return $result;
+    }
+
+    /**
      * Create named ACL for a particular service and version.
      *
      * @param $version
@@ -1128,16 +1193,17 @@ class Api
      * @param $aclId
      * @param $itemValue
      * @param $negated
+     * @param string $comment
      * @param bool $subnet
      * @return bool|mixed
      * @throws LocalizedException
      */
-    public function upsertAclItem($aclId, $itemValue, $negated, $subnet = false)
+    public function upsertAclItem($aclId, $itemValue, $negated, $comment = 'Added by Magento Module', $subnet = false)
     {
         $body = [
             'ip' => $itemValue,
             'negated' => $negated,
-            'comment' => 'Added by Magento Module'
+            'comment' => $comment
         ];
 
         if ($subnet) {
@@ -1162,6 +1228,36 @@ class Api
     {
         $url = $this->_getApiServiceUri(). 'acl/'. $aclId . '/entry/' . $aclItemId;
         $result = $this->_fetch($url, \Zend_Http_Client::DELETE);
+
+        return $result;
+    }
+
+    /**
+     * Update single ACL entry
+     *
+     * @param $aclId
+     * @param $aclItemId
+     * @param $itemValue
+     * @param $negated
+     * @param string $comment
+     * @param bool $subnet
+     * @return bool|mixed
+     * @throws LocalizedException
+     */
+    public function updateAclItem($aclId, $aclItemId, $itemValue, $negated, $comment = '', $subnet = false)
+    {
+        $body = [
+            'ip' => $itemValue,
+            'negated' => $negated,
+            'comment' => $comment
+        ];
+
+        if ($subnet) {
+            $body['subnet'] = $subnet;
+        }
+
+        $url = $this->_getApiServiceUri(). 'acl/'. $aclId . '/entry/' . $aclItemId;
+        $result = $this->_fetch($url, \Zend_Http_Client::PATCH, json_encode($body));
 
         return $result;
     }
@@ -1364,7 +1460,11 @@ class Api
         $stackTrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
         $trace = [];
         foreach ($stackTrace as $row => $data) {
-            $trace[] = "#{$row} {$data['file']}:{$data['line']} -> {$data['function']}()";
+            if (!array_key_exists('file', $data) || !array_key_exists('line', $data)) {
+                $trace[] = "# <unknown>";
+            } else {
+                $trace[] = "#{$row} {$data['file']}:{$data['line']} -> {$data['function']}()";
+            }
         }
 
         $this->sendWebHook('*'. $type .' backtrace:*```' .  implode("\n", $trace) . '```');

@@ -117,7 +117,7 @@
                         <input class="admin__control-checkbox"
                                type="checkbox"
                                name="fastly_image_quality_flag"
-                               id="fastly_image_quality_flag"/>
+                               id="fastly_image_quality_flag" checked/>
                         <label class="admin__field-label" for="fastly_image_quality_flag"></label>
                     </div>
                 </div>
@@ -154,6 +154,43 @@
                                id="fastly_activate_blocking"
                                checked/>
                         <label class="admin__field-label" for="fastly_activate_blocking"></label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</script>
+
+<!-- Delete Custom Snippet overlay template -->
+<script type="text/x-magento-template" id="fastly-delete-custom-snippet-template">
+    <div class="messages">
+        <div class="message message-notice fastly-message-notice" style="display: none">
+        </div>
+        <div class="message message-warning fastly-message-warning" style="display: none">
+            <?php /* @noEscape */ echo __("You are about to clone your active version #x.")?>
+            <?php /* @noEscape */ echo __("We'll make the changes to version #y.")?>
+        </div>
+        <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+    </div>
+    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
+          method="POST"
+          id="vcl-upload-form"
+          class="form-inline"
+          enctype="multipart/form-data">
+        <fieldset class="admin__fieldset form-list question">
+            <div class="admin__field field maintenance-checkbox-container">
+                <label for="fastly_activate_vcl" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __('Activate after the change')?></span>
+                </label>
+                <div class="admin__field-control">
+                    <div class="admin__field-option">
+                        <input class="admin__control-checkbox"
+                               type="checkbox"
+                               name="fastly_delete_custom_snippet_activate"
+                               id="fastly_delete_custom_snippet_activate"
+                               checked/>
+                        <label class="admin__field-label" for="fastly_delete_custom_snippet_active"></label>
                     </div>
                 </div>
             </div>
@@ -273,13 +310,13 @@
                         </option>
                         <option value="mad-madrid-es">ES, Madrid</option>
                         <option value="hel-helsinki-fi">FI, Helsinki - Recommended for GCP europe-north1</option>
-                        <option value="cdg-par-fr">FR, Paris- Recommended for AWS eu-west3 and GCP e </option>
+                        <option value="cdg-par-fr">FR, Paris- Recommended for AWS eu-west3</option>
                         <option value="hongkong-hk">HK, Hong Kong</option>
                         <option value="hhn-frankfurt-de">
                             DE, Frankfurt - Interxion - Recommended for GCP europe-west3 origins
                         </option>
                         <option value="frankfurt-de">DE, Frankfurt - Recommended for AWS eu-central1 origins</option>
-                        <option value="tokyo-jp2">JP, Tokyo - Recommended for AWS ap-northeast-1 origins</option>
+                        <option value="tyo-tokyo-jp">JP, Tokyo - Recommended for AWS ap-northeast-1 origins</option>
                         <option value="osaka-jp">JP, Osaka - Recommened for AWS ap-northeast-3 origins</option>
                         <option value="amsterdam-nl">NL, Amsterdam - Recommended for GCP eu-west1/4 origins</option>
                         <option value="auckland-akl">NZ, Auckland</option>
@@ -297,8 +334,11 @@
                         <option value="mdw-il-us">US, Chicago, IL - Recommended for GCP us-central1 origins</option>
                         <option value="den-co-us">US, Denver, CO</option>
                         <option value="dallas-tx-us">US, Dallas, TX</option>
-                        <option value="iax-tx-us">US, Houston, TX</option>
+                        <option value="iah-tx-us">US, Houston, TX</option>
                         <option value="iad-va-us">
+                            US, Washington, DC - deprecated
+                        </option>
+                        <option value="bwi-va-us">
                             US, Washington, DC - Recommended for AWS us-east1, GCP us-east1/4 origins
                         </option>
                         <option value="lax-ca-us">US, Los Angeles, CA - Recommended for GCP us-west2</option>
@@ -379,6 +419,563 @@
                                checked/>
                         <label class="admin__field-label" for="fastly_activate_backend"></label>
                     </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</script>
+
+<!-- Backend creation overlay template -->
+<script type="text/x-magento-template" id="fastly-create-backend-template">
+    <div class="messages">
+        <div class="message message-warning fastly-message-warning" style="display: none">
+            <?php /* @noEscape */ echo __("You are about to clone your active version #x.")?>
+            <?php /* @noEscape */ echo __("Your backend will be created in version #y.")?>
+        </div>
+        <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+    </div>
+    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
+          method="POST"
+          id="create-backend-form"
+          class="form-inline"
+          enctype="multipart/form-data">
+        <fieldset class="admin__fieldset form-list question">
+            <div class="admin__field field maintenance-checkbox-container">
+                <label for="fastly_activate_backend" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __('Activate after the change')?></span>
+                </label>
+                <div class="admin__field-control">
+                    <div class="admin__field-option">
+                        <input class="admin__control-checkbox"
+                               type="checkbox"
+                               name="fastly_activate_backend"
+                               id="fastly_activate_backend"
+                               checked/>
+                        <label class="admin__field-label" for="fastly_activate_backend"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="condition" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Condition") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <span id="attach_span" style>
+                        This will happen all the time unless you <a id="attach" href="#">Attach a condition</a>
+                    </span>
+                    <select name="conditions" id="conditions" class="admin__control-select"></select>
+                    <div class="admin__field-note"><a id="detach" href="#">Detach condition</a> <span id="sep">|</span>
+                        <a id="create-condition" href="#">Create a new request condition</a>
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="backend_name" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Name") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="backend_name" id="backend_name" class="admin__control-text">
+                    <div class="admin__field-note">
+                        The name of your origin, such as <b>My origin server</b>.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="backend_address" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Address") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="backend_address" id="backend_address" class="admin__control-text">
+                    <div class="admin__field-note">
+                        The IP address (or hostname) for your origin server.
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin__field field">
+                <label for="shield" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Shielding") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <select name="shield" id="backend_shield" class="admin__control-select">
+                        <option value="">(none)</option>
+                        <option value="fjr-ae">AE, Fujairah Al Mahta - Dubai</option>
+                        <option value="brisbane-au">AU, Brisbane</option>
+                        <option value="melbourne-au">AU, Melbourne</option>
+                        <option value="perth-au">AU, Perth</option>
+                        <option value="sydney-au">
+                            AU, Sydney - Recommended for AWS ap-southeast-2, GCP australia-southeast1 origins
+                        </option>
+                        <option value="gru-br-sa">
+                            BR, Sao Paulo - Recommended for AWS sa-east-1, GCP southamerica-east1
+                        </option>
+                        <option value="yyz-on-ca">CA, Toronto</option>
+                        <option value="yul-montreal-ca">
+                            CA, Montreal - Recommended for AWS ca-central-1, GCP northamerica-northeast1 origins
+                        </option>
+                        <option value="mad-madrid-es">ES, Madrid</option>
+                        <option value="hel-helsinki-fi">FI, Helsinki - Recommended for GCP europe-north1</option>
+                        <option value="cdg-par-fr">FR, Paris- Recommended for AWS eu-west3</option>
+                        <option value="hongkong-hk">HK, Hong Kong</option>
+                        <option value="hhn-frankfurt-de">
+                            DE, Frankfurt - Interxion - Recommended for GCP europe-west3 origins
+                        </option>
+                        <option value="frankfurt-de">DE, Frankfurt - Recommended for AWS eu-central1 origins</option>
+                        <option value="tokyo-jp2">JP, Tokyo - deprecated</option>
+                        <option value="tyo-tokyo-jp">JP, Tokyo - Recommended for AWS ap-northeast-1 origins</option>
+                        <option value="osaka-jp">JP, Osaka - Recommened for AWS ap-northeast-3 origins</option>
+                        <option value="amsterdam-nl">NL, Amsterdam - Recommended for GCP eu-west1/4 origins</option>
+                        <option value="auckland-akl">NZ, Auckland</option>
+                        <option value="wellington-wlg">NZ, Wellington</option>
+                        <option value="stockholm-bma">SE, Stockholm</option>
+                        <option value="singapore-sg">
+                            SG, Singapore - Recommended for AWS ap-southeast-1, GCP asia-southeast1 origins
+                        </option>
+                        <option value="london_city-uk">
+                            UK, London - LCY - Recommended for AWS eu-west1/2 origins
+                        </option>
+                        <option value="london-uk">UK, London - LHR - Recommended for GCP eu-west2 origins</option>
+                        <option value="atl-ga-us">US, Atlanta, GA</option>
+                        <option value="bos-ma-us">US, Boston, MA</option>
+                        <option value="mdw-il-us">US, Chicago, IL - Recommended for GCP us-central1 origins</option>
+                        <option value="den-co-us">US, Denver, CO</option>
+                        <option value="dallas-tx-us">US, Dallas, TX</option>
+                        <option value="iah-tx-us">US, Houston, TX</option>
+                        <option value="iad-va-us">
+                            US, Washington, DC - deprecated
+                        </option>
+                        <option value="bwi-va-us">
+                            US, Washington, DC - Recommended for AWS us-east1, GCP us-east1/4 origins
+                        </option>
+                        <option value="lax-ca-us">US, Los Angeles, CA - Recommended for GCP us-west2</option>
+                        <option value="miami-fl-us">US, Miami, FL</option>
+                        <option value="jfk-ny-us">US, New York City, NY</option>
+                        <option value="sjc-ca-us">US, San Jose, CA</option>
+                        <option value="sea-wa-us">
+                            US, Seattle, WA - Recommended for AWS us-west2, GCP us-west1 origins
+                        </option>
+                        <option value="cpt-capetown-za">ZA, Capetown</option>
+                        <option value="jnb-johannesburg-za">ZA, Johannesburg</option>
+                    </select>
+                    <div class="admin__field-note">
+                        The shield POP designated to reduce inbound load on this origin by serving the cached data to
+                        the rest of the network.
+                        <a href="https://docs.fastly.com/guides/performance-tuning/shielding"
+                           target="_blank">Click for more details.</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin__field field">
+                <label for="shield" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Auto load balance") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <select name="auto_load_balance" id="auto_load_balance" class="admin__control-select">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                    <div class="admin__field-note">
+                        Enables Fastly to
+                        <a href="https://docs.fastly.com/guides/basic-configuration/health-checks-tutorial"
+                           target="_blank">load balance between two or more backend hosts.</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin__field field _required weight">
+                <label for="weight" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Weight") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="weight" id="weight" class="admin__control-text" value="100">
+                    <div class="admin__field-note">
+                        A portion of traffic to send to a specific origin. Each origin receives (weight ÷ total weight
+                        across origins) of the traffic.
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin__fieldset recommended">
+                <div class="admin__fieldset message-recommend">
+                    <div class="admin__field field" id="recommended-title">
+                        <label class="admin__field-label">
+                            RECOMMENDED Transport Layer Security (TLS)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="admin__field field">
+                    <label for="tls-radio" class="admin__field-label">
+                        <span><?php /* @noEscape */ echo __("Enable TLS?") ?></span>
+                    </label>
+                    <div class="admin__field-control">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="radio" id="tls-yes" class="admin__control-radio" name="tls-radio"
+                                           value="1" checked/>
+                                    <label class="admin__field-label" for="tls-yes">
+                                        <b>Yes,</b> enable TLS and connect securely using port
+                                    </label>
+                                </td>
+                                <td>
+                                    <input name="tls-yes-port"
+                                           type="number"
+                                           required="required"
+                                           id="tls-yes-port"
+                                           class="admin__control-text
+                                        required-entry
+                                        validate-alphanum-with-spaces
+                                        validate-length
+                                        maximum-length-50
+                                        checkbox-input"
+                                           value="443">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" id="tls-no" class="admin__control-radio" name="tls-radio"
+                                           value="0"/>
+                                    <label class="admin__field-label" for="tls-no">
+                                        <b>No, do not enable TLS.</b> Instead connect using port &nbsp
+                                    </label>
+                                </td>
+                                <td>
+                                    <input name="tls-no-port"
+                                           type="number"
+                                           required="required"
+                                           id="tls-no-port"
+                                           class="admin__control-text
+                                        required-entry
+                                        validate-alphanum-with-spaces
+                                        validate-length
+                                        maximum-length-50
+                                        checkbox-input"
+                                           value="80">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="admin__field field">
+                    <label for="certificate-radio" class="admin__field-label">
+                        <span><?php /* @noEscape */ echo __("Verify certificate?") ?></span>
+                    </label>
+                    <div class="admin__field-control">
+                        <input type="radio" id="certificate-yes" class="admin__control-radio" name="certificate-radio"
+                               value="1" checked/>
+                        <label class="admin__field-label" for="certificate-yes">
+                            <b>Yes,</b> verify the authenticity of the TLS certificate
+                        </label>
+                    </div>
+                    <div class="admin__field-control">
+                        <input type="radio" id="certificate-no" class="admin__control-radio" name="certificate-radio"
+                               value="0"/>
+                        <label class="admin__field-label" for="certificate-no">
+                            <b>No,</b> do not verify my TLS certificate
+                        </label>
+                    </div>
+                </div>
+
+                <div class="admin__field field _required">
+                    <label for="certificate-hostname" class="admin__field-label">
+                        <span><?php /* @noEscape */ echo __("Certificate hostname") ?></span>
+                    </label>
+                    <div class="admin__field-control">
+                        <input name="certificate-hostname"
+                               type="text"
+                               required="required"
+                               id="certificate-hostname"
+                               class="admin__control-text"
+                        >
+                        <div class="admin__field-note">This value is matched against the certificate common name (CN)
+                            or a subject alternate name (SAN).</div>
+                    </div>
+                </div>
+
+                <div class="admin__field field">
+                    <label for="sni-hostname" class="admin__field-label">
+                        <span><?php /* @noEscape */ echo __("SNI hostname") ?></span>
+                    </label>
+                    <div class="admin__field-control">
+                        <input name="sni-hostname"
+                               type="text"
+                               id="sni-hostname"
+                               class="admin__control-text"
+                        >
+                        <div class="admin__field-option">
+                            <input class="admin__control-checkbox"
+                                   type="checkbox"
+                                   name="match-sni"
+                                   id="match-sni"/>
+                            <label class="admin__field-label" for="match-sni">Match the SNI hostname to the Certificate
+                                hostname. This value identifies which certificate is to be used for the request to
+                                origin.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin__field field">
+                    <label for="tls-ca-certificate" class="admin__field-label">
+                        <span><?php /* @noEscape */ echo __("TLS CA certificate") ?></span>
+                    </label>
+                    <div class="admin__field-control">
+                    <textarea rows="6"
+                              name="tls-ca-certificate"
+                              required="required"
+                              id="tls-ca-certificate"
+                              class="admin__control-text"></textarea>
+                        <div class="admin__field-note">CA certificate used to verify the certificate from origin.
+                            Must be in PEM form.</div>
+                    </div>
+                </div>
+
+                <div class="admin__field field">
+                    <label class="admin__field-label">
+                        Advanced TLS options
+                    </label>
+                </div>
+
+                <div class="admin__field field">
+                    <label for="minimum-tls" class="admin__field-label">
+                        <span><?php /* @noEscape */ echo __("Minimum TLS version") ?></span>
+                    </label>
+                    <div class="admin__field-control">
+                        <select name="minimum-tls" id="minimum-tls" class="admin__control-text">
+                            <option value="">none</option>
+                            <option value="1.0">1.0</option>
+                            <option value="1.1">1.1</option>
+                            <option value="1.2">1.2</option>
+                        </select>
+                        <div class="admin__field-note">The minimum TLS protocol version that Fastly will use to
+                            connect to your origin server.</div>
+                    </div>
+                </div>
+
+                <div class="admin__field field">
+                    <label for="maximum-tls" class="admin__field-label">
+                        <span><?php /* @noEscape */ echo __("Maximum TLS version") ?></span>
+                    </label>
+                    <div class="admin__field-control">
+                        <select name="maximum-tls" id="maximum-tls" class="admin__control-text">
+                            <option value="">none</option>
+                            <option value="1.0">1.0</option>
+                            <option value="1.1">1.1</option>
+                            <option value="1.2">1.2</option>
+                        </select>
+                        <div class="admin__field-note">The maximum TLS protocol version that Fastly will use to
+                            connect to your origin server. (Must be higher than the minimum TLS version.)</div>
+                    </div>
+                </div>
+
+                <div class="admin__field field">
+                    <label for="ciphersuites" class="admin__field-label">
+                        <span><?php /* @noEscape */ echo __("Ciphersuites") ?></span>
+                    </label>
+                    <div class="admin__field-control">
+                        <input name="ciphersuites"
+                               type="text"
+                               id="ciphersuites"
+                               class="admin__control-text"
+                        >
+                        <div class="admin__field-note">A list of OpenSSL ciphers to use when connecting to your origin.
+                            For more information see the OpenSSL documentation on cipher list format</div>
+                    </div>
+                </div>
+
+                <div class="admin__field field">
+                    <label for="tls-client-certificate" class="admin__field-label">
+                        <span><?php /* @noEscape */ echo __("TLS client certificate") ?></span>
+                    </label>
+                    <div class="admin__field-control">
+                    <textarea rows="6"
+                              name="tls-client-certificate"
+                              required="required"
+                              id="tls-client-certificate"
+                              class="admin__control-text"></textarea>
+                        <div class="admin__field-note">Certificate used to authenticate to the origin server. Must be in
+                            PEM form, and must be accompanied by a client key. It is advised to not used keys from
+                            anywhere else. A client certificate and client key allows your server to authenticate that
+                            Fastly is performing the connection.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin__field field">
+                    <label for="tls-client-key" class="admin__field-label">
+                        <span><?php /* @noEscape */ echo __("TLS client key") ?></span>
+                    </label>
+                    <div class="admin__field-control">
+                    <textarea rows="6"
+                              name="tls-client-key"
+                              required="required"
+                              id="tls-client-key"
+                              class="admin__control-text"></textarea>
+                        <div class="admin__field-note">Key used to authenticate to the backend server.
+                            Must be in PEM form, and must be accompanied by a client certificate.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label class="admin__field-label">
+                    Advanced options
+                </label>
+            </div>
+
+            <div class="admin__field field _required">
+                <label for="maximum_connections" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Maximum connections") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="maximum_connections"
+                           type="number"
+                           required="required"
+                           id="backend_maximum_connections"
+                           class="admin__control-text
+                                    required-entry
+                                    validate-alphanum-with-spaces
+                                    validate-length
+                                    maximum-length-50"
+                           value="200">
+                    <div class="admin__field-note">The maximum number of connections to your backend.
+                        By default, limited to 200 connections per cache node to protect origins from overload.</div>
+                </div>
+            </div>
+
+            <div class="admin__field field _required">
+                <label for="error_threshold" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Error threshold") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="error_threshold"
+                           type="number"
+                           required="required"
+                           id="backend_error_threshold"
+                           class="admin__control-text
+                                    required-entry
+                                    validate-alphanum-with-spaces
+                                    validate-length
+                                    maximum-length-50"
+                           value="0">
+                    <div class="admin__field-note">Number of errors to allow before the backend is marked as down.</div>
+                </div>
+            </div>
+
+            <div class="admin__field field">
+                <label class="admin__field-label">
+                </label>
+                <label class="admin__field-label">
+                    TIMEOUTS
+                </label>
+            </div>
+
+            <div class="admin__field field _required">
+                <label for="connect_timeout" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Connection timeout") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="connect_timeout"
+                           type="number"
+                           required="required"
+                           id="backend_connect_timeout"
+                           class="admin__control-text
+                                    required-entry
+                                    validate-alphanum-with-spaces
+                                    validate-length
+                                    maximum-length-50"
+                           value="1000">
+                    <div class="admin__field-note">How long to wait for a timeout in milliseconds.</div>
+                </div>
+            </div>
+
+            <div class="admin__field field _required">
+                <label for="first_byte_timeout " class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("First byte timeout ") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="first_byte_timeout"
+                           type="number"
+                           required="required"
+                           id="backend_first_byte_timeout"
+                           class="admin__control-text"
+                           value="15000">
+                    <div class="admin__field-note">How long to wait for the first bytes in milliseconds.</div>
+                </div>
+            </div>
+
+            <div class="admin__field field _required">
+                <label for="between_bytes_timeout" class="admin__field-label">
+                    <span><?php /* @noEscape */  echo __("Between bytes timeout") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="between_bytes_timeout"
+                           type="number"
+                           required="required"
+                           id="backend_between_bytes_timeout"
+                           class="admin__control-text"
+                           value="10000">
+                    <div class="admin__field-note">How long to wait between bytes in milliseconds.</div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</script>
+
+<!-- Create condition template -->
+<script type="text/x-magento-template" id="fastly-create-condition-template">
+    <div class="messages">
+        <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+    </div>
+    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
+          method="POST"
+          id="vcl-upload-form"
+          class="form-inline"
+          enctype="multipart/form-data">
+        <fieldset class="admin__fieldset form-list question">
+            <div class="admin__field field _required">
+                <label for="condition_name" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Name") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="condition_name" id="condition_name" class="admin__control-text">
+                </div>
+            </div>
+
+            <div class="admin__field field __required">
+                <label for="apply_if" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Apply if...") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <textarea rows="6"
+                              name="apply_if"
+                              required="required"
+                              id="apply_if"
+                              class="admin__control-text"></textarea>
+                    <div class="admin__field-note">The expression to decide whether this is run.
+                        Maximum length is 512 characters.
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin__field field">
+                <label for="condition_priority" class="admin__field-label">
+                    <span><?php /* @noEscape */  echo __("Priority") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="condition_priority"
+                           type="number"
+                           required="required"
+                           id="condition_priority"
+                           class="admin__control-text"
+                           value="10">
+                    <div class="admin__field-note">For most configurations, the default (10) is best.
+                        Priority determines ordering for multiple conditions. Lower numbers execute first.</div>
                 </div>
             </div>
         </fieldset>
@@ -627,61 +1224,61 @@
           id="fastly-dictionary-form"
           class="form-inline"
           enctype="multipart/form-data">
-    <div class="messages">
-        <div class="message message-error fastly-message-error" style="display: none; margin-bottom: 15px;"></div>
-        <div class="message message-success fastly-message-success" style="display: none;"></div>
-    </div>
-    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
-          method="POST"
-          id="fastly-dictionary-form"
-          class="form-inline"
-          enctype="multipart/form-data">
-        <fieldset class="admin__fieldset form-list question">
-            <table class="admin__control-table" id="dictionary-items-table">
-                <thead>
-                <tr>
-                    <th><?php /* @noEscape */ echo __('Key') ?></th>
-                    <th><?php /* @noEscape */ echo __('Value') ?></th>
-                    <th class="col-actions" colspan="1"><?php /* @noEscape */ echo __('Action') ?></th>
-                </tr>
-                </thead>
-                <tbody class="item-container">
-                <tr>
-                    <td>
-                        <input name="key"
-                               required="required"
-                               class="input-text admin__control-text dictionary-items-field"
-                               type="text">
-                    </td>
-                    <td>
-                        <input name="value"
-                               data-type="dictionary"
-                               required="required"
-                               class="input-text admin__control-text dictionary-items-field"
-                               type="text">
-                    </td>
-                    <td class="col-actions">
-                        <button class="action-delete fastly-save-action save_item" title="Save" type="button">
-                            <span>Save</span>
-                        </button>
-                        <button class="action-delete remove_item"  title="Delete" type="button">
-                            <span>Delete</span>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="3" class="col-actions-add">
-                        <button id="add-dictionary-item" class="action-add" title="Add new item" type="button">
-                            <span><?php /* @noEscape */ echo __('Add new item') ?></span>
-                        </button>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
-        </fieldset>
-    </form>
+        <div class="messages">
+            <div class="message message-error fastly-message-error" style="display: none; margin-bottom: 15px;"></div>
+            <div class="message message-success fastly-message-success" style="display: none;"></div>
+        </div>
+        <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
+              method="POST"
+              id="fastly-dictionary-form"
+              class="form-inline"
+              enctype="multipart/form-data">
+            <fieldset class="admin__fieldset form-list question">
+                <table class="admin__control-table" id="dictionary-items-table">
+                    <thead>
+                    <tr>
+                        <th><?php /* @noEscape */ echo __('Key') ?></th>
+                        <th><?php /* @noEscape */ echo __('Value') ?></th>
+                        <th class="col-actions" colspan="1"><?php /* @noEscape */ echo __('Action') ?></th>
+                    </tr>
+                    </thead>
+                    <tbody class="item-container">
+                    <tr>
+                        <td>
+                            <input name="key"
+                                   required="required"
+                                   class="input-text admin__control-text dictionary-items-field"
+                                   type="text">
+                        </td>
+                        <td>
+                            <input name="value"
+                                   data-type="dictionary"
+                                   required="required"
+                                   class="input-text admin__control-text dictionary-items-field"
+                                   type="text">
+                        </td>
+                        <td class="col-actions">
+                            <button class="action-delete fastly-save-action save_item" title="Save" type="button">
+                                <span>Save</span>
+                            </button>
+                            <button class="action-delete remove_item"  title="Delete" type="button">
+                                <span>Delete</span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3" class="col-actions-add">
+                            <button id="add-dictionary-item" class="action-add" title="Add new item" type="button">
+                                <span><?php /* @noEscape */ echo __('Add new item') ?></span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </fieldset>
+        </form>
 </script>
 
 <!-- Edge ACL creation overlay template -->
@@ -811,6 +1408,9 @@
     <div class="messages">
         <div class="message message-error fastly-message-error" style="display: none; margin-bottom: 15px;"></div>
         <div class="message message-success fastly-message-success" style="display: none;"></div>
+        <div class="message message-notice fastly-message-notice" >
+            To add a subnet mask, use a slash ("192.0.2.0/24"). To exclude, use an exclamation mark ("!192.0.2.0").
+        </div>
     </div>
     <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
           method="POST" id="fastly-acl-form"
@@ -821,8 +1421,9 @@
             <table class="admin__control-table" id="acl-items-table">
                 <thead>
                 <tr>
-                    <th><?php /* @noEscape */ echo __('IP Value') ?></th>
-                    <th><?php /* @noEscape */ echo __('Negated') ?></th>
+                    <th><?php /* @noEscape */ echo __('Address') ?></th>
+                    <th><?php /* @noEscape */ echo __('Comment (Optional)') ?></th>
+                    <th><?php /* @noEscape */ echo __('Date Added') ?></th>
                     <th class="col-actions" colspan="1"><?php /* @noEscape */ echo __('Action') ?></th>
                 </tr>
                 </thead>
@@ -857,7 +1458,7 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td colspan="3" class="col-actions-add">
+                    <td colspan="4" class="col-actions-add">
                         <button id="add-acl-item" class="action-add" title="Add new item" type="button">
                             <span><?php /* @noEscape */ echo __('Add new item') ?></span>
                         </button>
@@ -1008,6 +1609,10 @@
             <?php /* @noEscape */ echo __("Your image configuration will be reconfigured in version #y.")?>
         </div>
         <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+        <div class="message message-notice fastly-message-notice">
+            These settings will be used as fallbacks when no transformation rules are
+            applied in the URL query string or in your VCL.
         </div>
     </div>
     <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
@@ -1462,6 +2067,173 @@
         </fieldset>
     </form>
 </script>
+
+<!-- Rate Limiting paths template -->
+<script type="text/x-magento-template" id="fastly-rate-limiting-paths-template">
+    <div class="messages">
+        <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+        <div class="message message-success fastly-message-success" style="display: none">
+        </div>
+        <div class="message message-warning fastly-message-warning" style="display: none">
+        </div>
+    </div>
+    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/setActiveModules'); ?>"
+          method="POST"
+          id="fastly-rate-limiting-form"
+          class="form-inline"
+          enctype="multipart/form-data"
+          style="margin-top: 25px;">
+        <fieldset class="admin__fieldset form-list question">
+            <table class="admin__control-table" id="fastly-rate-limiting-table">
+                <thead>
+                <tr>
+                    <th><?php /* @noEscape */ echo __('Path (regular expression)') ?></th>
+                    <th><?php /* @noEscape */ echo __('Comment (optional)') ?></th>
+                    <th class="col-actions" colspan="1"><?php /* @noEscape */ echo __('Action') ?></th>
+                </tr>
+                </thead>
+                <tbody class="item-container">
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="3" class="col-actions-add">
+                        <button id="add-path" class="action-add" title="Add new path" type="button">
+                            <span><?php /* @noEscape */ echo __('Add new path') ?></span>
+                        </button>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </fieldset>
+    </form>
+</script>
+
+<!-- Rate Limiting toggle template -->
+<script type="text/x-magento-template" id="fastly-rate-limiting-template">
+    <div class="messages">
+        <div class="message message-warning fastly-message-warning" style="display: none">
+            <?php /* @noEscape */ echo __("You are about to clone your active version #x.")?>
+            <?php /* @noEscape */ echo __("We'll make the changes to version #y.")?>
+        </div>
+        <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+    </div>
+    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
+          method="POST"
+          id="vcl-upload-form"
+          class="form-inline"
+          enctype="multipart/form-data">
+        <fieldset class="admin__fieldset form-list question">
+            <div class="admin__field field maintenance-checkbox-container">
+                <label for="fastly_activate_vcl" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __('Activate after the change')?></span>
+                </label>
+                <div class="admin__field-control">
+                    <div class="admin__field-option">
+                        <input class="admin__control-checkbox"
+                               type="checkbox"
+                               name="fastly_activate_rate_limiting"
+                               id="fastly_activate_rate_limiting"
+                               checked/>
+                        <label class="admin__field-label" for="fastly_activate_rate_limiting"></label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</script>
+
+<!-- Domains overlay template -->
+<script type="text/x-magento-template" id="fastly-domains-list-template">
+    <div class="messages">
+        <div class="message message-error fastly-message-error" style="display: none; margin-bottom: 15px;"></div>
+        <div class="message message-success fastly-message-success" style="display: none;"></div>
+    </div>
+    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
+          method="POST"
+          id="fastly-domains-list-form"
+          class="form-inline"
+          enctype="multipart/form-data">
+
+        <fieldset class="admin__fieldset form-list question">
+            <table class="admin__control-table" id="domains-list-table">
+                <thead>
+                <tr>
+                    <th><?php /* @noEscape */ echo __('Name') ?></th>
+                    <th><?php /* @noEscape */ echo __('Comment') ?></th>
+                    <th class="col-actions" colspan="1"><?php /* @noEscape */ echo __('Action') ?></th>
+                </tr>
+                </thead>
+                <tbody class="item-container">
+                <tr>
+                    <td>
+                        <input name="domain_name"
+                               required="required"
+                               class="input-text admin__control-text domains-list-field"
+                               type="text">
+                    </td>
+                    <td>
+                        <input name="domain_comment"
+                               required="required"
+                               class="input-text admin__control-text domains-list-field"
+                               type="text">
+                    </td>
+                    <td class="col-actions">
+                        <button class="action-delete remove_domain" title="Delete" type="button" hidden>
+                            <span>Delete</span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="3" class="col-actions-add">
+                        <button id="add-domain" class="action-add" title="Add new domain" type="button">
+                            <span><?php /* @noEscape */ echo __('Add Domain') ?></span>
+                        </button>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </fieldset>
+    </form>
+</script>
+
+<!-- Super Users template -->
+<script type="text/x-magento-template" id="fastly-su-template">
+    <div class="messages">
+        <div class="message message-warning fastly-message-warning" style="display: none">
+            <?php /* @noEscape */ echo __("You are about to clone your active version #x.")?>
+            <?php /* @noEscape */ echo __("We'll upload your VCL to version #y.")?>
+        </div>
+        <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+    </div>
+    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
+          method="POST"
+          id="fastly-su-form"
+          class="form-inline"
+          enctype="multipart/form-data">
+    </form>
+</script>
+
+<!-- Export template -->
+<script type="text/x-magento-template" id="fastly-export-template">
+    <div class="messages">
+        <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+    </div>
+    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_ImportExport/downloadExportData'); ?>"
+          method="POST"
+          id="fastly-export-form"
+          class="form-inline"
+          enctype="multipart/form-data">
+        <input name="form_key" type="hidden" value="<?php /* @noEscape */ echo $block->getFormKey() ?>" />
+        <fieldset class="admin__fieldset form-list question">
+        </fieldset>
+    </form>
+</script>
 <?php
 
 /**
@@ -1473,6 +2245,7 @@ $toggleTlsSettingUrl =          $block->getUrl('adminhtml/fastlyCdn_Advanced/for
 // Backend
 $configureBackendUrl =          $block->getUrl('adminhtml/fastlyCdn_Backend/configureBackend');
 $fetchBackendsUrl =             $block->getUrl('adminhtml/fastlyCdn_Backend/getBackends');
+$createBackendUrl =             $block->getUrl('adminhtml/fastlyCdn_Backend/createBackend');
 // Basic Authentication
 $createAuthItem =               $block->getUrl('adminhtml/fastlyCdn_BasicAuthentication_Item/create');
 $deleteAuthItem =               $block->getUrl('adminhtml/fastlyCdn_BasicAuthentication_Item/delete');
@@ -1498,6 +2271,10 @@ $createCustomSnippetUrl =       $block->getUrl('adminhtml/fastlyCdn_CustomSnippe
 $deleteCustomSnippet =          $block->getUrl('adminhtml/fastlyCdn_CustomSnippet/deleteCustomSnippet');
 $getCustomSnippetsUrl =         $block->getUrl('adminhtml/fastlyCdn_CustomSnippet/getCustomSnippets');
 $getCustomSnippet =             $block->getUrl('adminhtml/fastlyCdn_CustomSnippet/getCustomSnippet');
+$checkCustomSnippet =           $block->getUrl('adminhtml/fastlyCdn_CustomSnippet/checkCustomSnippet');
+// Domains
+$getDomainsUrl =                $block->getUrl('adminhtml/fastlyCdn_Domains/getDomains');
+$pushDomainsUrl =               $block->getUrl('adminhtml/fastlyCdn_Domains/pushDomains');
 // Edge ACL
 $createAcl =                    $block->getUrl('adminhtml/fastlyCdn_Edge_Acl/create');
 $deleteAcl =                    $block->getUrl('adminhtml/fastlyCdn_Edge_Acl/delete');
@@ -1505,6 +2282,7 @@ $listAcls =                     $block->getUrl('adminhtml/fastlyCdn_Edge_Acl/lis
 $aclItems =                     $block->getUrl('adminhtml/fastlyCdn_Edge_Acl_Item/listAll');
 $createAclItem =                $block->getUrl('adminhtml/fastlyCdn_Edge_Acl_Item/create');
 $deleteAclItem =                $block->getUrl('adminhtml/fastlyCdn_Edge_Acl_Item/delete');
+$updateAclItem =                $block->getUrl('adminhtml/fastlyCdn_Edge_Acl_Item/update');
 // Edge Dictionary
 $createDictionary =             $block->getUrl('adminhtml/fastlyCdn_Edge_Dictionary/create');
 $deleteDictionary =             $block->getUrl('adminhtml/fastlyCdn_Edge_Dictionary/delete');
@@ -1519,6 +2297,13 @@ $toggleImageSettingUrl =        $block->getUrl('adminhtml/fastlyCdn_ImageOptimiz
 $listIoDefaultConfigOptions =   $block->getUrl('adminhtml/fastlyCdn_ImageOptimization/listAll');
 $configureIoUrl =               $block->getUrl('adminhtml/fastlyCdn_ImageOptimization/ioDefaultConfigOptions');
 $isIoEnabled =                  $block->getConfig()->isImageOptimizationEnabled();
+// Import Export
+$getExportDataUrl =             $block->getUrl('adminhtml/fastlyCdn_ImportExport/getExportData');
+$exportDataUrl =                $block->getUrl('adminhtml/fastlyCdn_ImportExport/saveExportData');
+// Maintenance Support
+$checkSuSettingUrl =            $block->getUrl('adminhtml/fastlyCdn_Maintenance/CheckSuSetting');
+$toggleSuSettingUrl =           $block->getUrl('adminhtml/fastlyCdn_Maintenance/toggleSuSetting');
+$updateSuIpsUrl =               $block->getUrl('adminhtml/fastlyCdn_Maintenance/updateSuIps');
 // Manifest
 $createManifestsUrl =           $block->getUrl('adminhtml/fastlyCdn_Manifest/Create');
 $toggleModulesUrl =             $block->getUrl('adminhtml/fastlyCdn_Manifest/ToggleModules');
@@ -1530,6 +2315,11 @@ $getAllConditionsUrl =          $block->getUrl('adminhtml/fastlyCdn_Manifest/get
 $getAllDomainsUrl =             $block->getUrl('adminhtml/fastlyCdn_Manifest/getAllDomains');
 $getCountriesUrl =              $block->getUrl('adminhtml/fastlyCdn_Manifest/getCountries');
 $uploadModuleSnippetUrl =       $block->getUrl('adminhtml/fastlyCdn_Manifest/upload');
+// Rate Limiting
+$getPathsUrl =                  $block->getUrl('adminhtml/fastlyCdn_RateLimiting/getPaths');
+$toggleRateLimitingUrl =        $block->getUrl('adminhtml/fastlyCdn_RateLimiting/toggleRateLimiting');
+$updatePathsUrl =               $block->getUrl('adminhtml/fastlyCdn_RateLimiting/updatePaths');
+$checkRateLimitingSettingUrl =  $block->getUrl('adminhtml/fastlyCdn_RateLimiting/checkRateLimitingSetting');
 // Synthetic Pages
 $getErrorPageRespObjUrl =       $block->getUrl('adminhtml/fastlyCdn_SyntheticPages/getErrorPageRespObj');
 $getWafPageRespObjUrl =         $block->getUrl('adminhtml/fastlyCdn_SyntheticPages/getWafPageRespObj');
@@ -1540,9 +2330,9 @@ $vclUploadUrl =                 $block->getUrl('adminhtml/fastlyCdn_Vcl/upload')
 // Web Application Firewall
 $getWafSettingsUrl =            $block->getUrl('adminhtml/fastlyCdn_Waf/getWafSettings');
 $getOwaspSettingsUrl =          $block->getUrl('adminhtml/fastlyCdn_Waf/getOwaspSettings');
-$toggleWafBypassSettingUrl =     $block->getUrl('adminhtml/fastlyCdn_Waf/wafAllowlist');
-$checkWafBypassSettingUrl =      $block->getUrl('adminhtml/fastlyCdn_Waf/checkWafBypassSetting');
-$updateWafBypassUrl =            $block->getUrl('adminhtml/fastlyCdn_Waf/updateWafAllowlist');
+$toggleWafBypassSettingUrl =    $block->getUrl('adminhtml/fastlyCdn_Waf/wafAllowlist');
+$checkWafBypassSettingUrl =     $block->getUrl('adminhtml/fastlyCdn_Waf/checkWafBypassSetting');
+$updateWafBypassUrl =           $block->getUrl('adminhtml/fastlyCdn_Waf/updateWafAllowlist');
 // This flag is used to prevent calling ajax requests if fastly extension is not selected as caching application
 $isFastlyEnabled =              $block->getConfig()->isFastlyEnabled();
 ?>
@@ -1580,10 +2370,12 @@ $isFastlyEnabled =              $block->getConfig()->isFastlyEnabled();
                     "deleteAcl": "<?php echo $block->escapeJsQuote($deleteAcl);?>",
                     "deleteCustomSnippet": "<?php echo $block->escapeJsQuote($deleteCustomSnippet);?>",
                     "getCustomSnippet": "<?php echo $block->escapeJsQuote($getCustomSnippet);?>",
+                    "checkCustomSnippet": "<?php echo $block->escapeJsQuote($checkCustomSnippet);?>",
                     "getAcls": "<?php echo $block->escapeJsQuote($listAcls);?>",
                     "getAclItems": "<?php echo $block->escapeJsQuote($aclItems);?>",
                     "createAclItem": "<?php echo $block->escapeJsQuote($createAclItem);?>",
                     "deleteAclItem": "<?php echo $block->escapeJsQuote($deleteAclItem);?>",
+                    "updateAclItem": "<?php echo $block->escapeJsQuote($updateAclItem);?>",
                     "getAuths": "<?php echo $block->escapeJsQuote($getAuthItems);?>",
                     "createAuth": "<?php echo $block->escapeJsQuote($createAuth);?>",
                     "deleteAuth": "<?php echo $block->escapeJsQuote($deleteAuth);?>",
@@ -1613,7 +2405,19 @@ $isFastlyEnabled =              $block->getConfig()->isFastlyEnabled();
                     "getOwaspSettingsUrl": "<?php echo $block->escapeJsQuote($getOwaspSettingsUrl);?>",
                     "toggleWafBypassSettingUrl": "<?php echo $block->escapeJsQuote($toggleWafBypassSettingUrl);?>",
                     "checkWafBypassSettingUrl": "<?php echo $block->escapeJsQuote($checkWafBypassSettingUrl);?>",
-                    "updateWafBypassUrl": "<?php echo $block->escapeJsQuote($updateWafBypassUrl);?>"
+                    "updateWafBypassUrl": "<?php echo $block->escapeJsQuote($updateWafBypassUrl);?>",
+                    "getDomainsUrl": "<?php echo $block->escapeJsQuote($getDomainsUrl);?>",
+                    "pushDomainsUrl": "<?php echo $block->escapeJsQuote($pushDomainsUrl);?>",
+                    "getPathsUrl": "<?php echo $block->escapeJsQuote($getPathsUrl);?>",
+                    "toggleRateLimitingUrl": "<?php echo $block->escapeJsQuote($toggleRateLimitingUrl);?>",
+                    "updatePathsUrl": "<?php echo $block->escapeJsQuote($updatePathsUrl);?>",
+                    "checkRateLimitingSettingUrl": "<?php echo $block->escapeJsQuote($checkRateLimitingSettingUrl);?>",
+                    "checkSuSettingUrl": "<?php echo $block->escapeJsQuote($checkSuSettingUrl);?>",
+                    "toggleSuSettingUrl": "<?php echo $block->escapeJsQuote($toggleSuSettingUrl);?>",
+                    "updateSuIpsUrl": "<?php echo $block->escapeJsQuote($updateSuIpsUrl);?>",
+                    "createBackendUrl": "<?php echo $block->escapeJsQuote($createBackendUrl);?>",
+                    "getExportDataUrl": "<?php echo $block->escapeJsQuote($getExportDataUrl);?>",
+                    "exportDataUrl": "<?php echo $block->escapeJsQuote($exportDataUrl);?>"
                 }
             }
         }
@@ -1635,6 +2439,42 @@ $isFastlyEnabled =              $block->getConfig()->isFastlyEnabled();
     .admin__control-table .fastly-save-action::before {
         content: '\1F4BE';
         font-size: 2rem;
+    }
+
+    .admin__control-table .fastly-edit-action::before {
+        content: '\e610';
+        font-size: 2rem;
+    }
+
+    .dialog-item {
+        border: none;
+        background-color: transparent;
+    }
+
+    #attach_span {
+        line-height: 3.2rem;
+        white-space: nowrap;
+    }
+
+    .checkbox-input {
+        margin-bottom: 5px;
+    }
+
+    .recommended {
+        border: 1px solid #D8D8D8;
+        border-radius: 3px;
+        margin-bottom: 30px;
+    }
+
+    #recommended-title {
+        margin-bottom: 10px;
+    }
+
+    .message-recommend {
+        border: 1px solid #FEDF69;
+        background-color: #FFF9D5;
+        padding-top: 10px;
+        margin-bottom: 30px;
     }
 
 </style>

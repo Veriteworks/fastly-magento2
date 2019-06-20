@@ -13,12 +13,13 @@ define([
         let successAllModulesBtnMsg = $('#fastly-success-all-modules-button-msg');
         let errorAllModulesBtnMsg = $('#fastly-error-all-modules-button-msg');
         let warningAllModulesBtnMsg = $('#fastly-warning-all-modules-button-msg');
+        let module_field;
 
         let active_version = setServiceLabel.active_version;
 
         let activeModuleOptions = {
             title: jQuery.mage.__(' '),
-                content: function () {
+            content: function () {
                 return document.getElementById('modly-active-module-template').textContent;
             },
             actionOk: function () {
@@ -28,7 +29,7 @@ define([
 
         let allModuleOptions = {
             title: jQuery.mage.__(' '),
-                content: function () {
+            content: function () {
                 return document.getElementById('modly-all-modules-template').textContent;
             },
             actionOk: function () {
@@ -64,6 +65,9 @@ define([
                 $($(this).find('.modly-field')).each(function () {
                     name = $(this).attr('name');
                     value = $(this).val();
+                    if (value === "true" || value === "false") {
+                        value = (value === "true");
+                    }
                     data[name] = value;
                 });
                 groupData.push(data);
@@ -91,6 +95,7 @@ define([
                                 modal.modal('closeModal');
                                 resetAllMessages();
                                 successAllModulesBtnMsg.text($.mage.__('The '+ moduleId +' module has been successfully uploaded to the Fastly service.')).show();
+                                module_field.closest('tr').find('.col-date').text(response.last_uploaded);
                             } else {
                                 resetAllMessages();
                                 showErrorMessage(response.msg);
@@ -143,7 +148,15 @@ define([
                     } else {
                         result = vclTemplate(fields);
                     }
-                    templates.push({"type": value.type, "snippet": result})
+                    let priority = 45;
+                    if (value.priority) {
+                        priority = value.priority;
+                    }
+                    templates.push({
+                        "type": value.type,
+                        "priority": priority,
+                        "snippet": result
+                    });
                 });
             });
             return templates;
@@ -210,10 +223,12 @@ define([
                     let moduleNote = $('<p class="note"></p>');
                     let moduleNoteSpan = $('<span></span>');
                     let moduleActionCell = $('<td class="col-actions"></td>');
+                    let moduleDateCell = $('<td class="col-date"></td>');
                     let moduleActionButton = $('<button title="Edit module" type="button">');
 
                     moduleRow.attr('id', 'fastly_' + index);
                     moduleRow.append(moduleCell);
+                    moduleRow.append(moduleDateCell);
                     moduleRow.append(moduleActionCell);
                     moduleCell.append(moduleSpan);
                     moduleCell.append(moduleNote);
@@ -224,6 +239,11 @@ define([
                     moduleSpan.wrapInner('<b></b>');
                     moduleNote.append(moduleNoteSpan);
                     moduleNoteSpan.text(module.manifest_description);
+                    if (module.last_uploaded !== null) {
+                        moduleDateCell.text(module.last_uploaded);
+                    } else {
+                        moduleDateCell.text('Not uploaded');
+                    }
                     moduleActionCell.append(moduleActionButton);
                     moduleActionButton.attr('data-module-id', module.manifest_id);
                     moduleActionButton.attr('id', 'fastly-edit-active-modules' + index);
@@ -341,7 +361,7 @@ define([
                 fieldValue = property.default;
             }
             if (property.required === true) {
-               field.prop(' _required');
+                field.prop(' _required');
             }
             if (property.description) {
                 description = property.description;
@@ -530,7 +550,7 @@ define([
                         selectOption = $('<option></option>');
                         selectOption.attr('value', key);
                         if (key === fieldValue) {
-                           selectOption.attr('selected', true);
+                            selectOption.attr('selected', true);
                         }
                         selectOption.append(option);
                         selectInput.append(selectOption);
@@ -647,7 +667,7 @@ define([
                 $('.upload-button span').text('Save');
 
                 if (response.modules.length > 0) {
-                   listModules(response.modules);
+                    listModules(response.modules);
                 } else {
                     showWarningMessage($.mage.__(response.msg));
                 }
@@ -691,10 +711,12 @@ define([
 
         $('body').on('click', 'button.fastly-edit-active-modules-icon', function () {
             let module_id = $(this).data('module-id');
+            module_field = $(this);
             let properties = [];
-            let fieldset = $('<div class="admin__fieldset form-list modly-group">');
             let message = $('<div class="message"></div>');
             let title = '';
+            let fieldset = $('<div class="admin__fieldset form-list modly-group"></div>');
+            let groups = [];
 
             // call getModule data function to retrieve a specific module's data
             getModuleData(module_id).done(function (response) {
@@ -737,11 +759,13 @@ define([
                                         // for each group data property
                                         $.each(groupData, function (groupIndex, groupValues) {
                                             // for each manifest defined config property, render fields with group values
+                                            let fieldset = $('<div class="admin__fieldset form-list modly-group"></div>');
                                             $.each(property.properties, function (propertyIndex, propertyValues) {
                                                 fieldset.append(renderFields(propertyValues, groupValues, active_version));
                                             });
                                             fieldset.append('<div class="admin__field field"><div class="admin__field-label"></div><div class="admin__field-control"><button class="action remove-group-button" type="button" data-role="action"><span>Remove group</span></button></div></div>');
                                             fieldset.append('<div class="admin__field field"><div class="admin__field-label"></div><div class="admin__field-control"><hr></div></div></div>');
+                                            groups.push(fieldset);
                                         });
                                     });
                                 } else {
@@ -756,11 +780,13 @@ define([
                         setServiceLabel(active_version, next_version, service_name);
                         $('.module-messages').prepend(message);
                         let question = $('.question');
-                        question.append(fieldset);
                         $('.modal-title').html(title);
                         $('#module-id').val(module_id);
-                        let groupBtn = '<button class="action-secondary group-button" type="button" data-role="action"><span>Add group</span></button>';
                         if (isGroup === true) {
+                            let groupBtn = '<button class="action-secondary group-button" type="button" data-role="action"><span>Add group</span></button>';
+                            $.each(groups, function (grIndex, grData) {
+                                question.append(grData);
+                            });
                             $('.modal-header').find(".page-actions-buttons").append(groupBtn);
                             question.find('.modly-group:first').find('.remove-group-button').closest('.field').hide();
                             $('.group-button').unbind('click').on('click', function () {
@@ -774,6 +800,8 @@ define([
                             $('.remove-group-button').unbind('click').on('click', function () {
                                 $(this).closest('.modly-group').remove();
                             });
+                        } else {
+                            question.append(fieldset)
                         }
                     }
                 });
