@@ -24,17 +24,16 @@ use Fastly\Cdn\Model\Config;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\Locale\ResolverInterface as LocaleResolverInterface;
+use Magento\Framework\Url\EncoderInterface;
+use Magento\Framework\Url\DecoderInterface;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Result\Layout;
 use Magento\Framework\View\Result\LayoutFactory;
 use Magento\Store\Api\StoreRepositoryInterface;
 use Magento\Store\Model\StoreManagerInterface;
-use Magento\Store\Model\StoreResolver;
-use Magento\Store\Api\Data\StoreInterface;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\App\Action\Action;
-use Magento\Framework\Url\EncoderInterface;
+use Fastly\Cdn\Helper\StoreMessage;
 
 /**
  * Class GetAction
@@ -65,17 +64,21 @@ class GetAction extends Action
      */
     private $resultLayoutFactory;
     /**
-     * @var LocaleResolverInterface
-     */
-    private $localeResolver;
-    /**
      * @var LoggerInterface
      */
     private $logger;
     /**
+     * @var StoreMessage
+     */
+    private $storeMessage;
+    /**
      * @var EncoderInterface
      */
     private $urlEncoder;
+    /**
+     * @var DecoderInterface
+     */
+    private $urlDecoder;
 
     /**
      * GetAction constructor.
@@ -84,9 +87,10 @@ class GetAction extends Action
      * @param StoreRepositoryInterface $storeRepository
      * @param StoreManagerInterface $storeManager
      * @param LayoutFactory $resultLayoutFactory
-     * @param LocaleResolverInterface $localeResolver
      * @param LoggerInterface $logger
+     * @param StoreMessage $storeMessage
      * @param EncoderInterface $urlEncoder
+     * @param DecoderInterface $urlDecoder
      */
     public function __construct(
         Context $context,
@@ -94,18 +98,20 @@ class GetAction extends Action
         StoreRepositoryInterface $storeRepository,
         StoreManagerInterface $storeManager,
         LayoutFactory $resultLayoutFactory,
-        LocaleResolverInterface $localeResolver,
         LoggerInterface $logger,
-        EncoderInterface $urlEncoder
+        StoreMessage $storeMessage,
+        EncoderInterface $urlEncoder,
+        DecoderInterface $urlDecoder
     ) {
         parent::__construct($context);
         $this->config               = $config;
         $this->storeRepository      = $storeRepository;
         $this->storeManager         = $storeManager;
         $this->resultLayoutFactory  = $resultLayoutFactory;
-        $this->localeResolver       = $localeResolver;
         $this->logger               = $logger;
+        $this->storeMessage         = $storeMessage;
         $this->urlEncoder           = $urlEncoder;
+        $this->urlDecoder           = $urlDecoder;
 
         $this->url  = $context->getUrl();
     }
@@ -126,6 +132,7 @@ class GetAction extends Action
             // get target store from country code
             $countryCode = $this->getRequest()->getParam(self::REQUEST_PARAM_COUNTRY);
             $storeId = $this->config->getGeoIpMappingForCountry($countryCode);
+            $targetUrl = $this->getRequest()->getParam('uenc');
 
             if ($storeId !== null) {
                 // get redirect URL
@@ -133,18 +140,19 @@ class GetAction extends Action
                 $targetStore = $this->storeRepository->getActiveStoreById($storeId);
                 $currentStore = $this->storeManager->getStore();
                 // only generate a redirect URL if current and new store are different
-                if ($currentStore->getId() != $targetStore->getId()) {
+                if ($currentStore->getId() !== $targetStore->getId()) {
                     $this->url->setScope($targetStore->getId());
-                    $targetUrl = $this->url;
-                    $targetUrl->addQueryParams([
-                        '___store'      => $targetStore->getCode()
-                    ]);
-                    $encodedUrl = $this->urlEncoder->encode($targetUrl->getUrl());
-                    $this->url->addQueryParams([
-                        '___store'      => $targetStore->getCode(),
-                        '___from_store' => $currentStore->getCode(),
-                        'uenc'          => $encodedUrl
-                    ]);
+                    $targetStoreCode = $targetStore->getCode();
+                    $currentStoreCode = $currentStore->getCode();
+
+                    $queryParams = [
+                        '___store'      => $targetStoreCode,
+                        '___from_store' => $currentStoreCode
+                    ];
+                    if ($targetUrl) {
+                        $queryParams['uenc'] = $this->getTargetUrl($targetUrl, $targetStoreCode, $currentStoreCode);
+                    }
+                    $this->url->addQueryParams($queryParams);
                     $redirectUrl = $this->url->getUrl('stores/store/switch');
                 }
 
@@ -154,7 +162,7 @@ class GetAction extends Action
                         case Config::GEOIP_ACTION_DIALOG:
                             $resultLayout->getLayout()->getUpdate()->load(['geoip_getaction_dialog']);
                             $resultLayout->getLayout()->getBlock('geoip_getaction')->setMessage(
-                                $this->getMessageInStoreLocale($targetStore)
+                                $this->storeMessage->getMessageInStoreLocale($targetStore)
                             );
                             break;
                         case Config::GEOIP_ACTION_REDIRECT:
@@ -175,28 +183,22 @@ class GetAction extends Action
     }
 
     /**
-     * Gets the dialog message in the locale of the target store.
-     * @param StoreInterface $emulatedStore
+     * @param $targetUrl
+     * @param $targetStoreCode
+     * @param $currentStoreCode
      * @return string
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    private function getMessageInStoreLocale(StoreInterface $emulatedStore)
+    private function getTargetUrl($targetUrl, $targetStoreCode, $currentStoreCode): string
     {
-        $currentStore = $this->storeManager->getStore();
+        $decodedTargetUrl = $this->urlDecoder->decode($targetUrl);
+        $search = '/' . $currentStoreCode . '/';
+        $replace = '/' . $targetStoreCode . '/';
 
-        // emulate locale and store of new store to fetch message translation
-        $this->localeResolver->emulate($emulatedStore->getId());
-        $this->storeManager->setCurrentStore($emulatedStore->getId());
-
-        $message = __(
-            'You are in the wrong store. Click OK to visit the %1 store.',
-            [$emulatedStore->getName()]
-        )->__toString();
-
-        // revert locale and store emulation
-        $this->localeResolver->revert();
-        $this->storeManager->setCurrentStore($currentStore->getId());
-
-        return $message;
+        if (strpos($decodedTargetUrl, $search) !== false) {
+            $searchPattern = '/\/' . $currentStoreCode . '\//';
+            $targetUrl = $this->urlEncoder->encode(preg_replace($searchPattern, $replace, $decodedTargetUrl, 1));
+            return explode('%', $targetUrl)[0];
+        }
+        return $targetUrl;
     }
 }

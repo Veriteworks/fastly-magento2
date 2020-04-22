@@ -28,6 +28,7 @@ use Magento\Framework\App\ResponseInterface as Response;
 use Magento\Framework\HTTP\Header;
 use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class FrontControllerPlugin
@@ -37,9 +38,9 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 class FrontControllerPlugin
 {
     /** @var string Cache tag for storing rate limit data */
-    const FASTLY_CACHE_TAG = 'fastly_rate_limit_';
+    const FASTLY_CACHE_TAG = 'fastly_rl_sensitive_path__';
     /** @var string Cache tag for storing crawler rate limit data */
-    const FASTLY_CRAWLER_TAG = 'fastly_crawler_protection_';
+    const FASTLY_CRAWLER_TAG = 'fastly_rl_crawler_protection_';
 
     /**
      * @var CacheInterface
@@ -77,6 +78,11 @@ class FrontControllerPlugin
     private $filesystem;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * FrontControllerPlugin constructor.
      * @param Request $request
      * @param Config $config
@@ -85,6 +91,7 @@ class FrontControllerPlugin
      * @param Response $response
      * @param Header $httpHeader
      * @param Filesystem $filesystem
+     * @param LoggerInterface $logger
      */
     public function __construct(
         Request $request,
@@ -93,7 +100,8 @@ class FrontControllerPlugin
         DateTime $coreDate,
         Response $response,
         Header $httpHeader,
-        Filesystem $filesystem
+        Filesystem $filesystem,
+        LoggerInterface $logger
     ) {
         $this->request = $request;
         $this->response = $response;
@@ -102,6 +110,7 @@ class FrontControllerPlugin
         $this->cache = $cache;
         $this->coreDate = $coreDate;
         $this->filesystem = $filesystem;
+        $this->logger = $logger;
     }
 
     /**
@@ -213,11 +222,13 @@ class FrontControllerPlugin
                 'date'  => $date
             ]);
             $this->cache->save($data, $tag, [], $ttl);
+            $this->log('First tag hit during a window. Starting the counter for: "' . $tag);
         } else {
             $usage = $data['usage'] ?? 0;
             $date = $data['date'] ?? null;
             $newDate = $this->coreDate->timestamp();
             $dateDiff = ($newDate - $date);
+            $block_time = $ttl - $dateDiff;
 
             if ($dateDiff >= $ttl) {
                 $data = json_encode([
@@ -225,24 +236,28 @@ class FrontControllerPlugin
                     'date'  => $newDate
                 ]);
                 $this->cache->save($data, $tag, [], $ttl);
+                $this->log('Reset count. Hit outside the enforcement window for: "' . $tag);
                 return false;
             }
 
             if ($usage >= $limit) {
                 $this->response->setStatusHeader(429, null, 'API limit exceeded');
                 if ($limitingType == "path") {
-                    $this->response->setHeader('Surrogate-Control', 'max-age=' . $ttl);
+                    # Only cache blocking decision for the remainder of the enforcement window
+                    $this->response->setHeader('Surrogate-Control', 'max-age=' . $block_time);
                 }
                 if ($limitingType == "crawler") {
                     $this->response->setHeader('Fastly-Vary', 'Fastly-Client-IP');
                 }
                 $this->response->setBody('<h1>Request limit exceeded</h1>');
                 $this->response->setNoCacheHeaders();
+                $this->log('Rate limit exceeded: "' . $tag . '" Count: ' . $usage . '/' . $limit . ' Window length: ' . $dateDiff . ' secs/' . $ttl . ' Block issued lasting ' . $block_time . ' secs.');
                 return true;
             } else {
                 $usage++;
                 $data['usage'] = $usage;
                 $this->cache->save(json_encode($data), $tag, []);
+                $this->log('Hit inside enforcement window: "' . $tag . '" Count: ' . $usage . '/' . $limit . ' Window length: ' . $dateDiff . ' secs/' . $ttl);
             }
         }
         return false;
@@ -320,5 +335,12 @@ class FrontControllerPlugin
             }
         }
         return false;
+    }
+
+    private function log($message)
+    {
+        if($this->config->isRateLimitingLoggingEnabled()) {
+            $this->logger->info($message);
+        }
     }
 }

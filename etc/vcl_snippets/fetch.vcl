@@ -5,10 +5,6 @@
         if (stale.exists) {
             return(deliver_stale);
         }
-
-        if (req.restarts < 1 && (req.request == "GET" || req.request == "HEAD")) {
-            restart;
-        }
     }
 
     # Remove Set-Cookies from responses for static content to match the cookie removal in recv.
@@ -30,8 +26,7 @@
     # Fix Vary Header in some cases. In 99.9% of cases Varying on User-Agent is counterproductive
     # https://www.varnish-cache.org/trac/wiki/VCLExampleFixupVary
     if (beresp.http.Vary ~ "User-Agent") {
-        set beresp.http.Vary = regsub(beresp.http.Vary, ",? *User-Agent *", "");
-        set beresp.http.Vary = regsub(beresp.http.Vary, "^, *", "");
+        unset beresp.http.Vary:User-Agent;
         if (beresp.http.Vary == "") {
             unset beresp.http.Vary;
         }
@@ -41,19 +36,12 @@
     if (beresp.http.x-esi) {
         # enable ESI feature for Magento response by default
         esi;
-        # Since varnish doesn't compress ESIs we need to hint to the HTTP/2 terminators to
-        # compress it
-        set beresp.http.x-compress-hint = "on";
     } else {
         # enable gzip for all static content except
         if ( http_status_matches(beresp.status, "200,404") && (beresp.http.content-type ~ "^(application\/x\-javascript|text\/css|text\/html|application\/javascript|text\/javascript|application\/json|application\/vnd\.ms\-fontobject|application\/x\-font\-opentype|application\/x\-font\-truetype|application\/x\-font\-ttf|application\/xml|font\/eot|font\/opentype|font\/otf|image\/svg\+xml|image\/vnd\.microsoft\.icon|text\/plain)\s*($|;)" || req.url.ext ~ "(?i)(css|js|html|eot|ico|otf|ttf|json)" ) ) {
             # always set vary to make sure uncompressed versions dont always win
             if (!beresp.http.Vary ~ "Accept-Encoding") {
-                if (beresp.http.Vary) {
-                    set beresp.http.Vary = beresp.http.Vary ", Accept-Encoding";
-                } else {
-                    set beresp.http.Vary = "Accept-Encoding";
-                }
+                set beresp.http.Vary:Accept-Encoding = "";
             }
             if (req.http.Accept-Encoding == "gzip") {
                 set beresp.gzip = true;
@@ -62,14 +50,9 @@
     }
 
     # Add Varying on X-Magento-Vary
-    if (beresp.http.Content-Type ~ "text/(html|xml)") {
-        if (!beresp.http.Vary ~ "X-Magento-Vary,Https") {
-            if (beresp.http.Vary) {
-                set beresp.http.Vary = beresp.http.Vary ",X-Magento-Vary,Https";
-            } else {
-                set beresp.http.Vary = "X-Magento-Vary,Https";
-            }
-        }
+    if (beresp.http.Content-Type ~ "text/(html|xml)" || req.http.graphql) {
+        set beresp.http.Vary:X-Magento-Vary = "";
+        set beresp.http.Vary:Https = "";
     }
 
     # Just in case the Request Setting for x-pass is missing
@@ -91,8 +74,10 @@
         return (pass);
     }
 
-    # Varnish sets default TTL if none of these are present. If not set we want to make sure we don't cache it
-    if (!beresp.http.Expires && !beresp.http.Surrogate-Control ~ "max-age" && !beresp.http.Cache-Control ~ "(s-maxage|max-age)") {
+    if (beresp.http.x-amz-request-id) {
+        # If assets are coming from Amazon they may have no Cache-Control headers which may make them uncacheable
+    } else if (!beresp.http.Expires && !beresp.http.Surrogate-Control ~ "max-age" && !beresp.http.Cache-Control ~ "(s-maxage|max-age)") {
+        # Varnish sets default TTL if none of the headers above are present. If not set we want to make sure we don't cache it
         set beresp.ttl = 0s;
         set beresp.cacheable = false;
     }

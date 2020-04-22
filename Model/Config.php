@@ -20,8 +20,12 @@
  */
 namespace Fastly\Cdn\Model;
 
-use Magento\Framework\Filesystem;
+use Magento\Framework\App\Cache\StateInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\Filesystem\Directory\ReadFactory;
 use Magento\Framework\Module\Dir;
+use Magento\Framework\Serialize\Serializer\Json;
+use Magento\PageCache\Model\Varnish\VclGeneratorFactory;
 
 /**
  * Model is responsible for replacing default vcl template
@@ -60,7 +64,7 @@ class Config extends \Magento\PageCache\Model\Config
     /**
      * Magento Error Page Response Object Name
      */
-    const ERROR_PAGE_RESPONSE_OBJECT = self::FASTLY_MAGENTO_MODULE.'_error_page_response_object';
+    const ERROR_PAGE_RESPONSE_OBJECT = self::FASTLY_MAGENTO_MODULE . '_error_page_response_object';
 
     /**
      * WAF Page Response Object Name
@@ -90,7 +94,7 @@ class Config extends \Magento\PageCache\Model\Config
     /**
      * Blocking setting name
      */
-    const BLOCKING_SETTING_NAME = self::FASTLY_MAGENTO_MODULE.'_blocking_recv';
+    const BLOCKING_SETTING_NAME = self::FASTLY_MAGENTO_MODULE . '_blocking_recv';
 
     /**
      * Rate Limiting snippets directory path
@@ -105,7 +109,7 @@ class Config extends \Magento\PageCache\Model\Config
     /**
      * Rate Limiting setting name
      */
-    const RATE_LIMITING_SETTING_NAME = self::FASTLY_MAGENTO_MODULE.'_rate_limiting';
+    const RATE_LIMITING_SETTING_NAME = self::FASTLY_MAGENTO_MODULE . '_rate_limiting';
 
     /**
      * WAF snippets directory path
@@ -120,7 +124,7 @@ class Config extends \Magento\PageCache\Model\Config
     /**
      * WAF setting name
      */
-    const WAF_SETTING_NAME = self::FASTLY_MAGENTO_MODULE.'_waf_recv';
+    const WAF_SETTING_NAME = self::FASTLY_MAGENTO_MODULE . '_waf_recv';
 
     /**
      * Authentication snippets directory path
@@ -135,12 +139,12 @@ class Config extends \Magento\PageCache\Model\Config
     /**
      * Authentication dictionary name
      */
-    const AUTH_DICTIONARY_NAME = self::FASTLY_MAGENTO_MODULE.'_basic_auth';
+    const AUTH_DICTIONARY_NAME = self::FASTLY_MAGENTO_MODULE . '_basic_auth';
 
     /**
      * Image optimization setting name
      */
-    const IMAGE_SETTING_NAME = self::FASTLY_MAGENTO_MODULE.'_image_optimization_recv';
+    const IMAGE_SETTING_NAME = self::FASTLY_MAGENTO_MODULE . '_image_optimization_recv';
 
     /**
      * Force TLS snippet path
@@ -150,12 +154,12 @@ class Config extends \Magento\PageCache\Model\Config
     /**
      * Force TLS setting name
      */
-    const FORCE_TLS_SETTING_NAME = self::FASTLY_MAGENTO_MODULE.'_force_tls_recv';
+    const FORCE_TLS_SETTING_NAME = self::FASTLY_MAGENTO_MODULE . '_force_tls_recv';
 
     /**
      * Configure Dictionary name
      */
-    const CONFIG_DICTIONARY_NAME = self::FASTLY_MAGENTO_MODULE.'_config';
+    const CONFIG_DICTIONARY_NAME = self::FASTLY_MAGENTO_MODULE . '_config';
 
     /**
      * Maintenance Allowlist name
@@ -303,25 +307,31 @@ class Config extends \Magento\PageCache\Model\Config
      * XML path to Rate Limiting paths
      */
     const XML_FASTLY_RATE_LIMITING_PATHS
-        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/fastly_path_protection/rate_limiting_paths';
+        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/path_protection/rate_limiting_paths';
 
     /**
      * XML path to Rate Limiting limit
      */
     const XML_FASTLY_RATE_LIMITING_LIMIT
-        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/fastly_path_protection/rate_limiting_limit';
+        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/path_protection/rate_limiting_limit';
 
     /**
      * XML path to Rate Limiting TTL
      */
     const XML_FASTLY_RATE_LIMITING_TTL
-        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/fastly_path_protection/rate_limiting_ttl';
+        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/path_protection/rate_limiting_ttl';
 
     /**
      * XML path to image optimizations flag
      */
     const XML_FASTLY_IMAGE_OPTIMIZATIONS
         = 'system/full_page_cache/fastly/fastly_image_optimization_configuration/image_optimizations';
+
+    /**
+     * XML path to image verify flag
+     */
+    const XML_FASTLY_IMAGE_VERIFY
+        = 'system/full_page_cache/fastly/fastly_image_optimization_configuration/image_verify';
 
     /**
      * XML path to image optimization force lossy flag
@@ -462,7 +472,19 @@ class Config extends \Magento\PageCache\Model\Config
      * XML path to enable Rate Limiting
      */
     const XML_FASTLY_RATE_LIMITING_ENABLE
-        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/fastly_path_protection/enable_rate_limiting';
+        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/path_protection/enable_rate_limiting';
+
+    /**
+     * XML path to enable Rate Limiting
+     */
+    const XML_FASTLY_RATE_LIMITING_MASTER_ENABLE
+        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/enable_rate_limiting_master';
+
+    /**
+     * XML path to enable Rate Limiting
+     */
+    const XML_FASTLY_RATE_LIMITING_LOGGING_ENABLE
+        = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/enable_rate_limiting_logging';
 
     /**
      * XML path to enable Crawler Protection
@@ -487,6 +509,53 @@ class Config extends \Magento\PageCache\Model\Config
      */
     const XML_FASTLY_EXEMPT_GOOD_BOTS
         = 'system/full_page_cache/fastly/fastly_rate_limiting_settings/crawler_protection/exempt_good_bots';
+
+    /**
+     * Request Header for VCL comparison
+     */
+    const REQUEST_HEADER = 'Fastly-Magento-Vcl-Uploaded';
+
+    /**
+     * Fastly module name
+     */
+    const FASTLY_MODULE_NAME = 'Fastly_Cdn';
+
+    /**
+     * core_config path for versions that has dismissed warning for outdated vcl
+     */
+    const VERSIONS_WITH_DISMISSED_WARNING
+        = 'Fastly/Cdn/versions_with_dismissed_vcl_warning';
+
+    /**
+     * core_config path for last update VCL to Fastly time
+     */
+    const UPDATED_VCL_FLAG = 'Fastly/Cdn/updated_VCL_to_Fastly_flag';
+
+    /**
+     * @var Json|null
+     */
+    private $serializer;
+
+    /**
+     * Config constructor.
+     * @param ReadFactory $readFactory
+     * @param ScopeConfigInterface $scopeConfig
+     * @param StateInterface $cacheState
+     * @param Dir\Reader $reader
+     * @param VclGeneratorFactory $vclGeneratorFactory
+     * @param Json|null $serializer
+     */
+    public function __construct(
+        ReadFactory $readFactory,
+        ScopeConfigInterface $scopeConfig,
+        StateInterface $cacheState,
+        Dir\Reader $reader,
+        VclGeneratorFactory $vclGeneratorFactory,
+        Json $serializer = null
+    ) {
+        $this->serializer = $serializer;
+        parent::__construct($readFactory, $scopeConfig, $cacheState, $reader, $vclGeneratorFactory, $serializer);
+    }
 
     /**
      * Check if Fastly is selected for Caching Application
@@ -910,6 +979,26 @@ class Config extends \Magento\PageCache\Model\Config
     }
 
     /**
+     * return Rate Limiting master status
+     *
+     * @return mixed
+     */
+    public function isRateLimitingMasterEnabled()
+    {
+        return $this->_scopeConfig->getValue(self::XML_FASTLY_RATE_LIMITING_MASTER_ENABLE);
+    }
+
+    /**
+     * return Rate Limiting logging status
+     *
+     * @return mixed
+     */
+    public function isRateLimitingLoggingEnabled()
+    {
+        return $this->_scopeConfig->getValue(self::XML_FASTLY_RATE_LIMITING_LOGGING_ENABLE);
+    }
+
+    /**
      * return Rate Limiting limit
      *
      * @return mixed
@@ -996,7 +1085,7 @@ class Config extends \Magento\PageCache\Model\Config
         $extractMapping = json_decode($mapping, true);
         if (!$extractMapping) {
             try {
-                $extractMapping = unserialize($mapping); // @codingStandardsIgnoreLine
+                $extractMapping = $this->serializer->unserialize($mapping);
             } catch (\Exception $e) {
                 $extractMapping = [];
             }
@@ -1183,7 +1272,7 @@ class Config extends \Magento\PageCache\Model\Config
         );
         if ($expressions) {
             try {
-                $expressions = unserialize($expressions); // @codingStandardsIgnoreLine - used for conversion of old Magento format to json_decode
+                $expressions = $this->serializer->unserialize($expressions);
             } catch (\Exception $e) {
                 $expressions = [];
             }

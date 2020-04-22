@@ -1,5 +1,131 @@
 # Fastly_Cdn Release Notes
 
+## 1.2.132
+
+- Geolocation redirect now uses plain JS instead of require.js to redirect users https://github.com/fastly/fastly-magento2/pull/360
+- Change all password fields for logging endpoints to be obfuscated to make it easier to troubleshoot https://github.com/fastly/fastly-magento2/pull/361
+- Add ability to remove backends from the UI
+
+## 1.2.131
+
+- VCL changes to Datadome integration edge module
+- Add Netacea integration edge module
+
+## 1.2.130
+
+- Manually add default argument values to Config::saveConfig() to support all Magento 2.2.x versions https://github.com/fastly/fastly-magento2/pull/358
+- Add ability to remove backends https://github.com/fastly/fastly-magento2/pull/359
+- Add logging set up for S3, GCS, Honeycomb, Sumologic and Google Bigquery https://github.com/fastly/fastly-magento2/pull/350
+- Add ability to import configs that were previously exported
+
+## 1.2.129
+
+- Fix errors when adding conditions to existing backends https://github.com/fastly/fastly-magento2/pull/343
+
+## 1.2.128
+
+- Provide logging to rate limiting
+- Hide API token https://github.com/fastly/fastly-magento2/pull/342
+
+## 1.2.127
+
+- Add Datadome integration Edge Module
+
+## 1.2.126
+
+- Add stripping of dm_i query arguments used by Dotdigital campaigns in order to increase cache hit ratios
+- ESIs may be affected by a change in Fastly architecture where we compress ESIs on both shield and edge https://github.com/fastly/fastly-magento2/pull/338
+
+## 1.2.125
+
+- Fix for WAF dashboard showing that WAF was enabled if there were blocking rules however WAF wasn't enabled overall.
+- VCL change to cache images that are served directly from S3 and lack Cache-Control headers
+
+## 1.2.124
+
+- Fix for setup:di:compile issue https://github.com/fastly/fastly-magento2/pull/334
+- Move Import/Export menu under Tools menu https://github.com/fastly/fastly-magento2/pulls?q=is%3Apr+is%3Aclosed
+
+## 1.2.123
+
+- Introduce Verify images exist on the disk tunable. In most cases verifying images exist on the disk results in heavy IO penalty
+  especially when images are stored on a shared filesystem https://github.com/fastly/fastly-magento2/pull/330
+- Fix bug with UI showing VCL update is needed when it's not https://github.com/fastly/fastly-magento2/pull/326
+- Strip Listrak query arguments by default https://github.com/fastly/fastly-magento2/pull/325
+
+## 1.2.122
+
+- Make the rate limiting UI clearer by providing a top level on/off switch https://github.com/fastly/fastly-magento2/pull/321
+
+## 1.2.121
+
+- Rewrite the Vary VCL code to use accessors
+- Add Mobile Theme support Edge module https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/Edge-Modules/EDGE-MODULE-MOBILE-THEME-SUPPORT.md
+
+## 1.2.120
+
+- Convert whitespaces to underscores when creating Edge ACLs and Dictionaries to avoid syntax errors https://github.com/fastly/fastly-magento2/pull/319
+- Provide feedback in update blocking config if there is an error that happens during update https://github.com/fastly/fastly-magento2/pull/318
+
+
+## 1.2.119
+
+- GeoIP fixes https://github.com/fastly/fastly-magento2/pull/314 and https://github.com/fastly/fastly-magento2/pull/311
+- Update visibility in getmessageinstorelocale function https://github.com/fastly/fastly-magento2/pull/312
+
+## 1.2.118
+
+- Add notification to update Blocking Config when blocking changes are made https://github.com/fastly/fastly-magento2/pull/310
+- Add handling for GraphQL paths. This may be removed in the future after Magento core adds Vary GraphQL requests https://github.com/fastly/fastly-magento2/pull/307
+- Add fix for uenc brackets [] when using GeoIP https://github.com/fastly/fastly-magento2/pull/311
+
+## 1.2.117
+
+- Expose all options for configuring the backend. Previously we only exposed only selected fields https://github.com/fastly/fastly-magento2/pull/308
+
+## 1.2.116
+
+- Add notification to upload custom VCL snippets when they are changed
+
+## 1.2.115
+
+- Remove conflicting WAF bypass statement
+
+## 1.2.114
+
+- Add Override Host option to backend creation
+
+## 1.2.113
+
+- Warning when vcl is out of date https://github.com/fastly/fastly-magento2/pull/297
+
+## 1.2.112
+
+- Enhance export functionality to export Edge Module configs https://github.com/fastly/fastly-magento2/pull/295
+- Make sure we don't set uenc unless VCL version 1.2.111  https://github.com/fastly/fastly-magento2/pull/296
+
+## 1.2.111
+
+- Add Fastly Version UI https://github.com/fastly/fastly-magento2/pull/293
+- Add page URL to the GeoIP switcher https://github.com/fastly/fastly-magento2/pull/292
+
+## 1.2.110
+
+- Rework the rate limiting UI  https://github.com/fastly/fastly-magento2/pull/291
+- Allow creation of dictionaries or ACLs from Edge Module configuration screens https://github.com/fastly/fastly-magento2/pull/290
+
+## 1.2.109
+
+- Change composer magento-framework requirement to 101+. This change abandons 2.1.x
+
+## 1.2.108
+
+- Retag of 1.2.103 in order to fix M2.1.x upgrading. 
+
+## 1.2.107
+
+- Fix for 1.2.106 caused issues during checkout https://github.com/fastly/fastly-magento2/pull/288
+
 ## 1.2.106
 
 - Fix for missing type in phpdoc which results in failed compilation https://github.com/fastly/fastly-magento2/pull/286

@@ -26,7 +26,7 @@ use Magento\Framework\Cache\InvalidateLogger;
 use Fastly\Cdn\Helper\Data;
 use Fastly\Cdn\Helper\Vcl;
 use Psr\Log\LoggerInterface;
-use Magento\Backend\Model\Auth\Session\Proxy;
+use Magento\Backend\Model\Auth\Session;
 use Magento\Framework\App\State;
 
 /**
@@ -72,7 +72,7 @@ class Api
      */
     private $vcl;
     /**
-     * @var Proxy
+     * @var Session
      */
     private $authSession;
     /**
@@ -80,7 +80,7 @@ class Api
      */
     private $state;
 
-    private $resultJson;
+    private $errorMessage;
 
     /**
      * Api constructor.
@@ -91,7 +91,7 @@ class Api
      * @param Data $helper
      * @param LoggerInterface $log
      * @param Vcl $vcl
-     * @param Proxy $authSession
+     * @param Session $authSession
      * @param State $state
      */
     public function __construct(
@@ -101,7 +101,7 @@ class Api
         Data $helper,
         LoggerInterface $log,
         Vcl $vcl,
-        Proxy $authSession,
+        Session $authSession,
         State $state
     ) {
         $this->config = $config;
@@ -521,14 +521,21 @@ class Api
             $snippet['content'] = str_replace('####QUERY_PARAMETERS####', $queryParameters, $snippet['content']);
         }
 
-        $checkIfExists = $this->hasSnippet($version, $snippet['name']);
+        $snippetName = $snippet['name'];
+        $checkIfExists = $this->hasSnippet($version, $snippetName);
         $url = $this->_getApiServiceUri(). 'version/' .$version. '/snippet';
+
         if (!$checkIfExists) {
             $verb = \Zend_Http_Client::POST;
         } else {
             $verb = \Zend_Http_Client::PUT;
-            $url .= '/'.$snippet['name'];
-            unset($snippet['name'], $snippet['type'], $snippet['dynamic'], $snippet['priority']);
+            if (!isset($snippet['dynamic']) || $snippet['dynamic'] != 1) {
+                $url .= '/'.$snippetName;
+                unset($snippet['name'], $snippet['type'], $snippet['dynamic'], $snippet['priority']);
+            } else {
+                $snippet['name'] = $this->getSnippet($version, $snippetName)->id;
+                $url = $this->_getApiServiceUri(). 'snippet' . '/'.$snippet['name'];
+            }
         }
 
         $result = $this->_fetch($url, $verb, $snippet);
@@ -565,6 +572,10 @@ class Api
     {
         $url = $this->_getApiServiceUri(). 'snippet' . '/'.$snippet['name'];
         $result = $this->_fetch($url, \Zend_Http_Client::PUT, $snippet);
+
+        if (!$result) {
+            throw new LocalizedException(__($this->errorMessage));
+        }
 
         return $result;
     }
@@ -893,6 +904,105 @@ class Api
         $result = $this->_fetch($url, \Zend_Http_Client::POST, $params);
 
         return $result;
+    }
+
+    /**
+     * @param $name
+     * @param $version
+     * @return bool|mixed
+     * @throws LocalizedException
+     */
+    public function deleteBackend($name, $version)
+    {
+        $url = $this->_getApiServiceUri() . 'version/' . $version . '/backend/' . $name;
+        $result = $this->_fetch($url, \Zend_Http_Client::DELETE);
+
+        return $result;
+    }
+
+    /**
+     * @param $version
+     * @return bool|mixed
+     * @throws LocalizedException
+     */
+    public function getAllLogEndpoints($version)
+    {
+        $providers = $this->helper->getAvailableLogEndpointProviders();
+        $results = [];
+        foreach ($providers as $type => $providerName) {
+            $url = $this->_getApiServiceUri(). 'version/' . $version . '/logging/' . $type;
+            $endpoints = $this->_fetch($url, \Zend_Http_Client::GET);
+            foreach ($endpoints as $endpoint) {
+                $results[] = [
+                    'label' => "{$endpoint->name} [{$providerName}]",
+                    'name' => $endpoint->name,
+                    'type' => $type,
+                ];
+            }
+        }
+        return $results;
+    }
+
+    /**
+     * @param $version
+     * @param $type
+     * @return bool|mixed
+     * @throws LocalizedException
+     */
+    public function getLogEndpoints($version, $type)
+    {
+        $results = [];
+        $providers = $this->helper->getAvailableLogEndpointProviders();
+        $url = $this->_getApiServiceUri(). 'version/' . $version . '/logging/' . $type;
+        $endpoints = $this->_fetch($url, \Zend_Http_Client::GET);
+        foreach ($endpoints as $endpoint) {
+            $results[] = [
+                'label' => "{$endpoint->name} [{$providers[$type]}]",
+                'name' => $endpoint->name,
+                'type' => $type,
+            ];
+        }
+        return $results;
+    }
+
+    /**
+     * @param $version
+     * @param $type
+     * @param $name
+     * @return bool|mixed
+     * @throws LocalizedException
+     */
+    public function getLogEndpoint($version, $type, $name)
+    {
+        $url = $this->_getApiServiceUri(). 'version/' . $version . '/logging/' . $type . '/' . $name;
+        return $this->_fetch($url, \Zend_Http_Client::GET);
+    }
+
+    /**
+     * @param $version
+     * @param $type
+     * @param $params
+     * @return bool|mixed
+     * @throws LocalizedException
+     */
+    public function createLogEndpoint($version, $type, $params)
+    {
+        $url = $this->_getApiServiceUri() . 'version/' . $version . '/logging/' . $type;
+        return $this->_fetch($url, \Zend_Http_Client::POST, $params);
+    }
+
+    /**
+     * @param $version
+     * @param $type
+     * @param $params
+     * @param $oldName
+     * @return bool|mixed
+     * @throws LocalizedException
+     */
+    public function updateLogEndpoint($version, $type, $params, $oldName)
+    {
+        $url = $this->_getApiServiceUri() . 'version/' . $version . '/logging/' . $type . '/' . rawurlencode($oldName);
+        return $this->_fetch($url, \Zend_Http_Client::PUT, $params);
     }
 
     /**
@@ -1284,6 +1394,29 @@ class Api
     }
 
     /**
+     * method that fetches a VCL for specific version id
+     *
+     * @param $version
+     * @return bool|mixed
+     * @throws LocalizedException
+     */
+    public function getGeneratedVcl($version)
+    {
+        $url = $this->_getApiServiceUri() . 'version/' . $version . '/generated_vcl';
+        $result = $this->_fetch($url, \Zend_Http_Client::GET);
+
+        return $result;
+    }
+
+    public function getParticularVersion($version)
+    {
+        $url = $this->_getApiServiceUri() . 'version/' . $version;
+        $result = $this->_fetch($url, \Zend_Http_Client::GET);
+
+        return $result;
+    }
+
+    /**
      * Check if image optimization is enabled for the Fastly service
      *
      * @return bool|mixed
@@ -1363,6 +1496,11 @@ class Api
         $result = $this->_fetch($url, \Zend_Http_Client::GET);
 
         return $result;
+    }
+
+    public function getLastErrorMessage()
+    {
+        return $this->errorMessage;
     }
 
     /**
@@ -1448,7 +1586,8 @@ class Api
             if ($logError == true) {
                 $this->logger->critical('Return status ' . $responseCode, $uri);
             }
-
+            $errorDetails = $this->extractErrorDetails($responseBody, $responseMessage);
+            $this->errorMessage = $errorDetails;
             return false;
         }
 
@@ -1468,5 +1607,21 @@ class Api
         }
 
         $this->sendWebHook('*'. $type .' backtrace:*```' .  implode("\n", $trace) . '```');
+    }
+
+    /**
+     * @param $responseBody
+     * @param $responseMessage
+     * @return string
+     */
+    private function extractErrorDetails($responseBody, $responseMessage)
+    {
+        if ($responseBody) {
+            $decodedBody = json_decode($responseBody);
+            if (isset($decodedBody->detail)) {
+                return $responseMessage . ': ' . $decodedBody->detail;
+            }
+        }
+        return $responseMessage;
     }
 }

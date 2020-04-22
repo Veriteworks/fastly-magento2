@@ -24,6 +24,8 @@ use Fastly\Cdn\Model\Config;
 use Magento\Framework\View\Element\AbstractBlock;
 use Magento\Framework\View\Element\Context;
 use Magento\Framework\App\ResponseInterface as Response;
+use Magento\Framework\UrlInterface as Url;
+use Magento\Framework\Url\EncoderInterface;
 
 /**
  * Class GetAction
@@ -36,28 +38,39 @@ class GetAction extends AbstractBlock
      * @var Config
      */
     private $config;
-
     /**
      * @var Response
      */
     private $response;
+    /**
+     * @var Url
+     */
+    private $url;
+    /**
+     * @var EncoderInterface
+     */
+    private $urlEncoder;
 
     /**
      * GetAction constructor.
-     *
      * @param Config $config
      * @param Context $context
      * @param Response $response
-     * @param array $data
+     * @param Url $url
+     * @param EncoderInterface $urlEncoder
      */
     public function __construct(
         Config $config,
         Context $context,
         Response $response,
+        Url $url,
+        EncoderInterface $urlEncoder,
         array $data = []
     ) {
         $this->config = $config;
         $this->response = $response;
+        $this->url = $url;
+        $this->urlEncoder = $urlEncoder;
 
         parent::__construct($context, $data);
     }
@@ -75,17 +88,34 @@ class GetAction extends AbstractBlock
 
         /** @var string $actionUrl */
         $actionUrl = $this->getUrl('fastlyCdn/geoip/getaction');
+        $vclUploaded = $this->_request->getServer('HTTP_FASTLY_MAGENTO_VCL_UPLOADED');
+        $currentUrl = $this->url->getCurrentUrl();
+        $baseUrl = $this->url->getBaseUrl();
+        $webTypeUrl = $this->url->getBaseUrl(['_type' => Url::URL_TYPE_WEB]);
+        
+        if (strpos($currentUrl, $baseUrl) !== false) {
+            $targetUrl = $currentUrl;
+        } else {
+            $targetUrl = str_replace($webTypeUrl, $baseUrl, $currentUrl);
+        }
+
+        if ($vclUploaded) {
+            $actionUrl = $actionUrl . '?uenc=' . $this->urlEncoder->encode($targetUrl);
+        }
 
         // This page has an esi tag, set x-esi header if it is not already set
         $header = $this->response->getHeader('x-esi');
         if (empty($header)) {
             $this->response->setHeader("x-esi", "1");
         }
-
         // HTTPS ESIs are not supported so we need to turn them into HTTP
         return sprintf(
             '<esi:include src=\'%s\' />',
-            preg_replace("/^https/", "http", $actionUrl)
+            preg_replace(
+                "/^https/",
+                "http",
+                $actionUrl
+            )
         );
     }
 }

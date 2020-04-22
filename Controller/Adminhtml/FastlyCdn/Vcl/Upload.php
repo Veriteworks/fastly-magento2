@@ -20,19 +20,21 @@
  */
 namespace Fastly\Cdn\Controller\Adminhtml\FastlyCdn\Vcl;
 
+use Fastly\Cdn\Helper\Vcl;
+use Fastly\Cdn\Model\Api;
+use Fastly\Cdn\Model\Config;
+use Fastly\Cdn\Model\Config\Backend\CustomSnippetUpload;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\Controller\Result\JsonFactory;
-use Fastly\Cdn\Model\Config;
-use Fastly\Cdn\Model\Api;
-use Fastly\Cdn\Helper\Vcl;
-use Fastly\Cdn\Model\Config\Backend\CustomSnippetUpload;
-use Magento\Framework\Stdlib\DateTime\DateTime;
-use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Filesystem;
-use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Stdlib\DateTime\DateTime;
+use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
+use Magento\Config\Model\ResourceModel\Config as CoreConfig;
 
 /**
  * Class Upload
@@ -77,6 +79,10 @@ class Upload extends Action
      * @var Filesystem
      */
     private $filesystem;
+    /**
+     * @var CoreConfig
+     */
+    private $coreConfig;
 
     /**
      * Upload constructor.
@@ -91,6 +97,7 @@ class Upload extends Action
      * @param DateTime $time
      * @param TimezoneInterface $timezone
      * @param Filesystem $filesystem
+     * @param CoreConfig $coreConfig
      */
     public function __construct(
         Context $context,
@@ -102,7 +109,8 @@ class Upload extends Action
         CustomSnippetUpload $customSnippetUpload,
         DateTime $time,
         TimezoneInterface $timezone,
-        Filesystem $filesystem
+        Filesystem $filesystem,
+        CoreConfig $coreConfig
     ) {
         $this->request = $request;
         $this->resultJson = $resultJsonFactory;
@@ -114,6 +122,7 @@ class Upload extends Action
         $this->timezone = $timezone;
         $this->filesystem = $filesystem;
         parent::__construct($context);
+        $this->coreConfig = $coreConfig;
     }
 
     /**
@@ -170,7 +179,7 @@ class Upload extends Action
             $this->createGzipHeader($clone);
 
             $condition = [
-                'name'      => Config::FASTLY_MAGENTO_MODULE.'_pass',
+                'name'      => Config::FASTLY_MAGENTO_MODULE . '_pass',
                 'statement' => 'req.http.x-pass',
                 'type'      => 'REQUEST',
                 'priority'  => 90
@@ -179,7 +188,7 @@ class Upload extends Action
             $request = [
                 'action'            => 'pass',
                 'max_stale_age'     => 3600,
-                'name'              => Config::FASTLY_MAGENTO_MODULE.'_request',
+                'name'              => Config::FASTLY_MAGENTO_MODULE . '_request',
                 'request_condition' => $createCondition->name,
                 'service_id'        => $service->id,
                 'version'           => $currActiveVersion
@@ -207,7 +216,7 @@ class Upload extends Action
 
             $comment = ['comment' => 'Magento Module uploaded VCL'];
             $this->api->addComment($clone->number, $comment);
-
+            $this->coreConfig->saveConfig(Config::UPDATED_VCL_FLAG, 1, ScopeConfigInterface::SCOPE_TYPE_DEFAULT, 0);
             return $result->setData([
                 'status'            => true,
                 'active_version'    => $clone->number
@@ -294,7 +303,7 @@ class Upload extends Action
     private function createGzipHeader($clone)
     {
         $condition = [
-            'name'      => Config::FASTLY_MAGENTO_MODULE.'_gzip_safety',
+            'name'      => Config::FASTLY_MAGENTO_MODULE . '_gzip_safety',
             'statement' => 'beresp.http.x-esi',
             'type'      => 'CACHE',
             'priority'  => 100

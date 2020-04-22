@@ -10,6 +10,7 @@ let config = {
             acl: 'Fastly_Cdn/js/edge-acl',
             customSyntheticPages: 'Fastly_Cdn/js/custom-synthetic-pages',
             backends: 'Fastly_Cdn/js/backends',
+            logEndpoints: 'Fastly_Cdn/js/log-endpoints',
             customSnippets: 'Fastly_Cdn/js/custom-snippets',
             setServiceLabel: 'Fastly_Cdn/js/service-label',
             overlay: 'Fastly_Cdn/js/overlay',
@@ -26,8 +27,10 @@ let config = {
             domains: 'Fastly_Cdn/js/domains',
             rateLimiting: 'Fastly_Cdn/js/rate-limiting',
             maintenance: 'Fastly_Cdn/js/maintenance',
-            //fastlyImport: 'Fastly_Cdn/js/import',
-            fastlyExport: 'Fastly_Cdn/js/export'
+            fastlyImport: 'Fastly_Cdn/js/import',
+            fastlyExport: 'Fastly_Cdn/js/export',
+            versionHistory: 'Fastly_Cdn/js/version-history',
+            importExportRenderer: 'Fastly_Cdn/js/import-export-renderer'
         }
     }
 };

@@ -293,63 +293,189 @@
                 </label>
                 <div class="admin__field-control">
                     <select name="shield" id="backend_shield" class="admin__control-text">
-                        <option value="">(none)</option>
-                        <option value="fjr-ae">AE, Fujairah Al Mahta - Dubai</option>
-                        <option value="brisbane-au">AU, Brisbane</option>
-                        <option value="melbourne-au">AU, Melbourne</option>
-                        <option value="perth-au">AU, Perth</option>
-                        <option value="sydney-au">
-                            AU, Sydney - Recommended for AWS ap-southeast-2, GCP australia-southeast1 origins
-                        </option>
-                        <option value="gru-br-sa">
-                            BR, Sao Paulo - Recommended for AWS sa-east-1, GCP southamerica-east1
-                        </option>
-                        <option value="yyz-on-ca">CA, Toronto</option>
-                        <option value="yul-montreal-ca">
-                            CA, Montreal - Recommended for AWS ca-central-1, GCP northamerica-northeast1 origins
-                        </option>
-                        <option value="mad-madrid-es">ES, Madrid</option>
-                        <option value="hel-helsinki-fi">FI, Helsinki - Recommended for GCP europe-north1</option>
-                        <option value="cdg-par-fr">FR, Paris- Recommended for AWS eu-west3</option>
-                        <option value="hongkong-hk">HK, Hong Kong</option>
-                        <option value="hhn-frankfurt-de">
-                            DE, Frankfurt - Interxion - Recommended for GCP europe-west3 origins
-                        </option>
-                        <option value="frankfurt-de">DE, Frankfurt - Recommended for AWS eu-central1 origins</option>
-                        <option value="tyo-tokyo-jp">JP, Tokyo - Recommended for AWS ap-northeast-1 origins</option>
-                        <option value="osaka-jp">JP, Osaka - Recommened for AWS ap-northeast-3 origins</option>
-                        <option value="amsterdam-nl">NL, Amsterdam - Recommended for GCP eu-west1/4 origins</option>
-                        <option value="auckland-akl">NZ, Auckland</option>
-                        <option value="wellington-wlg">NZ, Wellington</option>
-                        <option value="stockholm-bma">SE, Stockholm</option>
-                        <option value="singapore-sg">
-                            SG, Singapore - Recommended for AWS ap-southeast-1, GCP asia-southeast1 origins
-                        </option>
-                        <option value="london_city-uk">
-                            UK, London - LCY - Recommended for AWS eu-west1/2 origins
-                        </option>
-                        <option value="london-uk">UK, London - LHR - Recommended for GCP eu-west2 origins</option>
-                        <option value="atl-ga-us">US, Atlanta, GA</option>
-                        <option value="bos-ma-us">US, Boston, MA</option>
-                        <option value="mdw-il-us">US, Chicago, IL - Recommended for GCP us-central1 origins</option>
-                        <option value="den-co-us">US, Denver, CO</option>
-                        <option value="dallas-tx-us">US, Dallas, TX</option>
-                        <option value="iah-tx-us">US, Houston, TX</option>
-                        <option value="iad-va-us">
-                            US, Washington, DC - deprecated
-                        </option>
-                        <option value="bwi-va-us">
-                            US, Washington, DC - Recommended for AWS us-east1, GCP us-east1/4 origins
-                        </option>
-                        <option value="lax-ca-us">US, Los Angeles, CA - Recommended for GCP us-west2</option>
-                        <option value="miami-fl-us">US, Miami, FL</option>
-                        <option value="jfk-ny-us">US, New York City, NY</option>
-                        <option value="sjc-ca-us">US, San Jose, CA</option>
-                        <option value="sea-wa-us">
-                            US, Seattle, WA - Recommended for AWS us-west2, GCP us-west1 origins
-                        </option>
-                        <option value="cpt-capetown-za">ZA, Capetown</option>
-                        <option value="jnb-johannesburg-za">ZA, Johannesburg</option>
+                        <optgroup label="No Region">
+                            <option value="">
+                            (none)
+                            </option>
+                        </optgroup>
+                        <optgroup label="Europe">
+                            <option value="amsterdam-nl">
+                            Amsterdam - Recommended for GCP europe-west1/4 origins
+                            </option>
+                            <option value="cph-copenhagen-dk">
+                            Copenhagen
+                            </option>
+                            <option value="dub-dublin-ie">
+                            Dublin
+                            </option>
+                            <option value="frankfurt-de">
+                            Frankfurt - Recommended for AWS eu-central-1, GCP europe-west3/6 origins
+                            </option>
+                            <option value="hhn-frankfurt-de">
+                            Frankfurt - Interxion
+                            </option>
+                            <option value="hel-helsinki-fi">
+                            Helsinki - Recommended for GCP europe-north1
+                            </option>
+                            <option value="london_city-uk">
+                            London - LCY
+                            </option>
+                            <option value="lon-london-uk">
+                            London - LON
+                            </option>
+                            <option value="london-uk">
+                            London - Slough - Recommended for AWS eu-west-1/2, GCP europe-west2 origins
+                            </option>
+                            <option value="mad-madrid-es">
+                            Madrid
+                            </option>
+                            <option value="man-manchester-uk">
+                            Manchester
+                            </option>
+                            <option value="mxp-milan-it">
+                            Milan
+                            </option>
+                            <option value="osl-oslo-no">
+                            Oslo
+                            </option>
+                            <option value="cdg-par-fr">
+                            Paris - Recommended for AWS eu-west-3
+                            </option>
+                            <option value="stockholm-bma">
+                            Stockholm
+                            </option>
+                            <option value="vie-vienna-at">
+                            Vienna
+                            </option>
+                        </optgroup>
+                        <optgroup label="United States">
+                            <option value="bwi-va-us">
+                            Ashburn - BWI
+                            </option>
+                            <option value="dca-dc-us">
+                            Ashburn - DCA - Recommended for AWS us-east-1, GCP us-east4 origins
+                            </option>
+                            <option value="fty-ga-us">
+                            Atlanta - FTY - Recommended for GCP us-east1 origins
+                            </option>
+                            <option value="pdk-ga-us">
+                            Atlanta - PDK
+                            </option>
+                            <option value="bos-ma-us">
+                            Boston
+                            </option>
+                            <option value="chi-il-us">
+                            Chicago - CHI
+                            </option>
+                            <option value="mdw-il-us">
+                            Chicago - MDW - Recommended for GCP us-central1 origins
+                            </option>
+                            <option value="pwk-il-us">
+                            Chicago - PWK
+                            </option>
+                            <option value="dallas-tx-us">
+                            Dallas
+                            </option>
+                            <option value="dal-tx-us">
+                            Dallas - DAL
+                            </option>
+                            <option value="den-co-us">
+                            Denver
+                            </option>
+                            <option value="iah-tx-us">
+                            Houston
+                            </option>
+                            <option value="jax-fl-us">
+                            Jacksonville
+                            </option>
+                            <option value="bur-ca-us">
+                            Los Angeles - BUR - Recommended for GCP us-west2
+                            </option>
+                            <option value="lax-ca-us">
+                            Los Angeles - LAX
+                            </option>
+                            <option value="miami-fl-us">
+                            Miami
+                            </option>
+                            <option value="msp-mn-us">
+                            Minneapolis
+                            </option>
+                            <option value="yul-montreal-ca">
+                            Montreal
+                            </option>
+                            <option value="lga-ny-us">
+                            New York City - LGA
+                            </option>
+                            <option value="ewr-nj-us">
+                            Newark
+                            </option>
+                            <option value="pao-ca-us">
+                            Palo Alto
+                            </option>
+                            <option value="sjc-ca-us">
+                            San Jose
+                            </option>
+                            <option value="sea-wa-us">
+                            Seattle - Recommended for AWS us-west-2, GCP us-west1 origins
+                            </option>
+                            <option value="yyz-on-ca">
+                            Toronto - Recommended for AWS ca-central-1, GCP northamerica-northeast1 origins
+                            </option>
+                        </optgroup>
+                        <optgroup label="Asia/Pacific">
+                            <option value="auckland-akl">
+                            Auckland
+                            </option>
+                            <option value="brisbane-au">
+                            Brisbane
+                            </option>
+                            <option value="fjr-ae">
+                            Fujairah Al Mahta
+                            </option>
+                            <option value="hongkong-hk">
+                            Hong Kong
+                            </option>
+                            <option value="melbourne-au">
+                            Melbourne
+                            </option>
+                            <option value="osaka-jp">
+                            Osaka - Recommended for AWS ap-northeast-3, GCP asia-northeast2 origins
+                            </option>
+                            <option value="perth-au">
+                            Perth
+                            </option>
+                            <option value="singapore-sg">
+                            Singapore - Recommended for AWS ap-south-1/ap-southeast-1, GCP asia-south1/asia-southeast1 origins
+                            </option>
+                            <option value="sydney-au">
+                            Sydney - Recommended for AWS ap-southeast-2, GCP australia-southeast1 origins
+                            </option>
+                            <option value="tyo-tokyo-jp">
+                            Tokyo - Recommended for AWS ap-northeast-1/2, GCP asia-northeast1 origins
+                            </option>
+                            <option value="hnd-tokyo-jp">
+                            Tokyo - HND
+                            </option>
+                            <option value="wellington-wlg">
+                            Wellington
+                            </option>
+                        </optgroup>
+                        <optgroup label="South America">
+                            <option value="bog-bogota-co">
+                            Bogota
+                            </option>
+                            <option value="gru-br-sa">
+                            Sao Paulo - Recommended for AWS sa-east-1, GCP southamerica-east1
+                            </option>
+                        </optgroup>
+                        <optgroup label="South Africa">
+                            <option value="cpt-capetown-za">
+                            Cape Town
+                            </option>
+                            <option value="jnb-johannesburg-za">
+                            Johannesburg
+                            </option>
+                        </optgroup>
                     </select>
                     <div class="admin__field-note">
                         The shield POP designated to reduce inbound load on this origin by serving the cached data to
@@ -468,6 +594,9 @@
                     <div class="admin__field-note"><a id="detach" href="#">Detach condition</a> <span id="sep">|</span>
                         <a id="create-condition" href="#">Create a new request condition</a>
                     </div>
+                    <input type="hidden" name="condition_name" id="condition_name"/>
+                    <input type="hidden" name="apply_if" id="apply_if"/>
+                    <input type="hidden" name="condition_priority" id="condition_priority"/>
                 </div>
             </div>
             <div class="admin__field field _required">
@@ -499,64 +628,189 @@
                 </label>
                 <div class="admin__field-control">
                     <select name="shield" id="backend_shield" class="admin__control-select">
-                        <option value="">(none)</option>
-                        <option value="fjr-ae">AE, Fujairah Al Mahta - Dubai</option>
-                        <option value="brisbane-au">AU, Brisbane</option>
-                        <option value="melbourne-au">AU, Melbourne</option>
-                        <option value="perth-au">AU, Perth</option>
-                        <option value="sydney-au">
-                            AU, Sydney - Recommended for AWS ap-southeast-2, GCP australia-southeast1 origins
-                        </option>
-                        <option value="gru-br-sa">
-                            BR, Sao Paulo - Recommended for AWS sa-east-1, GCP southamerica-east1
-                        </option>
-                        <option value="yyz-on-ca">CA, Toronto</option>
-                        <option value="yul-montreal-ca">
-                            CA, Montreal - Recommended for AWS ca-central-1, GCP northamerica-northeast1 origins
-                        </option>
-                        <option value="mad-madrid-es">ES, Madrid</option>
-                        <option value="hel-helsinki-fi">FI, Helsinki - Recommended for GCP europe-north1</option>
-                        <option value="cdg-par-fr">FR, Paris- Recommended for AWS eu-west3</option>
-                        <option value="hongkong-hk">HK, Hong Kong</option>
-                        <option value="hhn-frankfurt-de">
-                            DE, Frankfurt - Interxion - Recommended for GCP europe-west3 origins
-                        </option>
-                        <option value="frankfurt-de">DE, Frankfurt - Recommended for AWS eu-central1 origins</option>
-                        <option value="tokyo-jp2">JP, Tokyo - deprecated</option>
-                        <option value="tyo-tokyo-jp">JP, Tokyo - Recommended for AWS ap-northeast-1 origins</option>
-                        <option value="osaka-jp">JP, Osaka - Recommened for AWS ap-northeast-3 origins</option>
-                        <option value="amsterdam-nl">NL, Amsterdam - Recommended for GCP eu-west1/4 origins</option>
-                        <option value="auckland-akl">NZ, Auckland</option>
-                        <option value="wellington-wlg">NZ, Wellington</option>
-                        <option value="stockholm-bma">SE, Stockholm</option>
-                        <option value="singapore-sg">
-                            SG, Singapore - Recommended for AWS ap-southeast-1, GCP asia-southeast1 origins
-                        </option>
-                        <option value="london_city-uk">
-                            UK, London - LCY - Recommended for AWS eu-west1/2 origins
-                        </option>
-                        <option value="london-uk">UK, London - LHR - Recommended for GCP eu-west2 origins</option>
-                        <option value="atl-ga-us">US, Atlanta, GA</option>
-                        <option value="bos-ma-us">US, Boston, MA</option>
-                        <option value="mdw-il-us">US, Chicago, IL - Recommended for GCP us-central1 origins</option>
-                        <option value="den-co-us">US, Denver, CO</option>
-                        <option value="dallas-tx-us">US, Dallas, TX</option>
-                        <option value="iah-tx-us">US, Houston, TX</option>
-                        <option value="iad-va-us">
-                            US, Washington, DC - deprecated
-                        </option>
-                        <option value="bwi-va-us">
-                            US, Washington, DC - Recommended for AWS us-east1, GCP us-east1/4 origins
-                        </option>
-                        <option value="lax-ca-us">US, Los Angeles, CA - Recommended for GCP us-west2</option>
-                        <option value="miami-fl-us">US, Miami, FL</option>
-                        <option value="jfk-ny-us">US, New York City, NY</option>
-                        <option value="sjc-ca-us">US, San Jose, CA</option>
-                        <option value="sea-wa-us">
-                            US, Seattle, WA - Recommended for AWS us-west2, GCP us-west1 origins
-                        </option>
-                        <option value="cpt-capetown-za">ZA, Capetown</option>
-                        <option value="jnb-johannesburg-za">ZA, Johannesburg</option>
+                        <optgroup label="No Region">
+                            <option value="">
+                            (none)
+                            </option>
+                        </optgroup>
+                        <optgroup label="Europe">
+                            <option value="amsterdam-nl">
+                            Amsterdam - Recommended for GCP europe-west1/4 origins
+                            </option>
+                            <option value="cph-copenhagen-dk">
+                            Copenhagen
+                            </option>
+                            <option value="dub-dublin-ie">
+                            Dublin
+                            </option>
+                            <option value="frankfurt-de">
+                            Frankfurt - Recommended for AWS eu-central-1, GCP europe-west3/6 origins
+                            </option>
+                            <option value="hhn-frankfurt-de">
+                            Frankfurt - Interxion
+                            </option>
+                            <option value="hel-helsinki-fi">
+                            Helsinki - Recommended for GCP europe-north1
+                            </option>
+                            <option value="london_city-uk">
+                            London - LCY
+                            </option>
+                            <option value="lon-london-uk">
+                            London - LON
+                            </option>
+                            <option value="london-uk">
+                            London - Slough - Recommended for AWS eu-west-1/2, GCP europe-west2 origins
+                            </option>
+                            <option value="mad-madrid-es">
+                            Madrid
+                            </option>
+                            <option value="man-manchester-uk">
+                            Manchester
+                            </option>
+                            <option value="mxp-milan-it">
+                            Milan
+                            </option>
+                            <option value="osl-oslo-no">
+                            Oslo
+                            </option>
+                            <option value="cdg-par-fr">
+                            Paris - Recommended for AWS eu-west-3
+                            </option>
+                            <option value="stockholm-bma">
+                            Stockholm
+                            </option>
+                            <option value="vie-vienna-at">
+                            Vienna
+                            </option>
+                        </optgroup>
+                        <optgroup label="United States">
+                            <option value="bwi-va-us">
+                            Ashburn - BWI
+                            </option>
+                            <option value="dca-dc-us">
+                            Ashburn - DCA - Recommended for AWS us-east-1, GCP us-east4 origins
+                            </option>
+                            <option value="fty-ga-us">
+                            Atlanta - FTY - Recommended for GCP us-east1 origins
+                            </option>
+                            <option value="pdk-ga-us">
+                            Atlanta - PDK
+                            </option>
+                            <option value="bos-ma-us">
+                            Boston
+                            </option>
+                            <option value="chi-il-us">
+                            Chicago - CHI
+                            </option>
+                            <option value="mdw-il-us">
+                            Chicago - MDW - Recommended for GCP us-central1 origins
+                            </option>
+                            <option value="pwk-il-us">
+                            Chicago - PWK
+                            </option>
+                            <option value="dallas-tx-us">
+                            Dallas
+                            </option>
+                            <option value="dal-tx-us">
+                            Dallas - DAL
+                            </option>
+                            <option value="den-co-us">
+                            Denver
+                            </option>
+                            <option value="iah-tx-us">
+                            Houston
+                            </option>
+                            <option value="jax-fl-us">
+                            Jacksonville
+                            </option>
+                            <option value="bur-ca-us">
+                            Los Angeles - BUR - Recommended for GCP us-west2
+                            </option>
+                            <option value="lax-ca-us">
+                            Los Angeles - LAX
+                            </option>
+                            <option value="miami-fl-us">
+                            Miami
+                            </option>
+                            <option value="msp-mn-us">
+                            Minneapolis
+                            </option>
+                            <option value="yul-montreal-ca">
+                            Montreal
+                            </option>
+                            <option value="lga-ny-us">
+                            New York City - LGA
+                            </option>
+                            <option value="ewr-nj-us">
+                            Newark
+                            </option>
+                            <option value="pao-ca-us">
+                            Palo Alto
+                            </option>
+                            <option value="sjc-ca-us">
+                            San Jose
+                            </option>
+                            <option value="sea-wa-us">
+                            Seattle - Recommended for AWS us-west-2, GCP us-west1 origins
+                            </option>
+                            <option value="yyz-on-ca">
+                            Toronto - Recommended for AWS ca-central-1, GCP northamerica-northeast1 origins
+                            </option>
+                        </optgroup>
+                        <optgroup label="Asia/Pacific">
+                            <option value="auckland-akl">
+                            Auckland
+                            </option>
+                            <option value="brisbane-au">
+                            Brisbane
+                            </option>
+                            <option value="fjr-ae">
+                            Fujairah Al Mahta
+                            </option>
+                            <option value="hongkong-hk">
+                            Hong Kong
+                            </option>
+                            <option value="melbourne-au">
+                            Melbourne
+                            </option>
+                            <option value="osaka-jp">
+                            Osaka - Recommened for AWS ap-northeast-3, GCP asia-northeast2 origins
+                            </option>
+                            <option value="perth-au">
+                            Perth
+                            </option>
+                            <option value="singapore-sg">
+                            Singapore - Recommended for AWS ap-south-1/ap-southeast-1, GCP asia-south1/asia-southeast1 origins
+                            </option>
+                            <option value="sydney-au">
+                            Sydney - Recommended for AWS ap-southeast-2, GCP australia-southeast1 origins
+                            </option>
+                            <option value="tyo-tokyo-jp">
+                            Tokyo - Recommended for AWS ap-northeast-1/2, GCP asia-northeast1 origins
+                            </option>
+                            <option value="hnd-tokyo-jp">
+                            Tokyo - HND
+                            </option>
+                            <option value="wellington-wlg">
+                            Wellington
+                            </option>
+                        </optgroup>
+                        <optgroup label="South America">
+                            <option value="bog-bogota-co">
+                            Bogota
+                            </option>
+                            <option value="gru-br-sa">
+                            Sao Paulo - Recommended for AWS sa-east-1, GCP southamerica-east1
+                            </option>
+                        </optgroup>
+                        <optgroup label="South Africa">
+                            <option value="cpt-capetown-za">
+                            Cape Town
+                            </option>
+                            <option value="jnb-johannesburg-za">
+                            Johannesburg
+                            </option>
+                        </optgroup>
                     </select>
                     <div class="admin__field-note">
                         The shield POP designated to reduce inbound load on this origin by serving the cached data to
@@ -572,7 +826,7 @@
                     <span><?php /* @noEscape */ echo __("Auto load balance") ?></span>
                 </label>
                 <div class="admin__field-control">
-                    <select name="auto_load_balance" id="auto_load_balance" class="admin__control-select">
+                    <select name="auto_loadbalance" id="auto_loadbalance" class="admin__control-select">
                         <option value="0">No</option>
                         <option value="1">Yes</option>
                     </select>
@@ -677,6 +931,7 @@
                         <label class="admin__field-label" for="certificate-no">
                             <b>No,</b> do not verify my TLS certificate
                         </label>
+                        <div class="admin__field-note" id="certificate-no-msg"></div>
                     </div>
                 </div>
 
@@ -922,9 +1177,957 @@
                     <div class="admin__field-note">How long to wait between bytes in milliseconds.</div>
                 </div>
             </div>
+
+            <div class="admin__field field">
+                <label for="override_host" class="admin__field-label">
+                    <span><?php /* @noEscape */
+                        echo __("Override host") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="override_host"
+                           type="text"
+                           id="override_host"
+                           class="admin__control-text"
+                           value="">
+                    <div class="admin__field-note">Override the host header being sent to your origin regardless of the
+                        host used in the initial request. Only necessary if the domain your origin is expecting is
+                        different than what Fastly hosts. </div>
+                </div>
+            </div>
         </fieldset>
     </form>
 </script>
+
+<!-- Log endpoints creation overlay templates -->
+<!-- Honeycomb -->
+<script type="text/x-magento-template" id="fastly-create-log-endpoint-template-honeycomb">
+    <div class="messages">
+        <div class="message message-warning fastly-message-warning" style="display: none">
+            <?php /* @noEscape */ echo __("You are about to clone your active version #x.")?>
+            <?php /* @noEscape */ echo __("Your log endpoint will be created in version #y.")?>
+        </div>
+        <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+    </div>
+    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
+          method="POST"
+          id="create-log-endpoint-form"
+          name="create-log-endpoint-form"
+          class="form-inline"
+          enctype="multipart/form-data">
+        <fieldset class="admin__fieldset form-list question">
+            <div class="admin__field field maintenance-checkbox-container">
+                <label for="fastly_activate_log_endpoint" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __('Activate after the change')?></span>
+                </label>
+                <div class="admin__field-control">
+                    <div class="admin__field-option">
+                        <input class="admin__control-checkbox"
+                               type="checkbox"
+                               name="fastly_activate_log_endpoint"
+                               id="fastly_activate_log_endpoint"
+                               checked/>
+                        <label class="admin__field-label" for="fastly_activate_log_endpoint"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="condition" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Condition") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <span id="attach_span" style>
+                        This will happen all the time unless you <a id="attach" href="#">Attach a condition</a>
+                    </span>
+                    <select name="conditions" id="conditions" class="admin__control-select"></select>
+                    <div class="admin__field-note"><a id="detach" href="#">Detach condition</a> <span id="sep">|</span>
+                        <a id="create-response-condition" href="#">Create a new response condition</a>
+                    </div>
+                    <input type="hidden" name="condition_name" id="condition_name"/>
+                    <input type="hidden" name="apply_if" id="apply_if"/>
+                    <input type="hidden" name="condition_priority" id="condition_priority"/>
+                </div>
+            </div>
+            <input type="hidden" name="endpoint_type">
+            <input type="hidden" name="old_name">
+            <div class="admin__field field _required">
+                <label for="log_endpoint[name]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Name") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[name]" id="log_endpoint[name]" class="admin__control-text required-entry">
+                    <div class="admin__field-note">
+                        The name of your endpoint, such as <b>My endpoint</b>.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field __required">
+                <label for="log_endpoint[format]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Log format") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <textarea rows="6" name="log_endpoint[format]" id="log_endpoint[format]" class="admin__control-text required-entry">{
+  "time":"%{begin:%Y-%m-%dT%H:%M:%SZ}t",
+  "data":  {
+    "service_id":"%{req.service_id}V",
+    "time_elapsed":%D,
+    "request":"%m",
+    "host":"%{Fastly-Orig-Host}i",
+    "url":"%{cstr_escape(req.url)}V",
+    "protocol":"%H",
+    "is_ipv6":%{if(req.is_ipv6, "true", "false")}V,
+    "is_tls":%{if(req.is_ssl, "true", "false")}V,
+    "is_h2":%{if(fastly_info.is_h2, "true", "false")}V,
+    "client_ip":"%h",
+    "geo_city":"%{client.geo.city.utf8}V",
+    "geo_country_code":"%{client.geo.country_code}V",
+    "server_datacenter":"%{server.datacenter}V",
+    "request_referer":"%{Referer}i",
+    "request_user_agent":"%{User-Agent}i",
+    "request_accept_content":"%{Accept}i",
+    "request_accept_language":"%{Accept-Language}i",
+    "request_accept_charset":"%{Accept-Charset}i",
+    "cache_status":"%{regsub(fastly_info.state, "^(HIT-(SYNTH)|(HITPASS|HIT|MISS|PASS|ERROR|PIPE)).*", "\\2\\3") }V",
+    "status":"%s",
+    "content_type":"%{Content-Type}o",
+    "req_header_size":%{req.header_bytes_read}V,
+    "req_body_size":%{req.body_bytes_read}V,
+    "resp_header_size":%{resp.header_bytes_written}V,
+    "resp_body_size":%{resp.body_bytes_written}V
+  }
+}</textarea>
+                    <div class="admin__field-note">
+                        A suggested format string appears by default.
+                        See <a target="_blank" href="https://docs.fastly.com/en/guides/setting-up-remote-log-streaming" rel="noopener noreferrer">Fastly's log files docs</a>,
+                        <a target="_blank" href="https://www.varnish-cache.org/docs/2.1/reference/vcl.html#variables" rel="noopener noreferrer">Varnish's descriptions of VCL variables</a>,
+                        and <a target="_blank" href="https://docs.fastly.com/vcl/variables/" rel="noopener noreferrer">Fastly's available VCL variables</a> for more info.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[token]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Write key") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[token]" id="log_endpoint[token]" class="admin__control-text required-entry masked" type="text">
+                    <div class="admin__field-note">
+                        The Write key for your Honeycomb team (available on your <a href="https://ui.honeycomb.io/account" target="_blank" rel="noopener">Account Page</a>).
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[dataset]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Dataset") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[dataset]" id="log_endpoint[dataset]" class="admin__control-text required-entry">
+                    <div class="admin__field-note">
+                        The name of your Honeycomb data set, such as <b>My dataset</b>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin__field field">
+                <label class="admin__field-label">
+                    Advanced options
+                </label>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[placement]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Placement") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <select name="log_endpoint[placement]" id="log_endpoint[placement]" class="admin__control-text">
+                        <option value="" selected>Format Version Default</option>
+                        <option value="waf_debug">WAF Debug</option>
+                        <option value="none">None</option>
+                    </select>
+                    <div class="admin__field-note">
+                        <a target="_blank" href="https://docs.fastly.com/api/logging" rel="noopener noreferrer">Learn more about changing logging call placement</a>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</script>
+
+<!-- Sumologic -->
+<script type="text/x-magento-template" id="fastly-create-log-endpoint-template-sumologic">
+    <div class="messages">
+        <div class="message message-warning fastly-message-warning" style="display: none">
+            <?php /* @noEscape */ echo __("You are about to clone your active version #x.")?>
+            <?php /* @noEscape */ echo __("Your log endpoint will be created in version #y.")?>
+        </div>
+        <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+    </div>
+    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
+          method="POST"
+          id="create-log-endpoint-form"
+          name="create-log-endpoint-form"
+          class="form-inline"
+          enctype="multipart/form-data">
+        <fieldset class="admin__fieldset form-list question">
+            <div class="admin__field field maintenance-checkbox-container">
+                <label for="fastly_activate_log_endpoint" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __('Activate after the change')?></span>
+                </label>
+                <div class="admin__field-control">
+                    <div class="admin__field-option">
+                        <input class="admin__control-checkbox"
+                               type="checkbox"
+                               name="fastly_activate_log_endpoint"
+                               id="fastly_activate_log_endpoint"
+                               checked/>
+                        <label class="admin__field-label" for="fastly_activate_log_endpoint"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="condition" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Condition") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <span id="attach_span" style>
+                        This will happen all the time unless you <a id="attach" href="#">Attach a condition</a>
+                    </span>
+                    <select name="conditions" id="conditions" class="admin__control-select"></select>
+                    <div class="admin__field-note"><a id="detach" href="#">Detach condition</a> <span id="sep">|</span>
+                        <a id="create-response-condition" href="#">Create a new response condition</a>
+                    </div>
+                    <input type="hidden" name="condition_name" id="condition_name"/>
+                    <input type="hidden" name="apply_if" id="apply_if"/>
+                    <input type="hidden" name="condition_priority" id="condition_priority"/>
+                </div>
+            </div>
+            <input type="hidden" name="endpoint_type">
+            <input type="hidden" name="old_name">
+            <div class="admin__field field _required">
+                <label for="log_endpoint[name]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Name") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[name]" id="log_endpoint[name]" class="admin__control-text required-entry">
+                    <div class="admin__field-note">
+                        The name of your endpoint, such as <b>My endpoint</b>.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field __required">
+                <label for="log_endpoint[format]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Log format") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <textarea rows="6" name="log_endpoint[format]" id="log_endpoint[format]" class="admin__control-text required-entry">
+ %h %l %u %t "%r" %>s %b</textarea>
+                    <div class="admin__field-note">
+                        An Apache-style string or VCL variables to use for log formatting (the Apache Common Log format string appears by default).
+                        See <a target="_blank" href="https://docs.fastly.com/en/guides/setting-up-remote-log-streaming" rel="noopener noreferrer" class="external-link">Fastly's log files docs</a>,
+                        <a target="_blank" href="https://www.varnish-cache.org/docs/2.1/reference/vcl.html#variables" rel="noopener noreferrer" class="external-link">Varnish's descriptions of VCL variables</a>,
+                        and <a target="_blank" href="https://docs.fastly.com/vcl/variables/" rel="noopener noreferrer" class="external-link">Fastly's available VCL variables</a> for more info.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[url]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Collection URL") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[url]" id="log_endpoint[url]" class="admin__control-text required-entry">
+                    <div class="admin__field-note">
+                        The address of the HTTP Source Collector in Sumo Logic.
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin__field field">
+                <label class="admin__field-label">
+                    Advanced options
+                </label>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[message_type]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Select a log line format") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <select name="log_endpoint[message_type]" id="log_endpoint[message_type]" class="admin__control-text">
+                        <option value="classic" selected>Classic</option>
+                        <option value="loggly">Loggly</option>
+                        <option value="logplex">Logplex</option>
+                        <option value="blank">Blank</option>
+                    </select>
+                    <div class="admin__field-note">
+                        <a target="_blank" href="https://docs.fastly.com/en/guides/changing-log-line-formats" rel="noopener noreferrer" class="external-link">Learn more about changing log line formats</a>
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[placement]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Placement") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <select name="log_endpoint[placement]" id="log_endpoint[placement]" class="admin__control-text">
+                        <option value="" selected>Format Version Default</option>
+                        <option value="waf_debug">WAF Debug</option>
+                        <option value="none">None</option>
+                    </select>
+                    <div class="admin__field-note">
+                        <a target="_blank" href="https://docs.fastly.com/api/logging" rel="noopener noreferrer">Learn more about changing logging call placement</a>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</script>
+
+<!-- Google BigQuery -->
+<script type="text/x-magento-template" id="fastly-create-log-endpoint-template-bigquery">
+    <div class="messages">
+        <div class="message message-warning fastly-message-warning" style="display: none">
+            <?php /* @noEscape */ echo __("You are about to clone your active version #x.")?>
+            <?php /* @noEscape */ echo __("Your log endpoint will be created in version #y.")?>
+        </div>
+        <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+    </div>
+    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
+          method="POST"
+          id="create-log-endpoint-form"
+          name="create-log-endpoint-form"
+          class="form-inline"
+          enctype="multipart/form-data">
+        <fieldset class="admin__fieldset form-list question">
+            <div class="admin__field field maintenance-checkbox-container">
+                <label for="fastly_activate_log_endpoint" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __('Activate after the change')?></span>
+                </label>
+                <div class="admin__field-control">
+                    <div class="admin__field-option">
+                        <input class="admin__control-checkbox"
+                               type="checkbox"
+                               name="fastly_activate_log_endpoint"
+                               id="fastly_activate_log_endpoint"
+                               checked/>
+                        <label class="admin__field-label" for="fastly_activate_log_endpoint"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="condition" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Condition") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <span id="attach_span" style>
+                        This will happen all the time unless you <a id="attach" href="#">Attach a condition</a>
+                    </span>
+                    <select name="conditions" id="conditions" class="admin__control-select"></select>
+                    <div class="admin__field-note"><a id="detach" href="#">Detach condition</a> <span id="sep">|</span>
+                        <a id="create-response-condition" href="#">Create a new response condition</a>
+                    </div>
+                    <input type="hidden" name="condition_name" id="condition_name"/>
+                    <input type="hidden" name="apply_if" id="apply_if"/>
+                    <input type="hidden" name="condition_priority" id="condition_priority"/>
+                </div>
+            </div>
+            <input type="hidden" name="endpoint_type">
+            <input type="hidden" name="old_name">
+            <div class="admin__field field _required">
+                <label for="log_endpoint[name]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Name") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[name]" id="log_endpoint[name]" class="admin__control-text required-entry">
+                    <div class="admin__field-note">
+                        The name of your endpoint, such as <b>My endpoint</b>.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field __required">
+                <label for="log_endpoint[format]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Log format") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <textarea rows="6" name="log_endpoint[format]" id="log_endpoint[format]" class="admin__control-text required-entry">{
+  "timestamp":"%{begin:%Y-%m-%dT%H:%M:%S}t",
+  "time_elapsed":%{time.elapsed.usec}V,
+  "is_tls":%{if(req.is_ssl, "true", "false")}V,
+  "client_ip":"%{req.http.Fastly-Client-IP}V",
+  "geo_city":"%{client.geo.city}V",
+  "geo_country_code":"%{client.geo.country_code}V",
+  "request":"%{req.request}V",
+  "host":"%{req.http.Fastly-Orig-Host}V",
+  "url":"%{json.escape(req.url)}V",
+  "request_referer":"%{json.escape(req.http.Referer)}V",
+  "request_user_agent":"%{json.escape(req.http.User-Agent)}V",
+  "request_accept_language":"%{json.escape(req.http.Accept-Language)}V",
+  "request_accept_charset":"%{json.escape(req.http.Accept-Charset)}V",
+  "cache_status":"%{regsub(fastly_info.state, "^(HIT-(SYNTH)|(HITPASS|HIT|MISS|PASS|ERROR|PIPE)).*", "\\2\\3") }V"
+}</textarea>
+                    <div class="admin__field-note">
+                        A suggested format string appears by default.
+                        See <a target="_blank" href="https://docs.fastly.com/en/guides/setting-up-remote-log-streaming" rel="noopener noreferrer" class="external-link">Fastly's log files docs</a>,
+                        <a target="_blank" href="https://www.varnish-cache.org/docs/2.1/reference/vcl.html#variables" rel="noopener noreferrer" class="external-link">Varnish's descriptions of VCL variables</a>,
+                        and <a target="_blank" href="https://docs.fastly.com/vcl/variables/" rel="noopener noreferrer" class="external-link">Fastly's available VCL variables</a> for more info.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[user]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Email") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[user]" id="log_endpoint[user]" class="admin__control-text required-entry">
+                    <div class="admin__field-note">
+                        The Email address associated with the target BigQuery account.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[secret_key]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Secret key") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[secret_key]" id="log_endpoint[secret_key]" class="admin__control-text required-entry masked" type="text">
+                    <div class="admin__field-note">
+                        The Secret key associated with the target BigQuery bucket on your account.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[project_id]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Project ID") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[project_id]" id="log_endpoint[project_id]" class="admin__control-text required-entry">
+                    <div class="admin__field-note">
+                        The ID of your Google Cloud Platform project.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[dataset]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Dataset") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[dataset]" id="log_endpoint[dataset]" class="admin__control-text required-entry">
+                    <div class="admin__field-note">
+                        The name of the Dataset under your project
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[table]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Table") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[table]" id="log_endpoint[table]" class="admin__control-text required-entry">
+                    <div class="admin__field-note">
+                        The name of your BigQuery Table.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[template_suffix]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Template") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[template_suffix]" id="log_endpoint[template_suffix]" class="admin__control-text">
+                    <div class="admin__field-note">
+                        If set will be interpreted as a <code>strftime</code> compatible string and used as the <a target="_blank" href="https://cloud.google.com/bigquery/streaming-data-into-bigquery#template-tables" rel="noopener noreferrer" class="external-link">Template Suffix for your table</a>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin__field field">
+                <label class="admin__field-label">
+                    Advanced options
+                </label>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[placement]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Placement") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <select name="log_endpoint[placement]" id="log_endpoint[placement]" class="admin__control-text">
+                        <option value="" selected>Format Version Default</option>
+                        <option value="waf_debug">WAF Debug</option>
+                        <option value="none">None</option>
+                    </select>
+                    <div class="admin__field-note">
+                        <a target="_blank" href="https://docs.fastly.com/api/logging" rel="noopener noreferrer">Learn more about changing logging call placement</a>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</script>
+
+<!-- Amazon S3 -->
+<script type="text/x-magento-template" id="fastly-create-log-endpoint-template-s3">
+    <div class="messages">
+        <div class="message message-warning fastly-message-warning" style="display: none">
+            <?php /* @noEscape */ echo __("You are about to clone your active version #x.")?>
+            <?php /* @noEscape */ echo __("Your log endpoint will be created in version #y.")?>
+        </div>
+        <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+    </div>
+    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
+          method="POST"
+          id="create-log-endpoint-form"
+          name="create-log-endpoint-form"
+          class="form-inline"
+          enctype="multipart/form-data">
+        <fieldset class="admin__fieldset form-list question">
+            <div class="admin__field field maintenance-checkbox-container">
+                <label for="fastly_activate_log_endpoint" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __('Activate after the change')?></span>
+                </label>
+                <div class="admin__field-control">
+                    <div class="admin__field-option">
+                        <input class="admin__control-checkbox"
+                               type="checkbox"
+                               name="fastly_activate_log_endpoint"
+                               id="fastly_activate_log_endpoint"
+                               checked/>
+                        <label class="admin__field-label" for="fastly_activate_log_endpoint"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="condition" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Condition") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <span id="attach_span" style>
+                        This will happen all the time unless you <a id="attach" href="#">Attach a condition</a>
+                    </span>
+                    <select name="conditions" id="conditions" class="admin__control-select"></select>
+                    <div class="admin__field-note"><a id="detach" href="#">Detach condition</a> <span id="sep">|</span>
+                        <a id="create-response-condition" href="#">Create a new response condition</a>
+                    </div>
+                    <input type="hidden" name="condition_name" id="condition_name"/>
+                    <input type="hidden" name="apply_if" id="apply_if"/>
+                    <input type="hidden" name="condition_priority" id="condition_priority"/>
+                </div>
+            </div>
+            <input type="hidden" name="endpoint_type">
+            <input type="hidden" name="old_name">
+            <div class="admin__field field _required">
+                <label for="log_endpoint[name]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Name") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[name]" id="log_endpoint[name]" class="admin__control-text required-entry">
+                    <div class="admin__field-note">
+                        The name of your endpoint, such as <b>My endpoint</b>.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field __required">
+                <label for="log_endpoint[format]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Log format") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <textarea rows="6" name="log_endpoint[format]" required="required" id="log_endpoint[format]" class="admin__control-text required-entry">
+ %h %l %u %t "%r" %>s %b</textarea>
+                    <div class="admin__field-note">
+                        An Apache-style string or VCL variables to use for log formatting (the Apache Common Log format string appears by default).
+                        See <a target="_blank" href="https://docs.fastly.com/en/guides/setting-up-remote-log-streaming" rel="noopener noreferrer" class="external-link">Fastly's log files docs</a>,
+                        <a target="_blank" href="https://www.varnish-cache.org/docs/2.1/reference/vcl.html#variables" rel="noopener noreferrer" class="external-link">Varnish's descriptions of VCL variables</a>,
+                        and <a target="_blank" href="https://docs.fastly.com/vcl/variables/" rel="noopener noreferrer" class="external-link">Fastly's available VCL variables</a> for more info.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[timestamp_format]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Timestamp format") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[timestamp_format]" id="log_endpoint[timestamp_format]" class="admin__control-text required-entry" value="%Y-%m-%dT%H:%M:%S.000">
+                    <div class="admin__field-note">
+                        The timestamp format on log files. The default is an strftime compatible string.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[bucket_name]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Bucket name") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[bucket_name]" id="log_endpoint[bucket_name]" class="admin__control-text required-entry">
+                    <div class="admin__field-note">
+                        The name of the bucket in which to store the logs.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[access_key]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Access key") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[access_key]" id="log_endpoint[access_key]" class="admin__control-text required-entry masked" type="text">
+                    <div class="admin__field-note">
+                        The Access key associated with the target Amazon S3 bucket. See <a href="http://docs.aws.amazon.com/AmazonS3/latest/gsg/GetStartedWithS3.html" target="_blank" rel="noopener">Amazon's AWS Getting Started Guide</a> for more info.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[secret_key]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Secret key") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[secret_key]" id="log_endpoint[secret_key]" class="admin__control-text required-entry masked" type="text">
+                    <div class="admin__field-note">
+                        The <a href="http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html" target="_blank">Secret key</a> associated with the target Amazon S3 bucket.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[period]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Period") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[period]" id="log_endpoint[period]" class="admin__control-text required-entry" value="3600">
+                    <div class="admin__field-note">
+                        This manages how frequently in seconds to rotate your log files. Use numbers only in this field.
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin__field field">
+                <label class="admin__field-label">
+                    Advanced options
+                </label>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[path]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Path") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[path]" id="log_endpoint[path]" class="admin__control-text" value="/">
+                    <div class="admin__field-note">
+                        The path within the bucket for placing files. It defaults to /, which means files will be placed in its root.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[domain]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Domain") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[domain]" id="log_endpoint[domain]" class="admin__control-text">
+                    <div class="admin__field-note">
+                        The region-specific endpoint for your domain. If your Amazon S3 bucket was not created with a US Standard region, set as per <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region" target="_blank">Amazon's documentation</a>.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[public_key]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("PGP public key") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <textarea rows="6" name="log_endpoint[public_key]" id="log_endpoint[public_key]" class="admin__control-text"></textarea>
+                    <div class="admin__field-note">
+                        A PGP Public Key that Fastly will use to encrypt your log files before writing them to disk. You will only be able to read the contents by decrypting them with your private key. The PGP key should be in <a target="_blank" href="https://en.wikipedia.org/wiki/Privacy-enhanced_Electronic_Mail" rel="noopener noreferrer" class="external-link">PEM (Privacy Enhanced Mail) format</a>.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[message_type]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Select a log line format") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <select name="log_endpoint[message_type]" id="log_endpoint[message_type]" class="admin__control-text">
+                        <option value="classic" selected>Classic</option>
+                        <option value="loggly">Loggly</option>
+                        <option value="logplex">Logplex</option>
+                        <option value="blank">Blank</option>
+                    </select>
+                    <div class="admin__field-note">
+                        <a target="_blank" href="https://docs.fastly.com/en/guides/changing-log-line-formats" rel="noopener noreferrer" class="external-link">Learn more about changing log line formats</a>
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[placement]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Placement") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <select name="log_endpoint[placement]" id="log_endpoint[placement]" class="admin__control-text">
+                        <option value="" selected>Format Version Default</option>
+                        <option value="waf_debug">WAF Debug</option>
+                        <option value="none">None</option>
+                    </select>
+                    <div class="admin__field-note">
+                        <a target="_blank" href="https://docs.fastly.com/api/logging" rel="noopener noreferrer">Learn more about changing logging call placement</a>
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[gzip_level]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Gzip level") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[gzip_level]" id="log_endpoint[gzip_level]" class="admin__control-text">
+                    <div class="admin__field-note">
+                        The level of gzip compression, if any, to apply to log files.<br>
+                        The setting defaults to 0 (no compression). You can specify any whole number from 1 (fastest and least compressed) to 9 (slowest and most compressed).
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[redundancy]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Redundancy level") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <select name="log_endpoint[redundancy]" id="log_endpoint[redundancy]" class="admin__control-text">
+                        <option value="standard" selected>Standard</option>
+                        <option value="standard_ia">Infrequent Access</option>
+                        <option value="onezone_ia">One Zone Infrequent Access</option>
+                        <option value="reduced_redundancy">Reduced</option>
+                    </select>
+                    <div class="admin__field-note">
+                        The Amazon S3 redundancy level to store logs with. Learn more about Amazon's <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingRRS.html" target="_blank">Reduced Redundancy Storage</a>.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[acl]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("ACL") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <select name="log_endpoint[acl]" id="log_endpoint[acl]" class="admin__control-text">
+                        <option value="" selected>None</option>
+                        <option value="private">private</option>
+                        <option value="public-read">public-read</option>
+                        <option value="public-read-write">public-read-write</option>
+                        <option value="aws-exec-read">aws-exec-read</option>
+                        <option value="authenticated-read">authenticated-read</option>
+                        <option value="bucket-owner-read">bucket-owner-read</option>
+                        <option value="bucket-owner-full-control">bucket-owner-full-control</option>
+                    </select>
+                    <div class="admin__field-note">
+                        The Amazon S3 Access Control List (ACL) Specific Request Headers. Learn more about
+                        <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadInitiate.html#initiate-mpu-acl-specific-request-headers" rel="noopener" target="_blank">access control-related headers</a>.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[server_side_encryption]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Server side encryption") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <select name="log_endpoint[server_side_encryption]" id="log_endpoint[server_side_encryption]" class="admin__control-text">
+                        <option value="" selected>None</option>
+                        <option value="AES256">AES-256</option>
+                        <option value="aws:kms">AWS Key Management Service</option>
+                    </select>
+                    <div class="admin__field-note">
+                        Protect your log files with Amazon Server Side Encryption. See <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html" target="_blank" rel="noopener">Amazon's Guide</a> for more info.
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</script>
+
+<!-- Google Cloud Storage -->
+<script type="text/x-magento-template" id="fastly-create-log-endpoint-template-gcs">
+    <div class="messages">
+        <div class="message message-warning fastly-message-warning" style="display: none">
+            <?php /* @noEscape */ echo __("You are about to clone your active version #x.")?>
+            <?php /* @noEscape */ echo __("Your log endpoint will be created in version #y.")?>
+        </div>
+        <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+    </div>
+    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_Vcl/upload'); ?>"
+          method="POST"
+          id="create-log-endpoint-form"
+          name="create-log-endpoint-form"
+          class="form-inline"
+          enctype="multipart/form-data">
+        <fieldset class="admin__fieldset form-list question">
+            <div class="admin__field field maintenance-checkbox-container">
+                <label for="fastly_activate_log_endpoint" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __('Activate after the change')?></span>
+                </label>
+                <div class="admin__field-control">
+                    <div class="admin__field-option">
+                        <input class="admin__control-checkbox"
+                               type="checkbox"
+                               name="fastly_activate_log_endpoint"
+                               id="fastly_activate_log_endpoint"
+                               checked/>
+                        <label class="admin__field-label" for="fastly_activate_log_endpoint"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="condition" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Condition") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <span id="attach_span" style>
+                        This will happen all the time unless you <a id="attach" href="#">Attach a condition</a>
+                    </span>
+                    <select name="conditions" id="conditions" class="admin__control-select"></select>
+                    <div class="admin__field-note"><a id="detach" href="#">Detach condition</a> <span id="sep">|</span>
+                        <a id="create-response-condition" href="#">Create a new response condition</a>
+                    </div>
+                    <input type="hidden" name="condition_name" id="condition_name"/>
+                    <input type="hidden" name="apply_if" id="apply_if"/>
+                    <input type="hidden" name="condition_priority" id="condition_priority"/>
+                </div>
+            </div>
+            <input type="hidden" name="endpoint_type">
+            <input type="hidden" name="old_name">
+            <div class="admin__field field _required">
+                <label for="log_endpoint[name]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Name") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[name]" id="log_endpoint[name]" class="admin__control-text required-entry">
+                    <div class="admin__field-note">
+                        The name of your endpoint, such as <b>My endpoint</b>.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field __required">
+                <label for="log_endpoint[format]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Log format") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <textarea rows="6" name="log_endpoint[format]" id="log_endpoint[format]" class="admin__control-text required-entry">
+ %h %l %u %t "%r" %>s %b</textarea>
+                    <div class="admin__field-note">
+                        An Apache-style string or VCL variables to use for log formatting (the Apache Common Log format string appears by default).
+                        See <a target="_blank" href="https://docs.fastly.com/en/guides/setting-up-remote-log-streaming" rel="noopener noreferrer" class="external-link">Fastly's log files docs</a>,
+                        <a target="_blank" href="https://www.varnish-cache.org/docs/2.1/reference/vcl.html#variables" rel="noopener noreferrer" class="external-link">Varnish's descriptions of VCL variables</a>,
+                        and <a target="_blank" href="https://docs.fastly.com/vcl/variables/" rel="noopener noreferrer" class="external-link">Fastly's available VCL variables</a> for more info.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[timestamp_format]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Timestamp format") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[timestamp_format]" id="log_endpoint[timestamp_format]" class="admin__control-text required-entry" value="%Y-%m-%dT%H:%M:%S.000">
+                    <div class="admin__field-note">
+                        The timestamp format on log files. The default is an strftime compatible string.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[user]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Email") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[user]" id="log_endpoint[user]" class="admin__control-text required-entry">
+                    <div class="admin__field-note">
+                        The <a href="https://cloud.google.com/storage/docs/authentication?hl=en#service_accounts" target="_blank">Email address</a> associated with the target GCS bucket on your account.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[bucket_name]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Bucket name") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[bucket_name]" id="log_endpoint[bucket_name]" class="admin__control-text required-entry">
+                    <div class="admin__field-note">
+                        The name of the bucket in which to store the logs.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field __required">
+                <label for="log_endpoint[secret_key]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Secret key") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <textarea rows="6" name="log_endpoint[secret_key]" id="log_endpoint[secret_key]" class="admin__control-text required-entry masked"></textarea>
+                    <div class="admin__field-note">
+                        The <a href="https://cloud.google.com/storage/docs/authentication?hl=en#service_accounts" target="_blank">Secret key</a> associated with the target GCS bucket on your account.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field _required">
+                <label for="log_endpoint[period]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Period") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[period]" id="log_endpoint[period]" class="admin__control-text required-entry" value="3600">
+                    <div class="admin__field-note">
+                        This manages how frequently in seconds to rotate your log files. Use numbers only in this field.
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin__field field">
+                <label class="admin__field-label">
+                    Advanced options
+                </label>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[path]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Path") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[path]" id="log_endpoint[path]" class="admin__control-text" value="/">
+                    <div class="admin__field-note">
+                        The path within the bucket for placing files. It defaults to /, which means files will be placed in its root.
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[message_type]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Select a log line format") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <select name="log_endpoint[message_type]" id="log_endpoint[message_type]" class="admin__control-text">
+                        <option value="classic" selected>Classic</option>
+                        <option value="loggly">Loggly</option>
+                        <option value="logplex">Logplex</option>
+                        <option value="blank">Blank</option>
+                    </select>
+                    <div class="admin__field-note">
+                        <a target="_blank" href="https://docs.fastly.com/en/guides/changing-log-line-formats" rel="noopener noreferrer" class="external-link">Learn more about changing log line formats</a>
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[placement]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Placement") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <select name="log_endpoint[placement]" id="log_endpoint[placement]" class="admin__control-text">
+                        <option value="" selected>Format Version Default</option>
+                        <option value="waf_debug">WAF Debug</option>
+                        <option value="none">None</option>
+                    </select>
+                    <div class="admin__field-note">
+                        <a target="_blank" href="https://docs.fastly.com/api/logging" rel="noopener noreferrer">Learn more about changing logging call placement</a>
+                    </div>
+                </div>
+            </div>
+            <div class="admin__field field">
+                <label for="log_endpoint[gzip_level]" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __("Gzip level") ?></span>
+                </label>
+                <div class="admin__field-control">
+                    <input name="log_endpoint[gzip_level]" id="log_endpoint[gzip_level]" class="admin__control-text">
+                    <div class="admin__field-note">
+                        The level of gzip compression, if any, to apply to log files.<br>
+                        The setting defaults to 0 (no compression). You can specify any whole number from 1 (fastest and least compressed) to 9 (slowest and most compressed).
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</script>
+<!-- End Log endpoints creation overlay templates -->
 
 <!-- Create condition template -->
 <script type="text/x-magento-template" id="fastly-create-condition-template">
@@ -939,23 +2142,23 @@
           enctype="multipart/form-data">
         <fieldset class="admin__fieldset form-list question">
             <div class="admin__field field _required">
-                <label for="condition_name" class="admin__field-label">
+                <label for="condition_name_modal" class="admin__field-label">
                     <span><?php /* @noEscape */ echo __("Name") ?></span>
                 </label>
                 <div class="admin__field-control">
-                    <input name="condition_name" id="condition_name" class="admin__control-text">
+                    <input name="condition_name_modal" id="condition_name_modal" class="admin__control-text">
                 </div>
             </div>
 
             <div class="admin__field field __required">
-                <label for="apply_if" class="admin__field-label">
+                <label for="apply_if_modal" class="admin__field-label">
                     <span><?php /* @noEscape */ echo __("Apply if...") ?></span>
                 </label>
                 <div class="admin__field-control">
                     <textarea rows="6"
-                              name="apply_if"
+                              name="apply_if_modal"
                               required="required"
-                              id="apply_if"
+                              id="apply_if_modal"
                               class="admin__control-text"></textarea>
                     <div class="admin__field-note">The expression to decide whether this is run.
                         Maximum length is 512 characters.
@@ -964,14 +2167,14 @@
             </div>
 
             <div class="admin__field field">
-                <label for="condition_priority" class="admin__field-label">
+                <label for="condition_priority_modal" class="admin__field-label">
                     <span><?php /* @noEscape */  echo __("Priority") ?></span>
                 </label>
                 <div class="admin__field-control">
-                    <input name="condition_priority"
+                    <input name="condition_priority_modal"
                            type="number"
                            required="required"
-                           id="condition_priority"
+                           id="condition_priority_modal"
                            class="admin__control-text"
                            value="10">
                     <div class="admin__field-note">For most configurations, the default (10) is best.
@@ -2218,6 +3421,40 @@
     </form>
 </script>
 
+<!-- Import template -->
+<script type="text/x-magento-template" id="fastly-import-template">
+    <div class="messages">
+        <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+    </div>
+    <form action="<?php /* @noEscape */ echo $block->getUrl('adminhtml/fastlyCdn_ImportExport/downloadExportData'); ?>"
+          method="POST"
+          id="fastly-import-form"
+          class="form-inline"
+          enctype="multipart/form-data">
+        <input name="form_key" type="hidden" value="<?php /* @noEscape */ echo $block->getFormKey() ?>" />
+        <fieldset class="admin__fieldset form-list">
+            <div class="admin__field field maintenance-checkbox-container">
+                <label for="fastly_activate_import" class="admin__field-label">
+                    <span><?php /* @noEscape */ echo __('Activate after import')?></span>
+                </label>
+                <div class="admin__field-control">
+                    <div class="admin__field-option">
+                        <input class="admin__control-checkbox"
+                               type="checkbox"
+                               name="activate_flag"
+                               id="fastly_activate_import"
+                               checked/>
+                        <label class="admin__field-label" for="fastly_activate_log_endpoint"></label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="admin__fieldset form-list question">
+        </fieldset>
+    </form>
+</script>
+
 <!-- Export template -->
 <script type="text/x-magento-template" id="fastly-export-template">
     <div class="messages">
@@ -2234,11 +3471,94 @@
         </fieldset>
     </form>
 </script>
+
+<script type="text/x-magento-template" id="fastly-version-history-template">
+    <!-- Overlay template messages -->
+    <div class="messages">
+        <div class="message message-error fastly-message-error" style="display: none; margin-bottom: 15px;"></div>
+        <div class="message message-success fastly-message-success" style="display: none;"></div>
+    </div>
+    <div class="admin__fieldset recommended">
+        <div class="admin__field-control">
+            <div class="admin__data-grid-pager">
+                <span id="pagination-active-version" style="margin-right: 2rem;"></span>
+                <button class="action-previous" type="button"  title="Previous Page"></button>
+                <input class="admin__control-text" id="pagination-input" type="number" value="">
+                <label class="admin__control-support-text"></label>
+                <button class="action-next" type="button" title="Next Page"></button>
+            </div>
+            <table class="admin__control-table" id="versions-list-table">
+                <thead>
+                    <tr>
+                        <th><?php /* @noEscape */ echo __('Version Number') ?></th>
+                        <th><?php /* @noEscape */ echo __('Comment') ?></th>
+                        <th><?php /* @noEscape */ echo __('Updated Time') ?></th>
+                        <th class="col-actions" colspan="1"><?php /* @noEscape */ echo __('Action') ?></th>
+                    </tr>
+                </thead>
+                <tbody class="item-container">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" class="col-actions-add"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-magento-template" id="show-VCL-container">
+    <div class="admin__fieldset recommended">
+        <div class="admin__field-control">
+            <textarea rows="200"
+                      id="version-vcl-container"
+                      class="admin__control-text"></textarea>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-magento-template" id="fastly-dismiss-vcl-warning-template">
+    <div class="messages">
+        <div class="message message-warning fastly-message-warning" style="display: none">
+            <?php /* @noEscape */ echo __("You are about to dismiss outdated VCL for current version.")?>
+        </div>
+        <div class="message message-error fastly-message-error" style="display: none">
+        </div>
+    </div>
+        <fieldset class="admin__fieldset form-list question">
+            <div class="admin__field field maintenance-checkbox-container">
+                <label for="fastly_dismiss_vcl_warning" class="admin__field-label">
+                    <span>
+                        <?php
+                        /* @noEscape */ echo __('You are about to dismiss warning for'
+                                                . 'outdated VCL for current version.')
+                        ?>
+                    </span>
+                </label>
+                <div class="admin__field-control">
+                    <div class="admin__field-option">
+                        <input class="admin__control-checkbox"
+                               type="checkbox"
+                               name="fastly_dismiss_vcl_warning"
+                               id="fastly_dismiss_vcl_warning"
+                               checked/>
+                        <label class="admin__field-label" for="fastly_dismiss_vcl_warning"></label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+</script>
 <?php
 
 /**
  * AJAX urls passed to uploadvcl.js file
  */
+// Versioning
+$allFastlyVersions =            $block->getUrl('adminhtml/fastlyCdn_VersionHistory/ListVersions');
+$activateVersion =              $block->getUrl('adminhtml/fastlyCdn_VersionHistory/Activate');
+$versionReference =             $block->getUrl('adminhtml/fastlyCdn_VersionHistory/Reference');
+
 // Advanced
 $checkTlsSettingUrl =           $block->getUrl('adminhtml/fastlyCdn_Advanced/checkTlsSetting');
 $toggleTlsSettingUrl =          $block->getUrl('adminhtml/fastlyCdn_Advanced/forceTls');
@@ -2246,6 +3566,14 @@ $toggleTlsSettingUrl =          $block->getUrl('adminhtml/fastlyCdn_Advanced/for
 $configureBackendUrl =          $block->getUrl('adminhtml/fastlyCdn_Backend/configureBackend');
 $fetchBackendsUrl =             $block->getUrl('adminhtml/fastlyCdn_Backend/getBackends');
 $createBackendUrl =             $block->getUrl('adminhtml/fastlyCdn_Backend/createBackend');
+$deleteBackendUrl =             $block->getUrl('adminhtml/fastlyCdn_Backend/deleteBackend');
+// Log Endpoint
+$fetchLogEndpointUrl =          $block->getUrl('adminhtml/fastlyCdn_Logging/getEndpoint');
+$fetchLogEndpointsUrl =         $block->getUrl('adminhtml/fastlyCdn_Logging/getEndpoints');
+$fetchAllLogEndpointsUrl =      $block->getUrl('adminhtml/fastlyCdn_Logging/getAllEndpoints');
+$createLogEndpointUrl =         $block->getUrl('adminhtml/fastlyCdn_Logging/createEndpoint');
+$updateLogEndpointUrl =         $block->getUrl('adminhtml/fastlyCdn_Logging/updateEndpoint');
+$availableLogProviders =        $block->getHelper()->getAvailableLogEndpointProviders();
 // Basic Authentication
 $createAuthItem =               $block->getUrl('adminhtml/fastlyCdn_BasicAuthentication_Item/create');
 $deleteAuthItem =               $block->getUrl('adminhtml/fastlyCdn_BasicAuthentication_Item/delete');
@@ -2272,6 +3600,7 @@ $deleteCustomSnippet =          $block->getUrl('adminhtml/fastlyCdn_CustomSnippe
 $getCustomSnippetsUrl =         $block->getUrl('adminhtml/fastlyCdn_CustomSnippet/getCustomSnippets');
 $getCustomSnippet =             $block->getUrl('adminhtml/fastlyCdn_CustomSnippet/getCustomSnippet');
 $checkCustomSnippet =           $block->getUrl('adminhtml/fastlyCdn_CustomSnippet/checkCustomSnippet');
+$changeUpdateFlag =             $block->getUrl('adminhtml/fastlyCdn_CustomSnippet/changeUpdateFlag');
 // Domains
 $getDomainsUrl =                $block->getUrl('adminhtml/fastlyCdn_Domains/getDomains');
 $pushDomainsUrl =               $block->getUrl('adminhtml/fastlyCdn_Domains/pushDomains');
@@ -2300,6 +3629,8 @@ $isIoEnabled =                  $block->getConfig()->isImageOptimizationEnabled(
 // Import Export
 $getExportDataUrl =             $block->getUrl('adminhtml/fastlyCdn_ImportExport/getExportData');
 $exportDataUrl =                $block->getUrl('adminhtml/fastlyCdn_ImportExport/saveExportData');
+$getImportDataUrl =             $block->getUrl('adminhtml/fastlyCdn_ImportExport/getImportData');
+$importDataUrl =                $block->getUrl('adminhtml/fastlyCdn_ImportExport/saveImportData');
 // Maintenance Support
 $checkSuSettingUrl =            $block->getUrl('adminhtml/fastlyCdn_Maintenance/CheckSuSetting');
 $toggleSuSettingUrl =           $block->getUrl('adminhtml/fastlyCdn_Maintenance/toggleSuSetting');
@@ -2312,6 +3643,7 @@ $saveModuleConfigUrl =          $block->getUrl('adminhtml/fastlyCdn_Manifest/sav
 $getActiveModulesUrl =          $block->getUrl('adminhtml/fastlyCdn_Manifest/getActiveModules');
 $getModuleDataUrl =             $block->getUrl('adminhtml/fastlyCdn_Manifest/getModuleData');
 $getAllConditionsUrl =          $block->getUrl('adminhtml/fastlyCdn_Manifest/getAllConditions');
+$getResponseConditionsUrl =     $block->getUrl('adminhtml/fastlyCdn_Manifest/getResponseConditions');
 $getAllDomainsUrl =             $block->getUrl('adminhtml/fastlyCdn_Manifest/getAllDomains');
 $getCountriesUrl =              $block->getUrl('adminhtml/fastlyCdn_Manifest/getCountries');
 $uploadModuleSnippetUrl =       $block->getUrl('adminhtml/fastlyCdn_Manifest/upload');
@@ -2320,6 +3652,7 @@ $getPathsUrl =                  $block->getUrl('adminhtml/fastlyCdn_RateLimiting
 $toggleRateLimitingUrl =        $block->getUrl('adminhtml/fastlyCdn_RateLimiting/toggleRateLimiting');
 $updatePathsUrl =               $block->getUrl('adminhtml/fastlyCdn_RateLimiting/updatePaths');
 $checkRateLimitingSettingUrl =  $block->getUrl('adminhtml/fastlyCdn_RateLimiting/checkRateLimitingSetting');
+$disableRateLimitingUrl =       $block->getUrl('adminhtml/fastlyCdn_RateLimiting/disableRateLimiting');
 // Synthetic Pages
 $getErrorPageRespObjUrl =       $block->getUrl('adminhtml/fastlyCdn_SyntheticPages/getErrorPageRespObj');
 $getWafPageRespObjUrl =         $block->getUrl('adminhtml/fastlyCdn_SyntheticPages/getWafPageRespObj');
@@ -2327,12 +3660,17 @@ $savePageErrorHtml =            $block->getUrl('adminhtml/fastlyCdn_SyntheticPag
 $saveWafPage =                  $block->getUrl('adminhtml/fastlyCdn_SyntheticPages/saveWafPage');
 // VCL
 $vclUploadUrl =                 $block->getUrl('adminhtml/fastlyCdn_Vcl/upload');
+$dismissWarning =               $block->getUrl('adminhtml/fastlyCdn_Vcl/dismissWarning');
+$vclComparison =                $block->getUrl('adminhtml/fastlyCdn_Vcl/comparison');
+$isWarningDismissed =           $block->getUrl('adminhtml/fastlyCdn_Vcl/isWarningDismissed');
+$getUpdateFlag =            $block->getUrl('adminhtml/fastlyCdn_Vcl/getUpdateFlag');
 // Web Application Firewall
 $getWafSettingsUrl =            $block->getUrl('adminhtml/fastlyCdn_Waf/getWafSettings');
 $getOwaspSettingsUrl =          $block->getUrl('adminhtml/fastlyCdn_Waf/getOwaspSettings');
 $toggleWafBypassSettingUrl =    $block->getUrl('adminhtml/fastlyCdn_Waf/wafAllowlist');
 $checkWafBypassSettingUrl =     $block->getUrl('adminhtml/fastlyCdn_Waf/checkWafBypassSetting');
 $updateWafBypassUrl =           $block->getUrl('adminhtml/fastlyCdn_Waf/updateWafAllowlist');
+
 // This flag is used to prevent calling ajax requests if fastly extension is not selected as caching application
 $isFastlyEnabled =              $block->getConfig()->isFastlyEnabled();
 ?>
@@ -2396,6 +3734,7 @@ $isFastlyEnabled =              $block->getConfig()->isFastlyEnabled();
                     "getActiveModulesUrl": "<?php echo $block->escapeJsQuote($getActiveModulesUrl);?>",
                     "getModuleDataUrl": "<?php echo $block->escapeJsQuote($getModuleDataUrl);?>",
                     "getAllConditionsUrl": "<?php echo $block->escapeJsQuote($getAllConditionsUrl);?>",
+                    "getResponseConditionsUrl": "<?php echo $block->escapeJsQuote($getResponseConditionsUrl);?>",
                     "getAllDomainsUrl": "<?php echo $block->escapeJsQuote($getAllDomainsUrl);?>",
                     "getCountriesUrl": "<?php echo $block->escapeJsQuote($getCountriesUrl);?>",
                     "uploadModuleSnippetUrl": "<?php echo $block->escapeJsQuote($uploadModuleSnippetUrl);?>",
@@ -2412,12 +3751,31 @@ $isFastlyEnabled =              $block->getConfig()->isFastlyEnabled();
                     "toggleRateLimitingUrl": "<?php echo $block->escapeJsQuote($toggleRateLimitingUrl);?>",
                     "updatePathsUrl": "<?php echo $block->escapeJsQuote($updatePathsUrl);?>",
                     "checkRateLimitingSettingUrl": "<?php echo $block->escapeJsQuote($checkRateLimitingSettingUrl);?>",
+                    "disableRateLimitingUrl": "<?php echo $block->escapeJsQuote($disableRateLimitingUrl);?>",
                     "checkSuSettingUrl": "<?php echo $block->escapeJsQuote($checkSuSettingUrl);?>",
                     "toggleSuSettingUrl": "<?php echo $block->escapeJsQuote($toggleSuSettingUrl);?>",
                     "updateSuIpsUrl": "<?php echo $block->escapeJsQuote($updateSuIpsUrl);?>",
                     "createBackendUrl": "<?php echo $block->escapeJsQuote($createBackendUrl);?>",
+                    "deleteBackendUrl": "<?php echo $block->escapeJsQuote($deleteBackendUrl);?>",
                     "getExportDataUrl": "<?php echo $block->escapeJsQuote($getExportDataUrl);?>",
-                    "exportDataUrl": "<?php echo $block->escapeJsQuote($exportDataUrl);?>"
+                    "exportDataUrl": "<?php echo $block->escapeJsQuote($exportDataUrl);?>",
+                    "getImportDataUrl": "<?php echo $block->escapeJsQuote($getImportDataUrl);?>",
+                    "importDataUrl": "<?php echo $block->escapeJsQuote($importDataUrl);?>",
+                    "versionHistory": "<?php echo $block->escapeJsQuote($allFastlyVersions);?>",
+                    "activateVersion": "<?php echo $block->escapeJsQuote($activateVersion); ?>",
+                    "versionReference": "<?php echo $block->escapeJsQuote($versionReference); ?>",
+                    "vclComparison": "<?php echo $block->escapeJsQuote($vclComparison); ?>",
+                    "dismissWarning": "<?php echo $block->escapeJsQuote($dismissWarning); ?>",
+                    "isWarningDismissed": "<?php echo $block->escapeJsQuote($isWarningDismissed); ?>",
+                    "getUpdateFlag": "<?php echo $block->escapeJsQuote($getUpdateFlag); ?>",
+                    "changeUpdateFlag": "<?php echo $block->escapeJsQuote($changeUpdateFlag); ?>",
+                    "importExportRenderer": {},
+                    "createLogEndpointUrl": "<?php echo $block->escapeJsQuote($createLogEndpointUrl);?>",
+                    "updateLogEndpointUrl": "<?php echo $block->escapeJsQuote($updateLogEndpointUrl);?>",
+                    "fetchLogEndpointUrl": "<?php echo $block->escapeJsQuote($fetchLogEndpointUrl);?>",
+                    "fetchAllLogEndpointsUrl": "<?php echo $block->escapeJsQuote($fetchAllLogEndpointsUrl);?>",
+                    "fetchLogEndpointsUrl": "<?php echo $block->escapeJsQuote($fetchLogEndpointsUrl);?>",
+                    "availableLogProviders": <?php echo json_encode($availableLogProviders);?>
                 }
             }
         }
@@ -2436,6 +3794,11 @@ $isFastlyEnabled =              $block->getConfig()->isFastlyEnabled();
         background: #fffbbb;
     }
 
+    .fastly-dismiss-warning-action::before {
+        content: '\e620';
+        font-size: 2rem;
+    }
+
     .admin__control-table .fastly-save-action::before {
         content: '\1F4BE';
         font-size: 2rem;
@@ -2444,6 +3807,30 @@ $isFastlyEnabled =              $block->getConfig()->isFastlyEnabled();
     .admin__control-table .fastly-edit-action::before {
         content: '\e610';
         font-size: 2rem;
+    }
+
+    .admin__control-table .fastly-activate-vcl-action {
+        background-image: url("<?php /* @noEscape */ echo $block->getViewFileUrl('Fastly_Cdn::images/cloud.svg') ?>");
+        width: 2.5rem;
+        height: 2.5rem;
+        background-color: transparent;
+        border-color: transparent;
+        box-shadow: none;
+        padding-left: 0;
+        padding-right: 0;
+        background-repeat: no-repeat;
+    }
+
+    .admin__control-table .fastly-view-vcl-action {
+        background-image: url("<?php /* @noEscape */ echo $block->getViewFileUrl('Fastly_Cdn::images/view.svg') ?>");
+        width: 2.5rem;
+        height: 2.5rem;
+        background-color: transparent;
+        border-color: transparent;
+        box-shadow: none;
+        padding-left: 0;
+        padding-right: 0;
+        background-repeat: no-repeat;
     }
 
     .dialog-item {
@@ -2477,4 +3864,13 @@ $isFastlyEnabled =              $block->getConfig()->isFastlyEnabled();
         margin-bottom: 30px;
     }
 
+    .admin__field-control input.error {
+        border-color: #e22626;
+    }
+
+    .admin__field-control label.error {
+        color: #e22626;
+    }
+
 </style>
+

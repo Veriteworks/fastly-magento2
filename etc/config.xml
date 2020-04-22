@@ -30,7 +30,7 @@
                         <stale_ttl>86400</stale_ttl>
                         <stale_error_ttl>86400</stale_error_ttl>
                         <admin_path_timeout>180</admin_path_timeout>
-                        <ignored_url_parameters>utm_.*, gclid, gdftrk, _ga, mc_.*</ignored_url_parameters>
+                        <ignored_url_parameters>utm_.*, gclid, gdftrk, _ga, mc_.*, trk_.*, dm_i</ignored_url_parameters>
                         <preserve_static>1</preserve_static>
                         <soft_purge>1</soft_purge>
                         <x_magento_tags_size>16383</x_magento_tags_size>
@@ -50,6 +50,7 @@
                         <image_optimization_bg_color>1</image_optimization_bg_color>
                         <image_optimization_canvas>1</image_optimization_canvas>
                         <image_optimizations_ratios>2,3</image_optimizations_ratios>
+                        <image_verify>0</image_verify>
                     </fastly_image_optimization_configuration>
                     <fastly_web_hooks>
                         <enable_webhooks>0</enable_webhooks>
@@ -59,10 +60,12 @@
                         <publish_config_change_events>1</publish_config_change_events>
                     </fastly_web_hooks>
                     <fastly_rate_limiting_settings>
-                        <fastly_path_protection>
+                        <enable_rate_limiting_master>0</enable_rate_limiting_master>
+                        <path_protection>
+                            <enable_rate_limiting>0</enable_rate_limiting>
                             <rate_limiting_limit>10</rate_limiting_limit>
                             <rate_limiting_ttl>3600</rate_limiting_ttl>
-                        </fastly_path_protection>
+                        </path_protection>
                         <crawler_protection>
                             <enable_crawler_protection>0</enable_crawler_protection>
                             <crawler_rate_limiting_limit>100</crawler_rate_limiting_limit>

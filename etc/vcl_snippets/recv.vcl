@@ -27,7 +27,7 @@
     }
     
     # User's Cookie may contain some Magento Vary items we should vary on
-    if (req.http.cookie:X-Magento-Vary ) {
+    if (req.http.cookie:X-Magento-Vary) {
         set req.http.X-Magento-Vary = req.http.cookie:X-Magento-Vary;
     } else {
         unset req.http.X-Magento-Vary;
@@ -79,17 +79,17 @@
     set client.geo.ip_override = req.http.Fastly-Client-IP;
 
     # geoip lookup
-    if (req.url ~ "fastlyCdn/geoip/getaction/") {
+    if (req.url.path ~ "fastlyCdn/geoip/getaction/") {
         # check if GeoIP has been already processed by client. this normally happens before essential cookies are set.
         if (req.http.cookie:X-Magento-Vary || req.http.cookie:form_key) {
             error 980 "GeoIP already processed";
         } else {
             # append parameter with country code only if it doesn't exist already
             if ( req.url.qs !~ "country_code=" ) {
-                set req.url = req.url "?country_code=" if ( req.http.geo_override, req.http.geo_override, client.geo.country_code);
+                set req.url = querystring.set(req.url, "country_code", if ( req.http.geo_override, req.http.geo_override, client.geo.country_code));
             }
         }
-    } else {
+    } else if ( req.url.path !~ "/graphql" ) {
         # Per suggestions in https://github.com/sdinteractive/SomethingDigital_PageCacheParams
         # we'll strip out query parameters used in Google AdWords, Mailchimp tracking by default
         # and allow custom parameters to be set. List of parameters is configurable in admin
@@ -102,6 +102,7 @@
     if (req.restarts == 0) {
         unset req.http.x-pass;
         unset req.http.Rate-Limit;
+        unset req.http.magento-admin-path;
     }
     
     # Pass on checkout URLs. Because it's a snippet we want to execute this after backend selection so we handle it
@@ -112,6 +113,7 @@
     # ####ADMIN_PATH#### is replaced with value of frontName from app/etc/env.php
     } else if ( req.url ~ "^/(index\.php/)?####ADMIN_PATH####/" ) {
         set req.http.x-pass = "1";
+        set req.http.magento-admin-path = "1";
     } else {
         # Sort the query arguments to increase cache hit ratio with query arguments that
         # may be out od order. In case you want to restore the unsorted URL add a snippet
@@ -127,3 +129,22 @@
         unset req.http.Cookie;
     }
 
+    unset req.http.graphql;
+    # GraphQL special headers handling because this area doesn't rely on X-Magento-Vary cookie
+    if (req.request == "GET" && req.url.path ~ "/graphql" && req.url.qs ~ "query=") {
+        if ( req.http.Authorization ~ "^Bearer" ) {
+            set req.http.x-pass = "1";
+        } else {
+            set req.http.graphql = "1";
+            if (req.http.Store) {
+                set req.http.X-Magento-Vary = req.http.Store;
+            }
+            if (req.http.Content-Currency) {
+                if (req.http.X-Magento-Vary) {
+                    set req.http.X-Magento-Vary = req.http.X-Magento-Vary req.http.Content-Currency;
+                } else {
+                    set req.http.X-Magento-Vary = req.http.Content-Currency;
+                }
+            }
+        }
+    }

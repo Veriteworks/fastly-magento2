@@ -20,14 +20,13 @@
  */
 namespace Fastly\Cdn\Controller\Adminhtml\FastlyCdn\Backend;
 
+use Fastly\Cdn\Helper\Vcl;
+use Fastly\Cdn\Model\Api;
+use Fastly\Cdn\Model\Config;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\Controller\Result\JsonFactory;
-use Fastly\Cdn\Model\Api;
-use Fastly\Cdn\Helper\Vcl;
-use Fastly\Cdn\Model\Config;
-use Magento\Framework\Exception\LocalizedException;
 
 /**
  * Class CreateBackend
@@ -35,6 +34,8 @@ use Magento\Framework\Exception\LocalizedException;
  */
 class CreateBackend extends Action
 {
+    use ValidationTrait;
+
     /**
      * @var Http
      */
@@ -97,6 +98,8 @@ class CreateBackend extends Action
                 return $result->setData(['status' => true]);
             }
 
+            $override = $this->validateOverride($this->getRequest()->getParam('override_host'));
+
             $name = $this->getRequest()->getParam('name');
             $this->validateName($name);
 
@@ -127,6 +130,14 @@ class CreateBackend extends Action
             $sslCertHostname = $this->processRequest('ssl_cert_hostname');
             $sslSniHostname = $this->processRequest('ssl_sni_hostname');
             $sslCaCert = $this->processRequest('ssl_ca_cert');
+            $sslVerifyCert = $this->getRequest()->getParam('ssl_check_cert') === '1' ? true : false;
+
+            if ($sslVerifyCert && !$sslCertHostname) {
+                return $result->setData([
+                    'status'    => false,
+                    'msg'       => 'Certified hostname must be entered if certificate verification is chosen'
+                ]);
+            }
 
             $conditionName = $this->getRequest()->getParam('condition_name');
             $applyIf = $this->getRequest()->getParam('apply_if');
@@ -148,12 +159,14 @@ class CreateBackend extends Action
                 'service_id'            => $service->id,
                 'shield'                => $this->getRequest()->getParam('shield'),
                 'use_ssl'               => $useSsl,
-                'version'               => $clone->number
+                'version'               => $clone->number,
+                'override_host'         => $override
             ];
 
             if ($useSsl == '1') {
                 $params += [
                     'ssl_ca_cert'           => $sslCaCert,
+                    'ssl_check_cert'        => $sslVerifyCert,
                     'ssl_cert_hostname'     => $sslCertHostname,
                     'ssl_ciphers'           => $this->processRequest('ssl_ciphers'),
                     'ssl_client_cert'       => $this->processRequest('ssl_client_cert'),
@@ -195,7 +208,7 @@ class CreateBackend extends Action
             }
 
             $comment = [
-                'comment' => 'Magento Module created the "'.$this->getRequest()->getParam('name').'" Backend '
+                'comment' => 'Magento Module created the "' . $this->getRequest()->getParam('name') . '" Backend '
             ];
             $this->api->addComment($clone->number, $comment);
 
@@ -209,80 +222,5 @@ class CreateBackend extends Action
                 'msg'       => $e->getMessage()
             ]);
         }
-    }
-
-    /**
-     * @param $address
-     * @throws LocalizedException
-     */
-    private function validateAddress($address)
-    {
-        if (!filter_var($address, FILTER_VALIDATE_IP) &&
-            !filter_var($address, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME)) {
-            throw new LocalizedException(__('Address '.$address.' is not a valid IPv4, IPv6 or hostname'));
-        }
-    }
-
-    /**
-     * @param $name
-     * @throws LocalizedException
-     */
-    private function validateName($name)
-    {
-        if (trim($name) == "") {
-            throw new LocalizedException(__("Name can't be blank"));
-        }
-    }
-
-    /**
-     * @param $maxTls
-     * @param $minTls
-     * @throws LocalizedException
-     */
-    private function validateVersion($maxTls, $minTls)
-    {
-        if ($maxTls == 0) {
-            return;
-        } elseif ($maxTls < $minTls) {
-            throw new LocalizedException(__("Maximum TLS version must be higher than the minimum TLS version."));
-        }
-    }
-
-    /**
-     * @param $param
-     * @return mixed|null
-     */
-    private function processRequest($param)
-    {
-        $request = $this->getRequest()->getParam($param);
-        if ($request == '') {
-            return null;
-        }
-        return $request;
-    }
-
-    /**
-     * @param $clone
-     * @param $conditionName
-     * @param $applyIf
-     * @param $conditionPriority
-     * @param $selCondition
-     * @return mixed
-     * @throws LocalizedException
-     */
-    private function createCondition($clone, $conditionName, $applyIf, $conditionPriority, $selCondition)
-    {
-        if ($conditionName == $selCondition && !empty($selCondition) &&
-            !$this->api->getCondition($clone->number, $conditionName)) {
-            $condition = [
-                'name'      => $conditionName,
-                'statement' => $applyIf,
-                'type'      => 'REQUEST',
-                'priority'  => $conditionPriority
-            ];
-            $createCondition = $this->api->createCondition($clone->number, $condition);
-            return $createCondition->name;
-        }
-        return $selCondition;
     }
 }

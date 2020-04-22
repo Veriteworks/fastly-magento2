@@ -4,6 +4,7 @@ define([
     'mage/translate'
 ], function ($) {
     return function (config) {
+
         $(document).ready(function () {
             let allOpen = '';
             let allActive = '';
@@ -39,6 +40,7 @@ define([
              */
             function init()
             {
+
                 $('body').loader('show');
                 $.ajax({
                     type: "GET",
@@ -57,12 +59,14 @@ define([
                 let edgeAclHead = $('#system_full_page_cache_fastly_fastly_edge_acl-head');
                 let customSyntheticPagesHead = $('#system_full_page_cache_fastly_fastly_error_maintenance_page-head');
                 let backendsHead = $('#system_full_page_cache_fastly_fastly_backend_settings-head');
+                let logEndpointsHead = $('#system_full_page_cache_fastly_fastly_tools_logging-head');
                 let customSnippetsHead = $('#system_full_page_cache_fastly_fastly_custom_snippets-head');
                 let webApplicationFirewallHead = $('#system_full_page_cache_fastly_fastly_web_application_firewall-head');
                 let maintenanceSupportHead = $('#system_full_page_cache_fastly_fastly_maintenance_support-head');
                 let domainsHead = $('#system_full_page_cache_fastly_fastly_domains-head');
                 let rateLimitingHead = $('#system_full_page_cache_fastly_fastly_rate_limiting_settings-head');
                 let importExportHead = $('#system_full_page_cache_fastly_fastly_import_export-head');
+                let versionHistoryHead = $('#system_full_page_cache_fastly_fastly_tools-head');
                 $('#row_system_full_page_cache_fastly_fastly_web_application_firewall_owasp_restricted_extensions').hide();
                 $('#row_system_full_page_cache_fastly_fastly_web_application_firewall_owasp_allowed_methods').hide();
                 $('#row_system_full_page_cache_fastly_fastly_web_application_firewall_waf_bypass').hide();
@@ -78,6 +82,7 @@ define([
                     url: config.serviceInfoUrl,
                     showLoader: true
                 }).done(function (checkService) {
+
                     if (checkService.status !== false) {
                         $('body').loader('hide');
                         active_version = checkService.active_version;
@@ -136,6 +141,12 @@ define([
                             })
                         });
 
+                        logEndpointsHead.one('click', function () {
+                            requirejs(['logEndpoints'], function (logEndpoints) {
+                                logEndpoints(config, serviceStatus, isAlreadyConfigured);
+                            })
+                        });
+
                         customSnippetsHead.one('click', function () {
                             requirejs(['customSnippets'], function (customSnippets) {
                                 customSnippets(config, serviceStatus, isAlreadyConfigured);
@@ -166,10 +177,14 @@ define([
                             });
                         });
 
-                        importExportHead.one('click', function () {
-                            // requirejs(['fastlyImport'], function (fastlyImport) {
-                            //     fastlyImport(config, serviceStatus, isAlreadyConfigured);
-                            // });
+                        versionHistoryHead.one('click', function () {
+
+                            requirejs(['versionHistory'], function (versionHistory) {
+                                versionHistory(config, serviceStatus, isAlreadyConfigured);
+                            });
+                            requirejs(['fastlyImport'], function (fastlyImport) {
+                                fastlyImport(config, serviceStatus, isAlreadyConfigured);
+                            });
                             requirejs(['fastlyExport'], function (fastlyExport) {
                                 fastlyExport(config, serviceStatus, isAlreadyConfigured);
                             });
