@@ -1,21 +1,525 @@
-"Fastly CDN","Fastly CDN"
-"Fastly Configuration","Fastly Configuration"
-"Fastly API Endpoint","Fastly API Endpoint"
-"Default https://api.fastly.com/ should not be changed.","Default https://api.fastly.com/ should not be changed."
-"Fastly Service ID","Fastly Service ID"
-"Your Service ID appears as an alphanumeric string immediately below the name of your service on the fastly configure tab.","Your Service ID appears as an alphanumeric string immediately below the name of your service on the fastly configure tab."
-"Fastly API token","Fastly API token"
-"Please create a Fastly API token with a global scope.","Please create a Fastly API token with a global scope."
-"Stale content delivery time","Stale content delivery time"
-"Time in seconds for that stale content will be served. Set to 0 to disable this feature.","Time in seconds for that stale content will be served. Set to 0 to disable this feature."
-"Stale content delivery time in case of backend error","Stale content delivery time in case of backend error"
-"Purge category","Purge category"
-"Purge category's cache items on save","Purge category's cache items on save"
-"Purge product","Purge product"
-"Purge product's cache items on save","Purge product's cache items on save"
-"Purge CMS page","Purge CMS page"
-"Purge CMS page's cache item on save","Purge CMS page's cache item on save"
-"Use Soft Purge","Use Soft Purge"
-"Use Soft Purge in conjunction with stale content delivery times, to serve stale content.","Use Soft Purge in conjunction with stale content delivery times, to serve stale content."
-"Export VCL for Fastly","Export VCL for Fastly"
+HTML,HTML
+CSS,CSS
+JavaScript,JavaScript
+Images,Images
+Fastly,Fastly
+Name,Name
+"-- Select Store --","-- Select Store --"
+Manage,Manage
+User,User
+Enable/Disable,Enable/Disable
+"Country Code","Country Code"
+Store,Store
+Add,Add
+Create,Create
+Domain,Domain
+"Set HTML","Set HTML"
+"Download Fastly VCL","Download Fastly VCL"
+Export,Export
+Import,Import
+Configure,Configure
+Refresh,Refresh
+"Manage Paths","Manage Paths"
+"Test credentials","Test credentials"
+"Update Blocking Config","Update Blocking Config"
+"Update WAF Bypass Config","Update WAF Bypass Config"
+"Update IPs","Update IPs"
+"Upload VCL to Fastly","Upload VCL to Fastly"
+Id,Id
+"Edit WAF page","Edit WAF page"
+"Maximum TLS version must be higher than the minimum TLS version.","Maximum TLS version must be higher than the minimum TLS version."
+"Name can't be blank","Name can't be blank"
+"Address ' . . ' is not a valid IPv4, IPv6 or hostname.","Address ' . . ' is not a valid IPv4, IPv6 or hostname."
+"Override host ' . . ' is not a valid hostname.","Override host ' . . ' is not a valid hostname."
+"Please make sure that blocking is enabled.","Please make sure that blocking is enabled."
+"Custom snippet not found.","Custom snippet not found."
+"Invalid domain name ""' . . '""","Invalid domain name ""' . . '"""
+"Failed to validate service, the container ""' . . '"" may be in use. ","Failed to validate service, the container ""' . . '"" may be in use. "
+"Invalid file structure","Invalid file structure"
+"The required ACL container does not exist. Please re-upload VCL.","The required ACL container does not exist. Please re-upload VCL."
+"IP validation failed, please make sure that the provided IP values are comma-separated 
+                            and valid","IP validation failed, please make sure that the provided IP values are comma-separated 
+                            and valid"
+"Active versions mismatch.","Active versions mismatch."
+"Full Magento & Fastly Cache has been cleaned.","Full Magento & Fastly Cache has been cleaned."
+"Full Magento & Fastly Cache was not cleaned successfully.","Full Magento & Fastly Cache was not cleaned successfully."
+"Invalid content type ""' . . '"".","Invalid content type ""' . . '""."
+"The Fastly CDN has been cleaned.","The Fastly CDN has been cleaned."
+"The purge request was not processed successfully.","The purge request was not processed successfully."
+"An error occurred while clearing the Fastly CDN: ","An error occurred while clearing the Fastly CDN: "
+"Invalid domain ""' . . '"".","Invalid domain ""' . . '""."
+"The URL's ""' . . '"" cache has been cleaned.","The URL's ""' . . '"" cache has been cleaned."
+"The purge request was not processed successfully. [msg]","The purge request was not processed successfully. [msg]"
+"Invalid store ""' . . '"" given.","Invalid store ""' . . '"" given."
+"The required dictionary container does not exist. Please re-upload VCL.","The required dictionary container does not exist. Please re-upload VCL."
+"Please fill in the required fields.","Please fill in the required fields."
+"Failed to create Containers","Failed to create Containers"
 "You are in the wrong store. Click OK to visit the %1 store.","You are in the wrong store. Click OK to visit the %1 store."
+"Error fetching current version.","Error fetching current version."
+"Error fetching next version.","Error fetching next version."
+". ': ' .",". ': ' ."
+"Failed to check Service details.","Failed to check Service details."
+"Failed to clone active version.","Failed to clone active version."
+"'Failed to validate service version: ' .","'Failed to validate service version: ' ."
+"Failed to upload the Snippet file.","Failed to upload the Snippet file."
+"Failed to create a REQUEST condition.","Failed to create a REQUEST condition."
+"Failed to create the REQUEST object.","Failed to create the REQUEST object."
+"Failed to delete the REQUEST object.","Failed to delete the REQUEST object."
+"You must add users in order to enable Basic Authentication.","You must add users in order to enable Basic Authentication."
+"Failed to create Dictionary item.","Failed to create Dictionary item."
+Blocklist,Blocklist
+Allowlist,Allowlist
+%1,%1
+"The base directory to upload file is not specified.","The base directory to upload file is not specified."
+1x,1x
+1.5x,1.5x
+2x,2x
+3x,3x
+3.5x,3.5x
+4x,4x
+"%1 field must contain a numeric value.","%1 field must contain a numeric value."
+"'%1 field value must be larger than 0 and smaller or equal to ' .","'%1 field value must be larger than 0 and smaller or equal to ' ."
+"'Unknown module: ' .","'Unknown module: ' ."
+"'Return status ' .","'Return status ' ."
+"Fastly CDN","Fastly CDN"
+Dialog,Dialog
+Redirect,Redirect
+Last,Last
+hour,hour
+2hr,2hr
+4hr,4hr
+8hr,8hr
+day,day
+week,week
+month,month
+year,year
+<em>UTC</em>,<em>UTC</em>
+"No data.","No data."
+"Clean Fastly CDN by content type","Clean Fastly CDN by content type"
+"Remove selected cache items in Fastly CDN by content type.This removes the selected content type for all stores.","Remove selected cache items in Fastly CDN by content type.This removes the selected content type for all stores."
+"Clean Fastly CDN by store","Clean Fastly CDN by store"
+"Remove Magento generated content from selected store in Fastly CDN. This only removes store related information, not images, css or js.","Remove Magento generated content from selected store in Fastly CDN. This only removes store related information, not images, css or js."
+"Quick Purge","Quick Purge"
+"Purge URL in Fastly CDN.","Purge URL in Fastly CDN."
+"Purge All","Purge All"
+"Purge all Magento & Fastly Cache.","Purge all Magento & Fastly Cache."
+"You are about to clone your active version #x.","You are about to clone your active version #x."
+"We'll upload your VCL to version #y.","We'll upload your VCL to version #y."
+"Activate VCL after upload","Activate VCL after upload"
+"We'll make the changes to version #y.","We'll make the changes to version #y."
+"Activate after the change","Activate after the change"
+"Set image quality to Magento default","Set image quality to Magento default"
+"Your backend will be reconfigured in version #y.","Your backend will be reconfigured in version #y."
+Shield,Shield
+"Connect timeout","Connect timeout"
+"Between bytes timeout","Between bytes timeout"
+"First byte timeout ","First byte timeout "
+"Your backend will be created in version #y.","Your backend will be created in version #y."
+Condition,Condition
+Address,Address
+Shielding,Shielding
+"Auto load balance","Auto load balance"
+Weight,Weight
+"Enable TLS?","Enable TLS?"
+"Verify certificate?","Verify certificate?"
+"Certificate hostname","Certificate hostname"
+"SNI hostname","SNI hostname"
+"TLS CA certificate","TLS CA certificate"
+"Minimum TLS version","Minimum TLS version"
+"Maximum TLS version","Maximum TLS version"
+Ciphersuites,Ciphersuites
+"TLS client certificate","TLS client certificate"
+"TLS client key","TLS client key"
+"Maximum connections","Maximum connections"
+"Error threshold","Error threshold"
+"Connection timeout","Connection timeout"
+"Override host","Override host"
+"Your log endpoint will be created in version #y.","Your log endpoint will be created in version #y."
+"Log format","Log format"
+"Write key","Write key"
+Dataset,Dataset
+Placement,Placement
+"Collection URL","Collection URL"
+"Select a log line format","Select a log line format"
+Email,Email
+"Secret key","Secret key"
+"Project ID","Project ID"
+Table,Table
+Template,Template
+"Timestamp format","Timestamp format"
+"Bucket name","Bucket name"
+"Access key","Access key"
+Period,Period
+Path,Path
+"PGP public key","PGP public key"
+"Gzip level","Gzip level"
+"Redundancy level","Redundancy level"
+ACL,ACL
+"Server side encryption","Server side encryption"
+"Apply if...","Apply if..."
+Priority,Priority
+"HTML (max 65535 characters)","HTML (max 65535 characters)"
+Status,Status
+"MIME Type","MIME Type"
+"Content (max 65535 characters)","Content (max 65535 characters)"
+"Dictionary name","Dictionary name"
+Key,Key
+Value,Value
+Action,Action
+"Add new item","Add new item"
+"ACL name","ACL name"
+"Comment (Optional)","Comment (Optional)"
+"Date Added","Date Added"
+Username,Username
+Password,Password
+"Add new user","Add new user"
+"Your image configuration will be reconfigured in version #y.","Your image configuration will be reconfigured in version #y."
+"Auto WebP?","Auto WebP?"
+"Default WebP (lossy) quality","Default WebP (lossy) quality"
+"Default JPEG format","Default JPEG format"
+"Default JPEG quality","Default JPEG quality"
+"Allow upscaling?","Allow upscaling?"
+"Resize filter","Resize filter"
+"You are about to create a custom snippet.","You are about to create a custom snippet."
+Type,Type
+VCL,VCL
+"You are about to edit a custom snippet.","You are about to edit a custom snippet."
+Module,Module
+Description,Description
+Enabled,Enabled
+"Path (regular expression)","Path (regular expression)"
+"Comment (optional)","Comment (optional)"
+"Add new path","Add new path"
+Comment,Comment
+"Add Domain","Add Domain"
+"Activate after import","Activate after import"
+"Version Number","Version Number"
+"Updated Time","Updated Time"
+"You are about to dismiss outdated VCL for current version.","You are about to dismiss outdated VCL for current version."
+"You are about to dismiss warning foroutdated VCL for current version.","You are about to dismiss warning foroutdated VCL for current version."
+"Add ACL","Add ACL"
+Actions,Actions
+"Loading ACLs...","Loading ACLs..."
+"There are no ACLs configured yet.","There are no ACLs configured yet."
+"Manage users","Manage users"
+Delete,Delete
+"Remove all users","Remove all users"
+"Loading backends...","Loading backends..."
+"There are no backends configured yet.","There are no backends configured yet."
+"Loading snippets...","Loading snippets..."
+"There are no custom snippets yet.","There are no custom snippets yet."
+"Manage Domains","Manage Domains"
+"Loading Domains...","Loading Domains..."
+"There are no Domains configured yet.","There are no Domains configured yet."
+"Add dictionary","Add dictionary"
+"Loading dictionaries...","Loading dictionaries..."
+"There are no dictionaries configured yet.","There are no dictionaries configured yet."
+"Loading endpoints...","Loading endpoints..."
+"There are no endpoints configured yet.","There are no endpoints configured yet."
+"Loading modules...","Loading modules..."
+"There are no active modules yet.","There are no active modules yet."
+"List all versions","List all versions"
+"Last Edited","Last Edited"
+"Loading versions...","Loading versions..."
+"There are no versions configured yet.","There are no versions configured yet."
+" "," "
+"Create Backend","Create Backend"
+"Create a new request condition","Create a new request condition"
+"Backend ""","Backend """
+"Please save config prior to continuing.","Please save config prior to continuing."
+Warning!,Warning!
+"Confirm that you want to delete: %1","Confirm that you want to delete: %1"
+"Create container for authenticated users","Create container for authenticated users"
+"Basic Authentication users","Basic Authentication users"
+"Delete all authenticated users","Delete all authenticated users"
+"Basic Authentication is successfully ","Basic Authentication is successfully "
+"Basic Authentication is successfully turned off.","Basic Authentication is successfully turned off."
+"Authentication users removed.","Authentication users removed."
+"An error occurred while processing your request. Please try again.","An error occurred while processing your request. Please try again."
+"Authentication dictionary is successfully created.","Authentication dictionary is successfully created."
+"Please enter all required fields.","Please enter all required fields."
+"Authentication entry is successfully saved.","Authentication entry is successfully saved."
+"Authentication item is successfully deleted.","Authentication item is successfully deleted."
+"Please check your Service ID and API token and try again.","Please check your Service ID and API token and try again."
+"You are about to enable Basic Authentication","You are about to enable Basic Authentication"
+"You are about to disable Basic Authentication","You are about to disable Basic Authentication"
+"Changes not active until Update Blocking Configuration is clicked","Changes not active until Update Blocking Configuration is clicked"
+"You are about to enable Blocking","You are about to enable Blocking"
+"You are about to disable Blocking","You are about to disable Blocking"
+"Blocking snippet has been updated successfully.","Blocking snippet has been updated successfully."
+"Please Update Blocking Configuration","Please Update Blocking Configuration"
+"Blocking is successfully ","Blocking is successfully "
+"You are about to create a Custom Snippet ","You are about to create a Custom Snippet "
+"You are about to delete a Custom Snippet ","You are about to delete a Custom Snippet "
+"You are about to edit a Custom Snippet ","You are about to edit a Custom Snippet "
+"Please fill out the required fields.","Please fill out the required fields."
+"Custom snippet successfully created.","Custom snippet successfully created."
+"Custom snippet successfully deleted.","Custom snippet successfully deleted."
+"Custom snippet successfully updated.","Custom snippet successfully updated."
+"Update Error Page Content","Update Error Page Content"
+"Update WAF Page Content","Update WAF Page Content"
+"The HTML must contain less than ","The HTML must contain less than "
+"Error page HTML is successfully updated.","Error page HTML is successfully updated."
+"The content must contain less than ","The content must contain less than "
+"WAF page is successfully updated.","WAF page is successfully updated."
+Domains,Domains
+"Domains successfully updated.","Domains successfully updated."
+"Create ACL container","Create ACL container"
+"ACL items","ACL items"
+"Delete ACL containers","Delete ACL containers"
+"ACL is successfully created.","ACL is successfully created."
+"ACL successfully deleted.","ACL successfully deleted."
+"""",""""
+"ACL item is successfully saved.","ACL item is successfully saved."
+"ACL item is successfully deleted.","ACL item is successfully deleted."
+"ACL item is successfully updated.","ACL item is successfully updated."
+"Delete ""","Delete """
+"You are about to delete the ""","You are about to delete the """
+"Create dictionary container","Create dictionary container"
+"Dictionary items","Dictionary items"
+"Delete dictionary containers","Delete dictionary containers"
+"Dictionary is successfully created.","Dictionary is successfully created."
+"Dictionary successfully deleted.","Dictionary successfully deleted."
+"Dictionary item is successfully saved.","Dictionary item is successfully saved."
+"Dictionary item is successfully deleted.","Dictionary item is successfully deleted."
+"Export Edge ACLs, Edge Dictionaries, Active Edge Modules and Custom Snippets","Export Edge ACLs, Edge Dictionaries, Active Edge Modules and Custom Snippets"
+"Successfully exported.","Successfully exported."
+"Activate image optimization","Activate image optimization"
+"Image optimization default config options","Image optimization default config options"
+"The Image Optimization snippet has been successfully ","The Image Optimization snippet has been successfully "
+"You are about to enable the Fastly Image Optimization snippet","You are about to enable the Fastly Image Optimization snippet"
+"You are about to remove the Fastly Image Optimization snippet","You are about to remove the Fastly Image Optimization snippet"
+"Import Edge ACLs, Edge Dictionaries, Active Edge Modules and Custom Snippets","Import Edge ACLs, Edge Dictionaries, Active Edge Modules and Custom Snippets"
+"Successfully imported.","Successfully imported."
+"Create Endpoint","Create Endpoint"
+"Update Endpoint","Update Endpoint"
+"Create a new response condition","Create a new response condition"
+"Endpoint successfully updated.","Endpoint successfully updated."
+"Endpoint successfully created.","Endpoint successfully created."
+"Admin IPs list successfully updated","Admin IPs list successfully updated"
+"You are about to enable Maintenance Mode","You are about to enable Maintenance Mode"
+"You are about to disable Maintenance Mode","You are about to disable Maintenance Mode"
+"Maintenance Mode successfully ","Maintenance Mode successfully "
+"Create Dictionary","Create Dictionary"
+"The ","The "
+"Could not update the list modules.","Could not update the list modules."
+Cancel,Cancel
+Upload,Upload
+"Please make sure that Path Protection is enabled.","Please make sure that Path Protection is enabled."
+"Protected Paths management","Protected Paths management"
+"You are about to enable Path Protection","You are about to enable Path Protection"
+"You are about to disable Path Protection","You are about to disable Path Protection"
+"Paths successfully updated.","Paths successfully updated."
+"Path Protection successfully ","Path Protection successfully "
+"You are about to clone service **","You are about to clone service **"
+"We'll make changes to version ","We'll make changes to version "
+"Connection to service name ","Connection to service name "
+"You are about to enable Force TLS","You are about to enable Force TLS"
+"You are about to disable Force TLS","You are about to disable Force TLS"
+"Force TLS is successfully ","Force TLS is successfully "
+"You are about to upload VCL to Fastly ","You are about to upload VCL to Fastly "
+"VCL file is successfully uploaded to the Fastly service.","VCL file is successfully uploaded to the Fastly service."
+"List of versions","List of versions"
+"Generated VCL","Generated VCL"
+"You are about to enable WAF Bypass","You are about to enable WAF Bypass"
+"You are about to disable WAF Bypass","You are about to disable WAF Bypass"
+"Please make sure that WAF Bypass is enabled.","Please make sure that WAF Bypass is enabled."
+"WAF Bypass snippet has been updated successfully.","WAF Bypass snippet has been updated successfully."
+"WAF Bypass is successfully ","WAF Bypass is successfully "
+"Fastly Configuration","Fastly Configuration"
+"Fastly Service ID","Fastly Service ID"
+"Learn more about <a href=""https://docs.fastly.com/guides/basic-setup/working-with-services#creating-a-new-service"" target=""_blank"">creating a Fastly Service</a>
+                            and <a href=""https://docs.fastly.com/guides/account-management-and-security/finding-and-managing-your-account-info"" target=""_blank"">finding your Service ID.</a>","Learn more about <a href=""https://docs.fastly.com/guides/basic-setup/working-with-services#creating-a-new-service"" target=""_blank"">creating a Fastly Service</a>
+                            and <a href=""https://docs.fastly.com/guides/account-management-and-security/finding-and-managing-your-account-info"" target=""_blank"">finding your Service ID.</a>"
+"Fastly API Token","Fastly API Token"
+"Please create a <a href=""https://manage.fastly.com/account/personal/tokens"" target=""_blank"">Fastly API token</a> with a global scope.<br /><br />
+                            After making any changes to Fastly Service ID or API token, please Save Config first before uploading VCL.","Please create a <a href=""https://manage.fastly.com/account/personal/tokens"" target=""_blank"">Fastly API token</a> with a global scope.<br /><br />
+                            After making any changes to Fastly Service ID or API token, please Save Config first before uploading VCL."
+"Test Credentials","Test Credentials"
+"Automatic Upload & Service Activation","Automatic Upload & Service Activation"
+"Uploads stock Magento VCL. Magento VCL is required in order to take advantage of Fastly full page caching.
+                            More details <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/INSTALLATION.md#vcl-upload""
+                            target=""_blank"">here</a>. Recommended: Re-upload VCL periodically as newer versions of the plugin may contain VCL improvements/fixes.","Uploads stock Magento VCL. Magento VCL is required in order to take advantage of Fastly full page caching.
+                            More details <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/INSTALLATION.md#vcl-upload""
+                            target=""_blank"">here</a>. Recommended: Re-upload VCL periodically as newer versions of the plugin may contain VCL improvements/fixes."
+"Advanced Configuration","Advanced Configuration"
+"Force TLS","Force TLS"
+"Return a <strong>301 Moved Permanently</strong> redirect to any unencrypted request, and redirect to the TLS equivalent. Also sets <a href=""https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security"" target=""_blank"">HSTS headers</a>.","Return a <strong>301 Moved Permanently</strong> redirect to any unencrypted request, and redirect to the TLS equivalent. Also sets <a href=""https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security"" target=""_blank"">HSTS headers</a>."
+"Admin path timeout (1-600)","Admin path timeout (1-600)"
+"Time in seconds for the admin path first byte timeout. Please reupload VCL after making changes.","Time in seconds for the admin path first byte timeout. Please reupload VCL after making changes."
+"Ignored URL Parameters","Ignored URL Parameters"
+"A comma separated list of ignored query string parameters. Please reupload VCL after making changes.","A comma separated list of ignored query string parameters. Please reupload VCL after making changes."
+"Stale Content Delivery Time","Stale Content Delivery Time"
+"Time in seconds that Fastly will serve <a href=""https://docs.fastly.com/guides/performance-tuning/serving-stale-content""
+                            target=""_blank"">stale content</a> while fresh content is being requested. Set to 0 to disable this feature.","Time in seconds that Fastly will serve <a href=""https://docs.fastly.com/guides/performance-tuning/serving-stale-content""
+                            target=""_blank"">stale content</a> while fresh content is being requested. Set to 0 to disable this feature."
+"Stale Content Delivery Time in Case of Backend Error","Stale Content Delivery Time in Case of Backend Error"
+"Time in seconds that Fastly will continue to serve <a href=""https://docs.fastly.com/guides/performance-tuning/serving-stale-content#serving-stale-content-on-errors""
+                                target=""_blank"">stale content​</a> if your origin is unavailable. Set to 0 to disable this feature.","Time in seconds that Fastly will continue to serve <a href=""https://docs.fastly.com/guides/performance-tuning/serving-stale-content#serving-stale-content-on-errors""
+                                target=""_blank"">stale content​</a> if your origin is unavailable. Set to 0 to disable this feature."
+"X-Magento-Tags Size","X-Magento-Tags Size"
+"Maximum X-Magento-Tags header size (in bytes).","Maximum X-Magento-Tags header size (in bytes)."
+"Purge Category","Purge Category"
+"Choose to purge all the category assets when saving a change to that category.","Choose to purge all the category assets when saving a change to that category."
+"Purge Product","Purge Product"
+"Choose to purge all the product’s assets when saving a change to that product.","Choose to purge all the product’s assets when saving a change to that product."
+"Purge CMS Page","Purge CMS Page"
+"Choose to purge page content when updating or adding a new page in the Magento CMS.","Choose to purge page content when updating or adding a new page in the Magento CMS."
+"Preserve Static Assets on Purge","Preserve Static Assets on Purge"
+"When flushing cache, flush only dynamic content and preserve static assets.","When flushing cache, flush only dynamic content and preserve static assets."
+"Use Soft Purge","Use Soft Purge"
+"<a href=""https://docs.fastly.com/guides/purging/soft-purges"" target=""_blank"">Soft Purge</a>​ needs to be turned on in order to serve stale content.","<a href=""https://docs.fastly.com/guides/purging/soft-purges"" target=""_blank"">Soft Purge</a>​ needs to be turned on in order to serve stale content."
+"Enable GeoIP","Enable GeoIP"
+"Enable GeoIP for country/language lookup.","Enable GeoIP for country/language lookup."
+"GeoIP Action","GeoIP Action"
+"""Dialog"" shows a modal dialog to select target store.<br /> ""Redirect"" redirects the client directly to the target store.","""Dialog"" shows a modal dialog to select target store.<br /> ""Redirect"" redirects the client directly to the target store."
+"GeoIP Country Mapping","GeoIP Country Mapping"
+"Use capitalized <a href=""https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2""
+                                target=""_blank"">two-letter country codes</a> to map countries to store views. Use * to define a default fallback.","Use capitalized <a href=""https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2""
+                                target=""_blank"">two-letter country codes</a> to map countries to store views. Use * to define a default fallback."
+"Enable Fastly Edge Modules","Enable Fastly Edge Modules"
+"Enables/Disables Fastly Edge Modules menu.","Enables/Disables Fastly Edge Modules menu."
+"Backend Settings","Backend Settings"
+Backends,Backends
+"Basic Authentication","Basic Authentication"
+"Basic authentication allows you to protect every page and asset on your site with username and password.
+                        This can be used to protect the site during development. You will still be able to access Magento admin without basic auth.
+                        It is not advised to use this in production.","Basic authentication allows you to protect every page and asset on your site with username and password.
+                        This can be used to protect the site during development. You will still be able to access Magento admin without basic auth.
+                        It is not advised to use this in production."
+Authentication,Authentication
+Blocking,Blocking
+"Block traffic from selected ACL IPs and Countries. Please Save Config prior to enabling.","Block traffic from selected ACL IPs and Countries. Please Save Config prior to enabling."
+"Update Blocking","Update Blocking"
+"Applies blocking changes to active setup. HAS TO BE clicked anytime you make blocking changes.","Applies blocking changes to active setup. HAS TO BE clicked anytime you make blocking changes."
+"Blocking Type","Blocking Type"
+"<b>Blocklist:</b> block ALL access for users from selected countries/ACLs <br />
+                                        <b>Allowlist:</b> block ALL access EXCEPT for users from selected countries/ACLs","<b>Blocklist:</b> block ALL access for users from selected countries/ACLs <br />
+                                        <b>Allowlist:</b> block ALL access EXCEPT for users from selected countries/ACLs"
+"Country List","Country List"
+"List of countries that can be selected. Multiple selections allowed.","List of countries that can be selected. Multiple selections allowed."
+ACLs,ACLs
+"List of ACLs that can be selected. Multiple selections allowed.","List of ACLs that can be selected. Multiple selections allowed."
+"Custom Synthetic Pages","Custom Synthetic Pages"
+"This option allows you to define synthetic pages. It allows you to paste your own HTML.","This option allows you to define synthetic pages. It allows you to paste your own HTML."
+"Error/Maintenance Page HTML","Error/Maintenance Page HTML"
+"Configures an error/sorry page that will be sent to all users if Fastly is about to serve an error page (HTTP 500/503) e.g. backend timeouts, backend servers errors etc.","Configures an error/sorry page that will be sent to all users if Fastly is about to serve an error page (HTTP 500/503) e.g. backend timeouts, backend servers errors etc."
+"WAF Page","WAF Page"
+"Customize output of the page served to users blocked by the Web Application Firewall (WAF).","Customize output of the page served to users blocked by the Web Application Firewall (WAF)."
+"Custom VCL Snippets","Custom VCL Snippets"
+"This option allows you to manage your own custom VCL snippets. You can learn
+                            <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/CUSTOM-VCL-SNIPPETS.md"" target=""_blank"">more here</a>.
+                            <b>Please note</b> after you have created your snippets you have to click on Upload Fastly VCL to upload them along
+                            side stock Fastly VCL.","This option allows you to manage your own custom VCL snippets. You can learn
+                            <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/CUSTOM-VCL-SNIPPETS.md"" target=""_blank"">more here</a>.
+                            <b>Please note</b> after you have created your snippets you have to click on Upload Fastly VCL to upload them along
+                            side stock Fastly VCL."
+"Create Custom Snippet","Create Custom Snippet"
+"Custom Snippets","Custom Snippets"
+"Edge ACL","Edge ACL"
+"Edge ACLs are access control lists that allow you to manage IP addresses that are used in allowing or blocking access to resources.
+                            <a href=""https://docs.fastly.com/guides/access-control-lists/creating-and-manipulating-edge-acl-entries"">Click here for more details.</a>
+                            This interface only allows management of containers and entries. To invoke them you will need to configure your Fastly service.","Edge ACLs are access control lists that allow you to manage IP addresses that are used in allowing or blocking access to resources.
+                            <a href=""https://docs.fastly.com/guides/access-control-lists/creating-and-manipulating-edge-acl-entries"">Click here for more details.</a>
+                            This interface only allows management of containers and entries. To invoke them you will need to configure your Fastly service."
+"Edge Dictionaries","Edge Dictionaries"
+"Edge Dictionaries are made up of dictionary containers and the dictionary items within them.
+                            In combination, containers and items allow you to store data as key-value pairs on Fastly Edge nodes.
+                            <a href=""https://docs.fastly.com/guides/edge-dictionaries/about-edge-dictionaries"">Click here for more details.</a>
+                            This interface only allows management of containers and entries. To invoke them you will need to configure your Fastly service.","Edge Dictionaries are made up of dictionary containers and the dictionary items within them.
+                            In combination, containers and items allow you to store data as key-value pairs on Fastly Edge nodes.
+                            <a href=""https://docs.fastly.com/guides/edge-dictionaries/about-edge-dictionaries"">Click here for more details.</a>
+                            This interface only allows management of containers and entries. To invoke them you will need to configure your Fastly service."
+Dictionaries,Dictionaries
+"Image Optimization","Image Optimization"
+"Fastly IO Snippet","Fastly IO Snippet"
+"VCL snippet upload is required in order to funnel image requests to Fastly optimizers.","VCL snippet upload is required in order to funnel image requests to Fastly optimizers."
+"Default IO Config Options","Default IO Config Options"
+"Allows you to (re)configure items such as default quality levels, lossy image formats, auto WebP, JPG types. These settings will be used as fallbacks when no transformation rules are applied in the URL query string or in your VCL.","Allows you to (re)configure items such as default quality levels, lossy image formats, auto WebP, JPG types. These settings will be used as fallbacks when no transformation rules are applied in the URL query string or in your VCL."
+"Force Lossy conversion","Force Lossy conversion"
+"Certain image types are lossless e.g. PNG and BMP and will not compress well. By default Fastly IO will retain
+                            original format. This option forces those images to be converted to lossy JPG or WEBP. Applies only to product/catalog images.","Certain image types are lossless e.g. PNG and BMP and will not compress well. By default Fastly IO will retain
+                            original format. This option forces those images to be converted to lossy JPG or WEBP. Applies only to product/catalog images."
+"Enable Deep Image Optimization","Enable Deep Image Optimization"
+"Turns off Magento built-in image resizing and manipulation and offloads it onto Fastly IO.
+                            Please read the <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/IMAGE-OPTIMIZATION.md#deep-image-optimization""
+                            target=""_blank"">image optimization guide</a> for caveats and details.","Turns off Magento built-in image resizing and manipulation and offloads it onto Fastly IO.
+                            Please read the <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/IMAGE-OPTIMIZATION.md#deep-image-optimization""
+                            target=""_blank"">image optimization guide</a> for caveats and details."
+"JPEG Image Quality","JPEG Image Quality"
+"Sets JPEG image quality, values in percentage from 1 to 100. This value is used in the quality query argument for product/catalog images.","Sets JPEG image quality, values in percentage from 1 to 100. This value is used in the quality query argument for product/catalog images."
+"Set Background Color on Images","Set Background Color on Images"
+"Adds bg-color query argument for product/catalog images. This will remove a transparency/alpha channel and replace it with the theme background color.","Adds bg-color query argument for product/catalog images. This will remove a transparency/alpha channel and replace it with the theme background color."
+"Set Canvas on Images","Set Canvas on Images"
+"Adds canvas query argument for product/catalog images.","Adds canvas query argument for product/catalog images."
+"Enable Adaptive Device Pixel Ratios","Enable Adaptive Device Pixel Ratios"
+"Image sources will be rewritten to use srcsets supporting
+                            <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/IMAGE-OPTIMIZATION.md#adaptive-pixel-ratios""
+                            target=""_blank"">adaptive device pixel ratios</a>. Useful for Progressive Web Apps.","Image sources will be rewritten to use srcsets supporting
+                            <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/IMAGE-OPTIMIZATION.md#adaptive-pixel-ratios""
+                            target=""_blank"">adaptive device pixel ratios</a>. Useful for Progressive Web Apps."
+"Device Pixel Ratios","Device Pixel Ratios"
+"Verify Image On Disk","Verify Image On Disk"
+"Verify image actually exists on the disk. May cause performance issues especially on systems with shared filesystems.","Verify image actually exists on the disk. May cause performance issues especially on systems with shared filesystems."
+"Maintenance Mode","Maintenance Mode"
+"Enabling maintenance mode allows admin IPs (IPs specified in .maintenance.ip file) to access
+                            the site as normal while returning an error page to everyone else.","Enabling maintenance mode allows admin IPs (IPs specified in .maintenance.ip file) to access
+                            the site as normal while returning an error page to everyone else."
+"Enable Maintenance Mode","Enable Maintenance Mode"
+"Update Admin IPs list","Update Admin IPs list"
+"Updates the list of allowed/admin IPs. The IP values are comma-delimited and read from var/.maintenance.ip file.","Updates the list of allowed/admin IPs. The IP values are comma-delimited and read from var/.maintenance.ip file."
+"Web Application Firewall (WAF)","Web Application Firewall (WAF)"
+"Web Application Firewall","Web Application Firewall"
+"Allowed Methods","Allowed Methods"
+"Restricted Extensions","Restricted Extensions"
+"WAF ACL Bypass","WAF ACL Bypass"
+"Allow IPs in selected ACLs to bypass WAF blocking","Allow IPs in selected ACLs to bypass WAF blocking"
+"Update WAF ACL Bypass","Update WAF ACL Bypass"
+"Changes WAF ACL bypass. HAS TO BE clicked anytime you make changes to the list of ACLs.  Not needed if you are adding/removing IPs. That is done in ACL menu.","Changes WAF ACL bypass. HAS TO BE clicked anytime you make changes to the list of ACLs.  Not needed if you are adding/removing IPs. That is done in ACL menu."
+"WAF Bypass ACLs","WAF Bypass ACLs"
+"Select one or multiple ACLs that are allowed to bypass WAF blocking","Select one or multiple ACLs that are allowed to bypass WAF blocking"
+"Rate Limiting","Rate Limiting"
+"Experimental: Rate limit specific URL paths against abuse. Please read <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/RATE-LIMITING.md#vcl-upload""
+                            target=""_blank"">this guide</a> for more details","Experimental: Rate limit specific URL paths against abuse. Please read <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/RATE-LIMITING.md#vcl-upload""
+                            target=""_blank"">this guide</a> for more details"
+"Enable Rate Limiting","Enable Rate Limiting"
+"Enable Rate Limit Logging","Enable Rate Limit Logging"
+"Path Protection","Path Protection"
+"Enable Path Protection","Enable Path Protection"
+"Protected Paths","Protected Paths"
+"Path Protection Rate Limit","Path Protection Rate Limit"
+"Numeric value for the number of tolerated Path Protection Rate Limit requests.","Numeric value for the number of tolerated Path Protection Rate Limit requests."
+"Path Protection Rate Limit TTL","Path Protection Rate Limit TTL"
+"Time in seconds for the Path Protection Rate Limit lifetime.","Time in seconds for the Path Protection Rate Limit lifetime."
+"Abusive Crawlers","Abusive Crawlers"
+"Enable Crawler Protection","Enable Crawler Protection"
+"Crawler Protection Rate Limit","Crawler Protection Rate Limit"
+"Numeric value for the number of tolerated Crawler Protection Rate Limit requests.","Numeric value for the number of tolerated Crawler Protection Rate Limit requests."
+"Crawler Protection Rate Limit TTL","Crawler Protection Rate Limit TTL"
+"Time in seconds for the Crawler Protection Rate Limit lifetime.","Time in seconds for the Crawler Protection Rate Limit lifetime."
+"Exempt Known Good Bots","Exempt Known Good Bots"
+"Choose to exempt known good bots like Googlebot and Bingbot from Crawler Protection rate limiting","Choose to exempt known good bots like Googlebot and Bingbot from Crawler Protection rate limiting"
+Tools,Tools
+"Version History","Version History"
+"Real-Time Log Streaming","Real-Time Log Streaming"
+Endpoints,Endpoints
+"Webhook Notifications","Webhook Notifications"
+"Webhooks are a simple way to post messages to external sources. This integration is geared for Slack however you can use it for anything else.
+                            <br /> To create Slack Incoming webhooks <a href=""https://api.slack.com/incoming-webhooks"">https://api.slack.com/incoming-webhooks</a>.","Webhooks are a simple way to post messages to external sources. This integration is geared for Slack however you can use it for anything else.
+                            <br /> To create Slack Incoming webhooks <a href=""https://api.slack.com/incoming-webhooks"">https://api.slack.com/incoming-webhooks</a>."
+"Incoming Webhook URL","Incoming Webhook URL"
+"Publish All Purge Events","Publish All Purge Events"
+"Publish Key and URL Purge Events","Publish Key and URL Purge Events"
+"Publish Purge All/Clean All Items Events","Publish Purge All/Clean All Items Events"
+"Publish Stack Trace on All Purge Events","Publish Stack Trace on All Purge Events"
+"Submits the stack trace when any purge event is created, for debugging purposes.","Submits the stack trace when any purge event is created, for debugging purposes."
+"Publish stack trace on Key and URL Purge Event","Publish stack trace on Key and URL Purge Event"
+"Submits the stack trace when the purge by key event is created, for debugging purposes.","Submits the stack trace when the purge by key event is created, for debugging purposes."
+"Publish stack trace on Purge All/Clean All Event","Publish stack trace on Purge All/Clean All Event"
+"Submits the stack trace when the purge all event is created, for debugging purposes.","Submits the stack trace when the purge all event is created, for debugging purposes."
+"Publish Config Change Events","Publish Config Change Events"
+"Message Prefix","Message Prefix"
+"Fastly Edge Modules","Fastly Edge Modules"
+"Fastly Edge module allow you to enable specific functionality like CORS headers, etc. For more details <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/Edge-Modules/EDGE-MODULES.md"" target=""_blank"">click here.</a>","Fastly Edge module allow you to enable specific functionality like CORS headers, etc. For more details <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/Edge-Modules/EDGE-MODULES.md"" target=""_blank"">click here.</a>"
+"Module Manager","Module Manager"
+"Active Modules","Active Modules"

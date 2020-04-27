@@ -1,153 +1,239 @@
 HTML,HTML
 CSS,CSS
 JavaScript,JavaScript
-Images,Images
+Images,画像
 Fastly,Fastly
-Name,Name
-"-- Select Store --","-- Select Store --"
-Manage,Manage
-User,User
-Enable/Disable,Enable/Disable
-"Country Code","Country Code"
-Store,Store
-Add,Add
-Create,Create
-"Set HTML","Set HTML"
-"Download Fastly VCL","Download Fastly VCL"
-Configure,Configure
-Refresh,Refresh
-"Test credentials","Test credentials"
-"Update Blocking Config","Update Blocking Config"
-"Update WAF Bypass Config","Update WAF Bypass Config"
-"Upload VCL to Fastly","Upload VCL to Fastly"
-"Edit WAF page","Edit WAF page"
-"Custom snippet not found.","Custom snippet not found."
-"Failed to validate service, the container ""' . . '"" may be in use. ","Failed to validate service, the container ""' . . '"" may be in use. "
-"Active versions mismatch.","Active versions mismatch."
-"Full Magento & Fastly Cache has been cleaned.","Full Magento & Fastly Cache has been cleaned."
-"Full Magento & Fastly Cache was not cleaned successfully.","Full Magento & Fastly Cache was not cleaned successfully."
-"Invalid content type ""' . . '"".","Invalid content type ""' . . '""."
-"The Fastly CDN has been cleaned.","The Fastly CDN has been cleaned."
-"The purge request was not processed successfully.","The purge request was not processed successfully."
-"An error occurred while clearing the Fastly CDN: ","An error occurred while clearing the Fastly CDN: "
-"Invalid domain ""' . . '"".","Invalid domain ""' . . '""."
-"The URL's ""' . . '"" cache has been cleaned.","The URL's ""' . . '"" cache has been cleaned."
-"Invalid store ""' . . '"" given.","Invalid store ""' . . '"" given."
-"Please fill in the required fields.","Please fill in the required fields."
-"You are in the wrong store. Click OK to visit the %1 store.","You are in the wrong store. Click OK to visit the %1 store."
-"Error fetching current version.","Error fetching current version."
-"Error fetching next version.","Error fetching next version."
-"'Return status ' .","'Return status ' ."
-"Failed to check Service details.","Failed to check Service details."
-"Failed to clone active version.","Failed to clone active version."
-"'Failed to validate service version: ' .","'Failed to validate service version: ' ."
-"Failed to upload the Snippet file.","Failed to upload the Snippet file."
-"Failed to create a REQUEST condition.","Failed to create a REQUEST condition."
-"Failed to create the REQUEST object.","Failed to create the REQUEST object."
-"Failed to delete the REQUEST object.","Failed to delete the REQUEST object."
-"Failed to create Dictionary container.","Failed to create Dictionary container."
-"You must add users in order to enable Basic Authentication.","You must add users in order to enable Basic Authentication."
-"Failed to create Dictionary item.","Failed to create Dictionary item."
-Blocklist,Blocklist
-Allowlist,Allowlist
+Name,名前
+"-- Select Store --","-- ストアを選択 --"
+Manage,管理
+User,ユーザー
+Enable/Disable,有効/無効
+"Country Code","国コード"
+Store,ストア
+Add,追加
+Create,作成
+Domain,ドメイン
+"Set HTML","HTMLを設定"
+"Download Fastly VCL","Fastly VCLをダウンロード"
+Export,エクスポート
+Import,インポート
+Configure,設定
+Refresh,更新
+"Manage Paths","パスの管理"
+"Test credentials","認証情報をテスト"
+"Update Blocking Config","ブロッキング設定を更新"
+"Update WAF Bypass Config","WAFバイパス設定を更新"
+"Update IPs","IPアドレスを更新"
+"Upload VCL to Fastly","VCLをFastlyにアップロード"
+Id,Id
+"Edit WAF page","WAFページを編集"
+"Maximum TLS version must be higher than the minimum TLS version.","最大TLSバージョンは最小TLSバージョンより大きくなくてはいけません。"
+"Name can't be blank","名前は空欄にできません"
+"Address ' . . ' is not a valid IPv4, IPv6 or hostname","アドレス ' . . ' は正しいIPv4, IPv6またはホスト名ではありません"
+"Override host ' . . ' is not a valid hostname.","Override host ' . . ' is not a valid hostname."
+"Please make sure that blocking is enabled.","Please make sure that blocking is enabled."
+"Custom snippet not found.","カスタムスニペットが見つかりません。"
+"Invalid domain name ""' . . '""","不正なドメイン名 ""' . . '"" です"
+"Failed to validate service, the container ""' . . '"" may be in use. ","サービスの検証に失敗しました。 コンテナ ""' . . '"" は使用中です。 "
+"Invalid file structure","Invalid file structure"
+"The required ACL container does not exist. Please re-upload VCL.","要求されたACLコンテナがありません。 VCLをアップロードし直してください。"
+"IP validation failed, please make sure that the provided IP values are comma-separated
+                            and valid","IPアドレスの確認に失敗しました。入力されたIPアドレスがカンマ区切りかつ正しいものかご確認ください。"
+"Active versions mismatch.","有効なバージョンが一致しません。"
+"Full Magento & Fastly Cache has been cleaned.","MagentoとFastlyのキャッシュが全てクリアされました。"
+"Full Magento & Fastly Cache was not cleaned successfully.","MagentoとFastlyのキャッシュが全てクリアされました。"
+"Invalid content type ""' . . '"".","不正なコンテンツタイプ ""' . . '"" です。"
+"The Fastly CDN has been cleaned.","Fastly CDN がクリアされました。"
+"The purge request was not processed successfully.","パージリクエストが正常に実行されませんでした。"
+"An error occurred while clearing the Fastly CDN: ","Fastly CDNのクリア中にエラーが発生しました: "
+"Invalid domain ""' . . '"".","不正なドメイン ""' . . '"" です。"
+"The URL's ""' . . '"" cache has been cleaned.","URL ""' . . '"" のキャッシュをクリアしました。"
+"The purge request was not processed successfully. [msg]","パージリクエストが正しく処理されませんでした。 [msg]"
+"Invalid store ""' . . '"" given.","不正なストア ""' . . '"" が指定されました。"
+"The required dictionary container does not exist. Please re-upload VCL.","要求されたディクショナリコンテナがありません。VCLをアップロードし直してください。"
+"Please fill in the required fields.","必須項目を入力してください。"
+"Failed to create Containers","コンテナの作成に失敗しました。"
+"You are in the wrong store. Click OK to visit the %1 store.","正しくないストアにいるようです。 OKをクリックして %1 ストアを表示させてください。"
+"Error fetching current version.","現在のバージョンの取得中にエラーが発生しました。"
+"Error fetching next version.","次のバージョンの取得中にエラーが発生しました。"
+". ': ' .",". ': ' ."
+"Failed to check Service details.","サービス詳細のチェックに失敗しました。"
+"Failed to clone active version.","使用中のバージョンの複製に失敗しました。"
+"'Failed to validate service version: ' .","'サービスバージョンのチェックに失敗しました: ' ."
+"Failed to upload the Snippet file.","スニペットファイルのアップロードに失敗しました。"
+"Failed to create a REQUEST condition.","REQUESTコンディションの作成に失敗しました。"
+"Failed to create the REQUEST object.","REQUESTオブジェクトの作成に失敗しました。"
+"Failed to delete the REQUEST object.","REQUESTオブジェクトの削除に失敗しました。"
+"You must add users in order to enable Basic Authentication.","BASIC認証を有効にする場合は、ユーザーを追加しなければなりません。"
+"Failed to create Dictionary item.","ディクショナリアイテムの作成に失敗しました。"
+Blocklist,ブロックリスト
+Allowlist,許可リスト
 %1,%1
-"The base directory to upload file is not specified.","The base directory to upload file is not specified."
+"The base directory to upload file is not specified.","アップロードするベースディクショナリファイルが未指定です。"
 1x,1x
 1.5x,1.5x
 2x,2x
 3x,3x
 3.5x,3.5x
 4x,4x
-"%1 field must contain a numeric value.","%1 field must contain a numeric value."
+"%1 field must contain a numeric value.","%1 フィールドは数字でなければなりません。"
 "'%1 field value must be larger than 0 and smaller or equal to ' .","'%1 field value must be larger than 0 and smaller or equal to ' ."
+"'Unknown module: ' .","'Unknown module: ' ."
+"'Return status ' .","'戻りステータス ' ."
 "Fastly CDN","Fastly CDN"
-Dialog,Dialog
-Redirect,Redirect
-Last,Last
-hour,hour
-2hr,2hr
-4hr,4hr
-8hr,8hr
-day,day
-week,week
-month,month
-year,year
+Dialog,ダイアログ
+Redirect,リダイレクト
+Last,最新
+hour,時間
+2hr,2時間
+4hr,4時間
+8hr,8時間
+day,日
+week,週
+month,月
+year,年
 <em>UTC</em>,<em>UTC</em>
-"No data.","No data."
-"Clean Fastly CDN by content type","Clean Fastly CDN by content type"
-"Remove selected cache items in Fastly CDN by content type.This removes the selected content type for all stores.","Remove selected cache items in Fastly CDN by content type.This removes the selected content type for all stores."
-"Clean Fastly CDN by store","Clean Fastly CDN by store"
-"Remove Magento generated content from selected store in Fastly CDN. This only removes store related information, not images, css or js.","Remove Magento generated content from selected store in Fastly CDN. This only removes store related information, not images, css or js."
-"Quick Purge","Quick Purge"
-"Purge URL in Fastly CDN.","Purge URL in Fastly CDN."
-"Purge All","Purge All"
-"Purge all Magento & Fastly Cache.","Purge all Magento & Fastly Cache."
-"You are about to clone your active version #x.","You are about to clone your active version #x."
-"We'll upload your VCL to version #y.","We'll upload your VCL to version #y."
-"Activate VCL after upload","Activate VCL after upload"
-"We'll make the changes to version #y.","We'll make the changes to version #y."
-"Activate after the change","Activate after the change"
-"Set image quality to Magento default","Set image quality to Magento default"
-"Your backend will be reconfigured in version #y.","Your backend will be reconfigured in version #y."
-Shield,Shield
+"No data.","データがありません。"
+"Clean Fastly CDN by content type","Fastly CDN をコンテンツタイプ指定でクリア"
+"Remove selected cache items in Fastly CDN by content type.This removes the selected content type for all stores.","選択したコンテンツタイプのFastly CDNキャッシュを削除します。すべてのストアの選択したコンテンツタイプのキャッシュが削除されます。"
+"Clean Fastly CDN by store","Fastly CDN をストア指定でクリア"
+"Remove Magento generated content from selected store in Fastly CDN. This only removes store related information, not images, css or js.","選択したストアのMagentoが生成したコンテンツをFastly CDN上から削除します。 この操作はストアに関連するものだけを削除します。画像やCSS、JSファイルは削除しません。"
+"Quick Purge","クイックパージ"
+"Purge URL in Fastly CDN.","Fastly CDNのパージURL"
+"Purge All","すべてパージ"
+"Purge all Magento & Fastly Cache.","すべてのMagentoとFastly上のキャッシュをパージ"
+"You are about to clone your active version #x.","アクティブなバージョン #x を複製します。"
+"We'll upload your VCL to version #y.","あなたのVCLをバージョン #y としてアップロードします。"
+"Activate VCL after upload","アップロード後にVCLを有効にする"
+"We'll make the changes to version #y.","バージョン #y に変更を加えます。"
+"Activate after the change","変更後にアクティベートする"
+"Set image quality to Magento default","画像の品質をMagentoのデフォルトにする"
+"Your backend will be reconfigured in version #y.","あなたのバックエンドサーバーはバージョン #y で再設定されます。"
+Shield,シールド
 "Connect timeout","Connect timeout"
 "Between bytes timeout","Between bytes timeout"
 "First byte timeout ","First byte timeout "
-"HTML (max 65535 characters)","HTML (max 65535 characters)"
-Status,Status
-"MIME Type","MIME Type"
-"Content (max 65535 characters)","Content (max 65535 characters)"
-"Dictionary name","Dictionary name"
-Key,Key
-Value,Value
-Action,Action
-"Add new item","Add new item"
-"ACL name","ACL name"
-"IP Value","IP Value"
-Negated,Negated
-Username,Username
-Password,Password
-"Add new user","Add new user"
-"Your image configuration will be reconfigured in version #y.","Your image configuration will be reconfigured in version #y."
-"Auto WebP?","Auto WebP?"
-"Default WebP (lossy) quality","Default WebP (lossy) quality"
-"Default JPEG format","Default JPEG format"
-"Default JPEG quality","Default JPEG quality"
-"Allow upscaling?","Allow upscaling?"
-"Resize filter","Resize filter"
-"You are about to create a custom snippet.","You are about to create a custom snippet."
-Type,Type
-Priority,Priority
+"Your backend will be created in version #y.","あなたのバックエンドサーバはバージョン #y で作成されます。"
+Condition,条件
+Address,アドレス
+Shielding,シールディング
+"Auto load balance","自動負荷分散"
+Weight,ウエイト
+"Enable TLS?","TLSを有効にしますか?"
+"Verify certificate?","証明書を検証しますか?"
+"Certificate hostname","証明書ホスト名"
+"SNI hostname","SNIホスト名"
+"TLS CA certificate","TLS CA証明書"
+"Minimum TLS version","最小TLSバージョン"
+"Maximum TLS version","最大TLSバージョン"
+Ciphersuites,暗号スイート
+"TLS client certificate","TLSクライアント証明書"
+"TLS client key","TLSクライアントキー"
+"Maximum connections","最大接続数"
+"Error threshold","Error threshold"
+"Connection timeout","Connection timeout"
+"Override host","Override host"
+"Your log endpoint will be created in version #y.","Your log endpoint will be created in version #y."
+"Log format","ログフォーマット"
+"Write key","Write key"
+Dataset,データセット
+Placement,Placement
+"Collection URL","コレクションURL"
+"Select a log line format","ログの行フォーマットを選択"
+Email,メール
+"Secret key","シークレットキー"
+"Project ID","プロジェクトID"
+Table,テーブル
+Template,テンプレート
+"Timestamp format","タイムスタンプフォーマット"
+"Bucket name","バケット名"
+"Access key","アクセスキー"
+Period,期間
+Path,パス
+"PGP public key","PGP公開鍵"
+"Gzip level","Gzip圧縮率"
+"Redundancy level","冗長レベル"
+ACL,ACL
+"Server side encryption","サーバーサイド暗号化"
+"Apply if...","Apply if..."
+Priority,優先度
+"HTML (max 65535 characters)","HTML (最大 65535 文字)"
+Status,ステータス
+"MIME Type","MIMEタイプ"
+"Content (max 65535 characters)","コンテンツ (最大 65535 文字)"
+"Dictionary name","ディクショナリ名"
+Key,キー
+Value,値
+Action,アクション
+"Add new item","行を追加"
+"ACL name","ACL名"
+"Comment (Optional)","コメント (任意)"
+"Date Added","追加日"
+Username,ユーザー名
+Password,パスワード
+"Add new user","新規ユーザー追加"
+"Your image configuration will be reconfigured in version #y.","あなたの画像設定はバージョン #y で再設定されます。"
+"Auto WebP?","WebPを自動で使用しますか?"
+"Default WebP (lossy) quality","デフォルトWebP圧縮率"
+"Default JPEG format","デフォルトJPEGフォーマット"
+"Default JPEG quality","デフォルトJPEG圧縮率"
+"Allow upscaling?","画像の自動拡大を許可しますか?"
+"Resize filter","リサイズフィルター"
+"You are about to create a custom snippet.","あなたはカスタムスニペットを作成しようとしています。"
+Type,タイプ
 VCL,VCL
-"You are about to edit a custom snippet.","You are about to edit a custom snippet."
-Module,Module
-Description,Description
-Enabled,Enabled
-"Add ACL","Add ACL"
-Actions,Actions
-"Loading ACLs...","Loading ACLs..."
-"There are no ACLs configured yet.","There are no ACLs configured yet."
-"Manage users","Manage users"
-Delete,Delete
-"Remove all users","Remove all users"
-"Loading backends...","Loading backends..."
-"There are no backends configured yet.","There are no backends configured yet."
-"Loading snippets...","Loading snippets..."
-"There are no custom snippets yet.","There are no custom snippets yet."
-"Add dictionary","Add dictionary"
-"Loading dictionaries...","Loading dictionaries..."
-"There are no dictionaries configured yet.","There are no dictionaries configured yet."
-"Loading modules...","Loading modules..."
-"There are no active modules yet.","There are no active modules yet."
+"You are about to edit a custom snippet.","あなたはカスタムスニペットを編集しようとしています。"
+Module,モジュール
+Description,概要
+Enabled,有効
+"Path (regular expression)","パス (正規表現)"
+"Comment (optional)","コメント (任意)"
+"Add new path","パスを追加"
+Comment,コメント
+"Add Domain","ドメインを追加"
+"Activate after import","インポート後に有効化"
+"Version Number","バージョン番号"
+"Updated Time","更新日時"
+"You are about to dismiss outdated VCL for current version.","You are about to dismiss outdated VCL for current version."
+"You are about to dismiss warning foroutdated VCL for current version.","You are about to dismiss warning foroutdated VCL for current version."
+"Add ACL","ACLを追加"
+Actions,アクション
+"Loading ACLs...","ACLを読み込んでいます..."
+"There are no ACLs configured yet.","まだ設定済みのACLはありません。"
+"Manage users","ユーザー管理"
+Delete,削除
+"Remove all users","すべてのユーザーを削除"
+"Loading backends...","バックエンドを読み込み中..."
+"There are no backends configured yet.","まだ設定済みのバックエンドはありません。"
+"Loading snippets...","スニペットを読込中..."
+"There are no custom snippets yet.","まだカスタムスニペットはありません。"
+"Manage Domains","ドメイン管理"
+"Loading Domains...","ドメインを読み込み中..."
+"There are no Domains configured yet.","まだ設定済みのドメインはありません。"
+"Add dictionary","ディクショナリを追加"
+"Loading dictionaries...","ディクショナリを読み込み中..."
+"There are no dictionaries configured yet.","まだ設定済みのディクショナリはありません。"
+"Loading endpoints...","エンドポイントを読込中..."
+"There are no endpoints configured yet.","まだ設定済みのエンドポイントはありません。"
+"Loading modules...","モジュールを読み込み中です..."
+"There are no active modules yet.","まだ有効なモジュールはありません。"
+"List all versions","すべてのバージョンを表示"
+"Last Edited","最終更新日時"
+"Loading versions...","バージョンを読込中..."
+"There are no versions configured yet.","まだ設定済みのバージョンはありません。"
 " "," "
-"Backend ""","Backend """
-"Please save config prior to continuing.","Please save config prior to continuing."
-"Create container for authenticated users","Create container for authenticated users"
-"Basic Authentication users","Basic Authentication users"
-"Delete all authenticated users","Delete all authenticated users"
-"Basic Authentication is successfully ","Basic Authentication is successfully "
-"Basic Authentication is successfully turned off.","Basic Authentication is successfully turned off."
-"Authentication users removed.","Authentication users removed."
+"Create Backend","バックエンドを作成"
+"Create a new request condition","新しいリクエスト条件を作成"
+"Backend ""","バックエンド """
+"Please save config prior to continuing.","続ける前に設定を保存してください。"
+Warning!,警告!
+"Confirm that you want to delete: %1","次のものを削除してもよろしいですか: %1"
+"Create container for authenticated users","認証済みユーザーのためのコンテナを作成"
+"Basic Authentication users","BASIC認証ユーザー"
+"Delete all authenticated users","すべての認証済みユーザーを削除"
+"Basic Authentication is successfully ","BASIC認証に成功しました"
+"Basic Authentication is successfully turned off.","BASIC認証を無効にしました。"
+"Authentication users removed.","認証ユーザーを削除しました。"
 "An error occurred while processing your request. Please try again.","An error occurred while processing your request. Please try again."
 "Authentication dictionary is successfully created.","Authentication dictionary is successfully created."
 "Please enter all required fields.","Please enter all required fields."
@@ -156,23 +242,27 @@ Delete,Delete
 "Please check your Service ID and API token and try again.","Please check your Service ID and API token and try again."
 "You are about to enable Basic Authentication","You are about to enable Basic Authentication"
 "You are about to disable Basic Authentication","You are about to disable Basic Authentication"
+"Changes not active until Update Blocking Configuration is clicked","Changes not active until Update Blocking Configuration is clicked"
 "You are about to enable Blocking","You are about to enable Blocking"
 "You are about to disable Blocking","You are about to disable Blocking"
-"Please make sure that blocking is enabled.","Please make sure that blocking is enabled."
 "Blocking snippet has been updated successfully.","Blocking snippet has been updated successfully."
+"Please Update Blocking Configuration","Please Update Blocking Configuration"
 "Blocking is successfully ","Blocking is successfully "
 "You are about to create a Custom Snippet ","You are about to create a Custom Snippet "
+"You are about to delete a Custom Snippet ","You are about to delete a Custom Snippet "
 "You are about to edit a Custom Snippet ","You are about to edit a Custom Snippet "
 "Please fill out the required fields.","Please fill out the required fields."
 "Custom snippet successfully created.","Custom snippet successfully created."
-"Custom snippet successfully updated.","Custom snippet successfully updated."
 "Custom snippet successfully deleted.","Custom snippet successfully deleted."
+"Custom snippet successfully updated.","Custom snippet successfully updated."
 "Update Error Page Content","Update Error Page Content"
 "Update WAF Page Content","Update WAF Page Content"
 "The HTML must contain less than ","The HTML must contain less than "
 "Error page HTML is successfully updated.","Error page HTML is successfully updated."
 "The content must contain less than ","The content must contain less than "
 "WAF page is successfully updated.","WAF page is successfully updated."
+Domains,Domains
+"Domains successfully updated.","Domains successfully updated."
 "Create ACL container","Create ACL container"
 "ACL items","ACL items"
 "Delete ACL containers","Delete ACL containers"
@@ -181,6 +271,7 @@ Delete,Delete
 """",""""
 "ACL item is successfully saved.","ACL item is successfully saved."
 "ACL item is successfully deleted.","ACL item is successfully deleted."
+"ACL item is successfully updated.","ACL item is successfully updated."
 "Delete ""","Delete """
 "You are about to delete the ""","You are about to delete the """
 "Create dictionary container","Create dictionary container"
@@ -190,15 +281,35 @@ Delete,Delete
 "Dictionary successfully deleted.","Dictionary successfully deleted."
 "Dictionary item is successfully saved.","Dictionary item is successfully saved."
 "Dictionary item is successfully deleted.","Dictionary item is successfully deleted."
+"Export Edge ACLs, Edge Dictionaries, Active Edge Modules and Custom Snippets","Export Edge ACLs, Edge Dictionaries, Active Edge Modules and Custom Snippets"
+"Successfully exported.","Successfully exported."
 "Activate image optimization","Activate image optimization"
 "Image optimization default config options","Image optimization default config options"
 "The Image Optimization snippet has been successfully ","The Image Optimization snippet has been successfully "
 "You are about to enable the Fastly Image Optimization snippet","You are about to enable the Fastly Image Optimization snippet"
 "You are about to remove the Fastly Image Optimization snippet","You are about to remove the Fastly Image Optimization snippet"
+"Import Edge ACLs, Edge Dictionaries, Active Edge Modules and Custom Snippets","Import Edge ACLs, Edge Dictionaries, Active Edge Modules and Custom Snippets"
+"Successfully imported.","Successfully imported."
+"Create Endpoint","Create Endpoint"
+"Update Endpoint","Update Endpoint"
+"Create a new response condition","Create a new response condition"
+"Endpoint successfully updated.","Endpoint successfully updated."
+"Endpoint successfully created.","Endpoint successfully created."
+"Admin IPs list successfully updated","Admin IPs list successfully updated"
+"You are about to enable Maintenance Mode","You are about to enable Maintenance Mode"
+"You are about to disable Maintenance Mode","You are about to disable Maintenance Mode"
+"Maintenance Mode successfully ","Maintenance Mode successfully "
+"Create Dictionary","Create Dictionary"
 "The ","The "
 "Could not update the list modules.","Could not update the list modules."
 Cancel,Cancel
 Upload,Upload
+"Please make sure that Path Protection is enabled.","Please make sure that Path Protection is enabled."
+"Protected Paths management","Protected Paths management"
+"You are about to enable Path Protection","You are about to enable Path Protection"
+"You are about to disable Path Protection","You are about to disable Path Protection"
+"Paths successfully updated.","Paths successfully updated."
+"Path Protection successfully ","Path Protection successfully "
 "You are about to clone service **","You are about to clone service **"
 "We'll make changes to version ","We'll make changes to version "
 "Connection to service name ","Connection to service name "
@@ -207,6 +318,8 @@ Upload,Upload
 "Force TLS is successfully ","Force TLS is successfully "
 "You are about to upload VCL to Fastly ","You are about to upload VCL to Fastly "
 "VCL file is successfully uploaded to the Fastly service.","VCL file is successfully uploaded to the Fastly service."
+"List of versions","List of versions"
+"Generated VCL","Generated VCL"
 "You are about to enable WAF Bypass","You are about to enable WAF Bypass"
 "You are about to disable WAF Bypass","You are about to disable WAF Bypass"
 "Please make sure that WAF Bypass is enabled.","Please make sure that WAF Bypass is enabled."
@@ -264,7 +377,7 @@ Upload,Upload
                                 target=""_blank"">two-letter country codes</a> to map countries to store views. Use * to define a default fallback.","Use capitalized <a href=""https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2""
                                 target=""_blank"">two-letter country codes</a> to map countries to store views. Use * to define a default fallback."
 "Enable Fastly Edge Modules","Enable Fastly Edge Modules"
-"WARNING: Enables beta Fastly Edge Modules menu. Experimental feature.","WARNING: Enables beta Fastly Edge Modules menu. Experimental feature."
+"Enables/Disables Fastly Edge Modules menu.","Enables/Disables Fastly Edge Modules menu."
 "Backend Settings","Backend Settings"
 Backends,Backends
 "Basic Authentication","Basic Authentication"
@@ -308,7 +421,6 @@ ACLs,ACLs
                             This interface only allows management of containers and entries. To invoke them you will need to configure your Fastly service.","Edge ACLs are access control lists that allow you to manage IP addresses that are used in allowing or blocking access to resources.
                             <a href=""https://docs.fastly.com/guides/access-control-lists/creating-and-manipulating-edge-acl-entries"">Click here for more details.</a>
                             This interface only allows management of containers and entries. To invoke them you will need to configure your Fastly service."
-ACL,ACL
 "Edge Dictionaries","Edge Dictionaries"
 "Edge Dictionaries are made up of dictionary containers and the dictionary items within them.
                             In combination, containers and items allow you to store data as key-value pairs on Fastly Edge nodes.
@@ -322,7 +434,7 @@ Dictionaries,Dictionaries
 "Fastly IO Snippet","Fastly IO Snippet"
 "VCL snippet upload is required in order to funnel image requests to Fastly optimizers.","VCL snippet upload is required in order to funnel image requests to Fastly optimizers."
 "Default IO Config Options","Default IO Config Options"
-"Allows you to (re)configure items such as default quality levels lossy image formats, auto WebP, JPG types.","Allows you to (re)configure items such as default quality levels lossy image formats, auto WebP, JPG types."
+"Allows you to (re)configure items such as default quality levels, lossy image formats, auto WebP, JPG types. These settings will be used as fallbacks when no transformation rules are applied in the URL query string or in your VCL.","Allows you to (re)configure items such as default quality levels, lossy image formats, auto WebP, JPG types. These settings will be used as fallbacks when no transformation rules are applied in the URL query string or in your VCL."
 "Force Lossy conversion","Force Lossy conversion"
 "Certain image types are lossless e.g. PNG and BMP and will not compress well. By default Fastly IO will retain
                             original format. This option forces those images to be converted to lossy JPG or WEBP. Applies only to product/catalog images.","Certain image types are lossless e.g. PNG and BMP and will not compress well. By default Fastly IO will retain
@@ -333,6 +445,8 @@ Dictionaries,Dictionaries
                             target=""_blank"">image optimization guide</a> for caveats and details.","Turns off Magento built-in image resizing and manipulation and offloads it onto Fastly IO.
                             Please read the <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/IMAGE-OPTIMIZATION.md#deep-image-optimization""
                             target=""_blank"">image optimization guide</a> for caveats and details."
+"JPEG Image Quality","JPEG Image Quality"
+"Sets JPEG image quality, values in percentage from 1 to 100. This value is used in the quality query argument for product/catalog images.","Sets JPEG image quality, values in percentage from 1 to 100. This value is used in the quality query argument for product/catalog images."
 "Set Background Color on Images","Set Background Color on Images"
 "Adds bg-color query argument for product/catalog images. This will remove a transparency/alpha channel and replace it with the theme background color.","Adds bg-color query argument for product/catalog images. This will remove a transparency/alpha channel and replace it with the theme background color."
 "Set Canvas on Images","Set Canvas on Images"
@@ -344,6 +458,15 @@ Dictionaries,Dictionaries
                             <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/IMAGE-OPTIMIZATION.md#adaptive-pixel-ratios""
                             target=""_blank"">adaptive device pixel ratios</a>. Useful for Progressive Web Apps."
 "Device Pixel Ratios","Device Pixel Ratios"
+"Verify Image On Disk","Verify Image On Disk"
+"Verify image actually exists on the disk. May cause performance issues especially on systems with shared filesystems.","Verify image actually exists on the disk. May cause performance issues especially on systems with shared filesystems."
+"Maintenance Mode","Maintenance Mode"
+"Enabling maintenance mode allows admin IPs (IPs specified in .maintenance.ip file) to access
+                            the site as normal while returning an error page to everyone else.","Enabling maintenance mode allows admin IPs (IPs specified in .maintenance.ip file) to access
+                            the site as normal while returning an error page to everyone else."
+"Enable Maintenance Mode","Enable Maintenance Mode"
+"Update Admin IPs list","Update Admin IPs list"
+"Updates the list of allowed/admin IPs. The IP values are comma-delimited and read from var/.maintenance.ip file.","Updates the list of allowed/admin IPs. The IP values are comma-delimited and read from var/.maintenance.ip file."
 "Web Application Firewall (WAF)","Web Application Firewall (WAF)"
 "Web Application Firewall","Web Application Firewall"
 "Allowed Methods","Allowed Methods"
@@ -354,23 +477,48 @@ Dictionaries,Dictionaries
 "Changes WAF ACL bypass. HAS TO BE clicked anytime you make changes to the list of ACLs.  Not needed if you are adding/removing IPs. That is done in ACL menu.","Changes WAF ACL bypass. HAS TO BE clicked anytime you make changes to the list of ACLs.  Not needed if you are adding/removing IPs. That is done in ACL menu."
 "WAF Bypass ACLs","WAF Bypass ACLs"
 "Select one or multiple ACLs that are allowed to bypass WAF blocking","Select one or multiple ACLs that are allowed to bypass WAF blocking"
-"Webhook Notifications","Webhook Notifications"
+"Rate Limiting","Rate Limiting"
+"Experimental: Rate limit specific URL paths against abuse. Please read <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/RATE-LIMITING.md#vcl-upload""
+                            target=""_blank"">this guide</a> for more details","Experimental: Rate limit specific URL paths against abuse. Please read <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/RATE-LIMITING.md#vcl-upload""
+                            target=""_blank"">this guide</a> for more details"
+"Enable Rate Limiting","Enable Rate Limiting"
+"Enable Rate Limit Logging","Enable Rate Limit Logging"
+"Path Protection","Path Protection"
+"Enable Path Protection","Enable Path Protection"
+"Protected Paths","Protected Paths"
+"Path Protection Rate Limit","Path Protection Rate Limit"
+"Numeric value for the number of tolerated Path Protection Rate Limit requests.","Numeric value for the number of tolerated Path Protection Rate Limit requests."
+"Path Protection Rate Limit TTL","Path Protection Rate Limit TTL"
+"Time in seconds for the Path Protection Rate Limit lifetime.","Time in seconds for the Path Protection Rate Limit lifetime."
+"Abusive Crawlers","Abusive Crawlers"
+"Enable Crawler Protection","Enable Crawler Protection"
+"Crawler Protection Rate Limit","Crawler Protection Rate Limit"
+"Numeric value for the number of tolerated Crawler Protection Rate Limit requests.","Numeric value for the number of tolerated Crawler Protection Rate Limit requests."
+"Crawler Protection Rate Limit TTL","Crawler Protection Rate Limit TTL"
+"Time in seconds for the Crawler Protection Rate Limit lifetime.","Time in seconds for the Crawler Protection Rate Limit lifetime."
+"Exempt Known Good Bots","Exempt Known Good Bots"
+"Choose to exempt known good bots like Googlebot and Bingbot from Crawler Protection rate limiting","Choose to exempt known good bots like Googlebot and Bingbot from Crawler Protection rate limiting"
+Tools,Tools
+"Version History","バージョン履歴"
+"Real-Time Log Streaming","リアルタイムログストリーミング"
+Endpoints,エンドポイント
+"Webhook Notifications","Webhook通知"
 "Webhooks are a simple way to post messages to external sources. This integration is geared for Slack however you can use it for anything else.
-                            <br /> To create Slack Incoming webhooks <a href=""https://api.slack.com/incoming-webhooks"">https://api.slack.com/incoming-webhooks</a>.","Webhooks are a simple way to post messages to external sources. This integration is geared for Slack however you can use it for anything else.
-                            <br /> To create Slack Incoming webhooks <a href=""https://api.slack.com/incoming-webhooks"">https://api.slack.com/incoming-webhooks</a>."
+                            <br /> To create Slack Incoming webhooks <a href=""https://api.slack.com/incoming-webhooks"">https://api.slack.com/incoming-webhooks</a>.","Webhooks はシンプルな方法でメッセージを外部ソースに送信します。 この連携はSlack用に調整されていますが、他のものにもご利用いただけます。
+                            <br /> Slackのincoming webhookを作成するには <a href=""https://api.slack.com/incoming-webhooks"">https://api.slack.com/incoming-webhooks</a>を御覧ください。"
 "Incoming Webhook URL","Incoming Webhook URL"
 "Publish All Purge Events","Publish All Purge Events"
 "Publish Key and URL Purge Events","Publish Key and URL Purge Events"
 "Publish Purge All/Clean All Items Events","Publish Purge All/Clean All Items Events"
 "Publish Stack Trace on All Purge Events","Publish Stack Trace on All Purge Events"
 "Submits the stack trace when any purge event is created, for debugging purposes.","Submits the stack trace when any purge event is created, for debugging purposes."
-"Publish stack trace on Key and URL Purge Event","Publish stack trace on Key and URL Purge Event"
-"Submits the stack trace when the purge by key event is created, for debugging purposes.","Submits the stack trace when the purge by key event is created, for debugging purposes."
-"Publish stack trace on Purge All/Clean All Event","Publish stack trace on Purge All/Clean All Event"
-"Submits the stack trace when the purge all event is created, for debugging purposes.","Submits the stack trace when the purge all event is created, for debugging purposes."
-"Publish Config Change Events","Publish Config Change Events"
-"Message Prefix","Message Prefix"
-"Fastly Edge Modules","Fastly Edge Modules"
-"Here goes short description of Modly functionality","Here goes short description of Modly functionality"
-"Module Manager","Module Manager"
-"Active Modules","Active Modules"
+"Publish stack trace on Key and URL Purge Event","キーとURLによるpurgeイベントのスタックトレースを送信する"
+"Submits the stack trace when the purge by key event is created, for debugging purposes.","デバッグ用にキーによるpurgeイベントが作成されたら、スタックトレースを送信する"
+"Publish stack trace on Purge All/Clean All Event","Purge All/Clean All イベントのスタックトレースを送信する"
+"Submits the stack trace when the purge all event is created, for debugging purposes.","デバッグ用にpurge allイベントが作成されたら、スタックトレースを送信する。"
+"Publish Config Change Events","設定変更イベントを送信する"
+"Message Prefix","メッセージプレフィックス"
+"Fastly Edge Modules","Fastly Edge モジュール"
+"Fastly Edge module allow you to enable specific functionality like CORS headers, etc. For more details <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/Edge-Modules/EDGE-MODULES.md"" target=""_blank"">click here.</a>","Fastly Edge は CORSヘッダーなどの追加機能を提供します。より詳しい情報は、 <a href=""https://github.com/fastly/fastly-magento2/blob/master/Documentation/Guides/Edge-Modules/EDGE-MODULES.md"" target=""_blank"">こちらをクリック</a>してご確認ください。"
+"Module Manager","モジュール管理"
+"Active Modules","有効なモジュール"
