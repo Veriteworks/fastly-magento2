@@ -51,8 +51,9 @@ class ValidateInt extends Value
             if ($value > $maxValue || $value < 0) {
                 throw new LocalizedException(
                     __(
-                        '%1 field value must be larger than 0 and smaller or equal to ' . $maxValue,
-                        $this->getFieldConfig('label')
+                        '%1 field value must be larger than 0 and smaller or equal to %2',
+                        $this->getFieldConfig('label'),
+                        $maxValue
                     )
                 );
             }

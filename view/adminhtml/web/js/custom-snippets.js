@@ -376,7 +376,7 @@ define([
                 let next_version = service.next_version;
                 let service_name = service.service.name;
                 overlay(deleteCustomSnippetOptions);
-                $('.fastly-message-notice').text('You are about to delete the ' + snippet_id + ' custom snippet.').show();
+                $('.fastly-message-notice').text('You are about to delete the %1 custom snippet.').replace('%1', snippet_id).show();
                 $('.maintenance-checkbox-container').hide();
                 $.when(
                     $.ajax({

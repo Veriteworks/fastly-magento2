@@ -67,7 +67,7 @@ class GetAllModules extends Action
                 return $result->setData([
                     'status'    => false,
                     'modules'   => '',
-                    'msg'       => 'Use the Refresh button to get the latest modules.'
+                    'msg'       => __('Use the Refresh button to get the latest modules.')
                 ]);
             }
 
