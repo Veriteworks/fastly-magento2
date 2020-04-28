@@ -384,7 +384,7 @@ define([
             $(this).after(hostname);
             hostname.after(addBtn);
             addBtn.after(cancelBtn);
-            hostname.after('<p class="note backend-note">Enter a hostname or IPv4 address for the backend</p>');
+            hostname.after('<p class="note backend-note">' + $.mage.__('Enter a hostname or IPv4 address for the backend') + </p>');
             $(this).hide();
             hostname.focus();
         });
