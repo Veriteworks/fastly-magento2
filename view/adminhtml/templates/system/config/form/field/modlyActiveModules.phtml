@@ -25,8 +25,8 @@ $_colspan = $block->isAddAfter() ? 2 : 1;
                 <?php foreach ($block->getColumns() as $columnName => $column) : ?>
                     <th><?php /* @noEscape */ echo $column['label']; ?></th>
                 <?php endforeach;?>
-                <th class="col-date" colspan="<?php /* @noEscape */ echo $_colspan; ?>">Upload Date</th>
-                <th class="col-actions" colspan="<?php /* @noEscape */ echo $_colspan; ?>">Action</th>
+                <th class="col-date" colspan="<?php /* @noEscape */ echo $_colspan; ?>"><?= /** @noEscape */__('Upload Date')?></th>
+                <th class="col-actions" colspan="<?php /* @noEscape */ echo $_colspan; ?>"><?= /** @noEscape */__('Action')?></th>
             </tr>
             </thead>
             <tbody id="modly-active-modules-list"></tbody>

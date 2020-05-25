@@ -25,7 +25,7 @@ $_colspan = $block->isAddAfter() ? 2 : 1;
                 <?php foreach ($block->getColumns() as $columnName => $column) : ?>
                     <th><?php /* @noEscape */ echo $column['label']; ?></th>
                 <?php endforeach;?>
-                <th class="col-actions" colspan="<?php /* @noEscape */ echo $_colspan; ?>">Action</th>
+                <th class="col-actions" colspan="<?php /* @noEscape */ echo $_colspan; ?>"><?=/** @noEscape */__('Action')?></th>
             </tr>
             </thead>
             <tbody id="fastly-snippets-list"></tbody>

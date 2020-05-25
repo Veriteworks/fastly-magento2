@@ -55,7 +55,7 @@ $isAddAfter = (int)$block->isAddAfter();
                 <?php foreach ($block->getColumns() as $columnName => $column) : ?>
                     <th><?php /* @noEscape */ echo $column['label']; ?></th>
                 <?php endforeach;?>
-                <th class="col-actions" colspan="<?php /* @noEscape */ echo $_colspan; ?>">Action</th>
+                <th class="col-actions" colspan="<?php /* @noEscape */ echo $_colspan; ?>"><?=/** @noEscape */__('Action')?></th>
             </tr>
             </thead>
             <tfoot>

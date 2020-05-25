@@ -24,7 +24,7 @@
     <system>
         <section id="system">
             <group id="full_page_cache">
-                <group id="fastly" translate="label" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="615">
+                <group id="fastly" translate="label comment" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="615">
                     <label>Fastly Configuration</label>
                     <comment>
                         <![CDATA[To use this plugin you need a Fastly account (

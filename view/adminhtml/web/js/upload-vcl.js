@@ -192,8 +192,8 @@ define(
                             function () {
                                 confirm(
                                     {
-                                        title: 'Dismiss outdated VCL warning',
-                                        content: 'Are you sure you want to dismiss warning for the current version #<b>' + active_version + '</b> ?',
+                                        title: $.mage.__('Dismiss outdated VCL warning'),
+                                        content: $.mage.__('Are you sure you want to dismiss warning for the current version #<b>%1</b> ?').replace('%1', active_version),
                                         actions: {
                                             confirm: function () {
                                                 dismissWarning(active_version);

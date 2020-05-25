@@ -1,7 +1,7 @@
 <?php echo $block->getButtonHtml() ?>
 
 <span class="collect-indicator" id="auth_state_span">
-    <span id="fastly_auth_state_message_span"><b>Current state:</b>
+    <span id="fastly_auth_state_message_span"><b><?= /** @noEscape */ __('Current state:')?></b>
         <img class="processing"
              alt="Collecting"
              style="margin:0 5px;"
